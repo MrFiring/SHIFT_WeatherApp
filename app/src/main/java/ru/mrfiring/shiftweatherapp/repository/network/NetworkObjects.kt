@@ -21,7 +21,7 @@ data class Coordinates(
 @JsonClass(generateAdapter = true)
 data class WeatherContainer(
     val coord: Coordinates,
-    val weather: Weather,
+    val weather: List<Weather>,
     val base: String,
     val main: MainWeatherParameters,
     val wind: Wind,
@@ -85,7 +85,7 @@ data class Snow(
 data class SystemInfo(
     val type: Int,
     val id: Int,
-    val message: Double,
+    val message: Double?,
     val country: String,
     val sunrise: Long,
     val sunset: Long
