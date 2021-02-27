@@ -21,7 +21,8 @@ data class DatabaseWeatherContainer(
     val name: String,
     val base: String,
     val lastUpdate: Long,
-    val timeZone: Long
+    val timeZone: Long,
+    val clouds: Double
 )
 
 @Entity
