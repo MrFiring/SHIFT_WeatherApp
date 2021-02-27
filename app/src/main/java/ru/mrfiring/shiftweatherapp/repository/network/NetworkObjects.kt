@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.repository.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import ru.mrfiring.shiftweatherapp.repository.database.*
 
 @JsonClass(generateAdapter = true)
 data class City(
@@ -31,7 +32,7 @@ data class WeatherContainer(
     val dt: Long,
     val sys: SystemInfo,
     val timezone: Long,
-    val id: Int,
+    val id: Long,
     val name: String,
     val cod: Int
 )
@@ -89,4 +90,61 @@ data class SystemInfo(
     val country: String,
     val sunrise: Long,
     val sunset: Long
+)
+
+fun City.asDatabaseObject() : DatabaseCity = DatabaseCity(
+    id,
+    name,
+    state,
+    country,
+    coord.longitude,
+    coord.latitude
+)
+
+fun WeatherContainer.asDatabaseObject(clouds: Double): DatabaseWeatherContainer = DatabaseWeatherContainer(
+    id,
+    name,
+    base,
+    dt,
+    timezone,
+    clouds
+)
+
+fun Weather.asDatabaseObject(ownerId: Long): DatabaseWeather = DatabaseWeather(
+    ownerId,
+    id,
+    main,
+    description,
+    icon
+)
+
+fun MainWeatherParameters.asDatabaseObject(id: Long): DatabaseMainWeatherParameters = DatabaseMainWeatherParameters(
+    id,
+    temp,
+    feelsLike,
+    tempMin,
+    tempMax,
+    pressure,
+    humidity,
+    pressureAtSeaLevel ?: -1,
+    pressureAtGroundLevel ?: -1,
+)
+
+fun Wind.asDatabaseObject(id: Long): DatabaseWind = DatabaseWind(
+    id,
+    speed,
+    deg,
+    gust ?: -1.0
+)
+
+fun Rain.asDatabaseObject(id: Long): DatabaseRain = DatabaseRain(
+    id,
+    forLastOneHour,
+    forLastThreeHours
+)
+
+fun Snow.asDatabaseObject(id: Long): DatabaseSnow = DatabaseSnow(
+    id,
+    forLastOneHour,
+    forLastThreeHours
 )
