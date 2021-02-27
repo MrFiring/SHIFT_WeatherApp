@@ -12,7 +12,7 @@ private const val API_KEY = "2e94be02060a9fb7a13cfd7e5027ca72"
 private const val BASE_URL= "https://api.openweathermap.org/data/2.5/"
 private const val FILE_NAME = "city.list.min.json.gz"
 private const val FILE_URL = "https://bulk.openweathermap.org/sample/${FILE_NAME}"
-//api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
+
 interface OpenWeatherService{
     @GET
     suspend fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody
