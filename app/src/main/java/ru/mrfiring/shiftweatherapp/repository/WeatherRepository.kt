@@ -6,11 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
+import androidx.room.Room
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.mrfiring.shiftweatherapp.repository.database.DatabaseWeather
-import ru.mrfiring.shiftweatherapp.repository.database.DatabaseWeatherContainer
-import ru.mrfiring.shiftweatherapp.repository.database.getDatabase
+import ru.mrfiring.shiftweatherapp.repository.database.*
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeather
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
@@ -31,32 +30,29 @@ class WeatherRepository(context: Context) {
         }
     }
 
-     suspend fun getWeather(id: Long): LiveData<DomainWeatherContainer>{
-         val liveData = MutableLiveData<DomainWeatherContainer>()
-
-         val weatherParams = database.weatherDao.getMainWeatherParametersById(id)
-         val weatherList = database.weatherDao.getWeatherListById(id)
-         val weather: DatabaseWeather
-         weather = if(weatherList.isNotEmpty())
-             weatherList[0]
-         else
-             DatabaseWeather(id, -1, "", "", "")
-         val wind = database.weatherDao.getWindById(id)
-         val rain = database.weatherDao.getRainById(id)
-         val snow = database.weatherDao.getSnowById(id)
+     suspend fun getWeather(id: Long): DomainWeatherContainer?{
          val container: DatabaseWeatherContainer? = database.weatherDao.getWeatherContainerById(id)
 
          container?.let {
-             liveData.value = container.asDomainObject(
-                weather,
-                weatherParams,
-                wind,
-                rain,
-                snow
-            )
+             val weatherParams = database.weatherDao.getMainWeatherParametersById(id)
+             val weatherList = database.weatherDao.getWeatherListById(id)
+
+             val weather: DatabaseWeather = if(weatherList.isNullOrEmpty()){
+                 weatherList[0]
+             }else{
+                 DatabaseWeather(id, -1, "", "", "")
+             }
+
+             return container.asDomainObject(
+                     weather,
+                     weatherParams,
+                     DatabaseWind(id, -1.0, -1.0, -1.0),
+                     null,
+                     null
+             )
          }
 
-        return liveData
+        return null
     }
 
     suspend fun loadCitiesFromServer(){
@@ -99,4 +95,14 @@ class WeatherRepository(context: Context) {
         }
     }
 
+}
+
+private lateinit var INSTANCE: WeatherRepository
+fun getRepository(context: Context): WeatherRepository {
+    synchronized(WeatherRepository::class.java){
+        if(!::INSTANCE.isInitialized){
+            INSTANCE = WeatherRepository(context)
+        }
+    }
+    return INSTANCE
 }
