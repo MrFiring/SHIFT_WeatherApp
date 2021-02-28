@@ -20,6 +20,10 @@ data class DomainWeatherContainer(
     val clouds: Double,
     val weather: DomainWeather,
     val mainParams: DomainMainWeatherParameters,
+    val wind: DomainWind,
+    val rain: DomainRain?,
+    val snow: DomainSnow?,
+
 )
 
 data class DomainWeather(
@@ -64,13 +68,20 @@ fun DatabaseCity.asDomainObject(): DomainCity = DomainCity(
 
 fun DatabaseWeatherContainer.asDomainObject(
     weather: DatabaseWeather,
-    params: DatabaseMainWeatherParameters
+    params: DatabaseMainWeatherParameters,
+    wind: DatabaseWind,
+    rain: DatabaseRain,
+    snow: DatabaseSnow
+
 ): DomainWeatherContainer = DomainWeatherContainer(
     lastUpdate,
     timeZone,
     clouds,
     weather.asDomainObject(),
-    params.asDomainObject()
+    params.asDomainObject(),
+        wind.asDomainObject(),
+        rain.asDomainObject(),
+        snow.asDomainObject()
 )
 
 fun DatabaseWeather.asDomainObject(): DomainWeather = DomainWeather(
