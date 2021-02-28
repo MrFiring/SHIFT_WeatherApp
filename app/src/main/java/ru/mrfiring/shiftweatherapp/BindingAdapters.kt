@@ -6,7 +6,9 @@ import ru.mrfiring.shiftweatherapp.home.HomeRecyclerViewAdapter
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 
 @BindingAdapter("listData")
-fun RecyclerView.bindData(items:  List<DomainCity>){
-    val adpt = adapter as HomeRecyclerViewAdapter
-    adpt.submitList(items)
+fun RecyclerView.bindData(items: List<DomainCity>?){
+    items?.let {
+        val adpt = adapter as HomeRecyclerViewAdapter
+        adpt.submitList(items)
+    }
 }

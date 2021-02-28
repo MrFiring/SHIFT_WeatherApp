@@ -22,6 +22,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.75"
             app:cardBackgroundColor="#F1E6E6"
             app:cardCornerRadius="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,7 +46,7 @@
                     app:layout_constraintHorizontal_bias="0.51"
                     app:layout_constraintStart_toEndOf="@+id/countryImage"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Moscow"/>
+                    tools:text="Moscow" />
 
                 <TextView
                     android:id="@+id/countryName"
@@ -55,7 +57,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="RU"/>
+                    tools:text="RU" />
 
                 <ImageView
                     android:id="@+id/countryImage"
