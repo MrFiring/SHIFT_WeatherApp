@@ -25,7 +25,6 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeRecyclerViewAdapter(
                 HomeRecyclerViewAdapter.ClickListener {
-                    Toast.makeText(context, "lat ${it.latitude} lon ${it.longitude}", Toast.LENGTH_SHORT).show()
                     viewModel.onCityClicked(it)
                 }
         )
