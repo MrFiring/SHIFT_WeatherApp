@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="ru.mrfiring.shiftweatherapp.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/home_fragment"/>
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="ru.mrfiring.shiftweatherapp.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/detail_fragment">
+        <argument
+            android:name="city"
+            app:argType="ru.mrfiring.shiftweatherapp.repository.domain.DomainCity" />
+    </fragment>
 </navigation>
