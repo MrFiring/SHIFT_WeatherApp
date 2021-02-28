@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SHIFT WeatherApp</string>
+    <string name="temp_format">%1$.1f ℃</string>
+    <string name="temp_feels_format">Ощущается как %1$.1f ℃</string>
+    <string name="humidity_format">Влажность: %1$.1f</string>
+    <string name="pressure_format">Давление: %1$d кПа</string>
 </resources>
