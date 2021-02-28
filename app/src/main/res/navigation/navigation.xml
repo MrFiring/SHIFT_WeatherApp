@@ -20,7 +20,7 @@
         android:label="DetailFragment"
         tools:layout="@layout/detail_fragment">
         <argument
-            android:name="city"
-            app:argType="ru.mrfiring.shiftweatherapp.repository.domain.DomainCity" />
+            android:name="cityId"
+            app:argType="long" />
     </fragment>
 </navigation>
