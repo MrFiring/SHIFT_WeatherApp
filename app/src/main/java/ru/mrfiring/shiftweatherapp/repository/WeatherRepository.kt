@@ -30,7 +30,7 @@ class WeatherRepository(context: Context) {
              val weatherParams = database.weatherDao.getMainWeatherParametersById(id)
              val weatherList = database.weatherDao.getWeatherListById(id)
 
-             val weather: DatabaseWeather = if(weatherList.isNullOrEmpty()){
+             val weather: DatabaseWeather = if(!weatherList.isNullOrEmpty()){
                  weatherList[0]
              }else{
                  DatabaseWeather(id, -1, "", "", "")
