@@ -22,15 +22,8 @@ import java.io.IOException
 
 class WeatherRepository(context: Context) {
     private val database = getDatabase(context)
-    val cities: LiveData<List<DomainCity>> = Transformations.map(
-        database.citiesDao.getCities()
-    ){ dbList ->
-        dbList.map {
-            it.asDomainObject()
-        }
-    }
 
-     suspend fun getWeather(id: Long): DomainWeatherContainer?{
+    suspend fun getWeather(id: Long): DomainWeatherContainer?{
          val container: DatabaseWeatherContainer? = database.weatherDao.getWeatherContainerById(id)
 
          container?.let {
@@ -55,7 +48,19 @@ class WeatherRepository(context: Context) {
         return null
     }
 
-    suspend fun loadCitiesFromServer(){
+    suspend fun getCities(): List<DomainCity>{
+        val dbList = database.citiesDao.getCities()
+        return if(dbList.isNullOrEmpty()){
+            loadCitiesFromServer()
+            getCities()
+        }else{
+            dbList.map {
+                it.asDomainObject()
+            }
+        }
+    }
+
+    private suspend fun loadCitiesFromServer(){
         withContext(Dispatchers.IO){
             val responseBody = OpenWeatherApi.openWeatherService.getCitiesFile()
             val parser = CitiesParser()

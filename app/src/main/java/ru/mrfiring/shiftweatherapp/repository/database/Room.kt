@@ -3,13 +3,14 @@ package ru.mrfiring.shiftweatherapp.repository.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.Deferred
 import ru.mrfiring.shiftweatherapp.repository.network.City
 
 @Dao
 interface CitiesDao{
 
     @Query("select * from databasecity order by country limit 100 offset 10")
-    fun getCities(): LiveData<List<DatabaseCity>>
+    suspend fun getCities(): List<DatabaseCity>
 
     @Query("select * from databasecity where id = :id")
     suspend fun getCityById(id: Long): DatabaseCity

@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         val viewModel: HomeViewModel = ViewModelProvider(this,
             viewModelFactory).get(HomeViewModel::class.java)
 
-        val adapter: HomeRecyclerViewAdapter = HomeRecyclerViewAdapter(
+        val adapter = HomeRecyclerViewAdapter(
                 HomeRecyclerViewAdapter.ClickListener {
                     Toast.makeText(context, "lat ${it.latitude} lon ${it.longitude}", Toast.LENGTH_SHORT).show()
                     viewModel.onCityClicked(it)
@@ -43,11 +43,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.cities.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()){
-                viewModel.isDataLoaded()
-            }
-        })
 
         return binding.root
     }

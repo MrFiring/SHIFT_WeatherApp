@@ -27,7 +27,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     get() = _navigateToDetails
 
     private val repository = getRepository(application.applicationContext)
-    val cities = repository.cities
+
+    private val _cities = MutableLiveData<List<DomainCity>>()
+    val cities: LiveData<List<DomainCity>>
+    get() = _cities
 
 
     init{
@@ -40,7 +43,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
             if(cities.value.isNullOrEmpty()) {
                 _status.value = ApiStatus.LOADING
-                repository.loadCitiesFromServer()
+                _cities.value = repository.getCities()
                 _status.value = ApiStatus.DONE
             }
         }catch (ex: Exception){
@@ -55,10 +58,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun doneNavigating(){
         _navigateToDetails.value = null
-    }
-
-    fun isDataLoaded(){
-        _status.value = ApiStatus.DONE
     }
 
 }
