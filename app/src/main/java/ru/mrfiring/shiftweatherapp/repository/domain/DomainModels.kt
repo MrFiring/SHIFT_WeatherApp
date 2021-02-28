@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import ru.mrfiring.shiftweatherapp.repository.database.*
 
-@Parcelize
+
 data class DomainCity(
     val id: Long,
     val name: String,
@@ -12,7 +12,7 @@ data class DomainCity(
     val country: String,
     val longitude: Double,
     val latitude: Double
-): Parcelable
+)
 
 data class DomainWeatherContainer(
     val lastUpdate: Long,
