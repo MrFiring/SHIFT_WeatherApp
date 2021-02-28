@@ -4,12 +4,35 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
+import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.repository.getRepository
 
 class DetailViewModel(application: Application, val cityId: Long) : AndroidViewModel(application) {
-    val container = MutableLiveData<DomainWeatherContainer>()
+    private val _container = MutableLiveData<DomainWeatherContainer>()
+    val container: LiveData<DomainWeatherContainer>
+    get() = _container
+
     val repository = getRepository(application.applicationContext)
+
+    val formattedTemperature: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.temp_format, it.mainParams.temp)
+    }
+    val formattedFeelsTemperature: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.temp_feels_format, it.mainParams.feelsLike)
+    }
+    val formattedMaxTemperature: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.temp_format, it.mainParams.tempMax)
+    }
+    val formattedMinTemperature: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.temp_format, it.mainParams.tempMin)
+    }
+    val formattedHumidity: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.humidity_format, it.mainParams.humidity)
+    }
+    val formattedPressure: LiveData<String> = Transformations.map(_container){
+        application.resources.getString(R.string.pressure_format, it.mainParams.pressure)
+    }
 
 
     init{
@@ -19,7 +42,7 @@ class DetailViewModel(application: Application, val cityId: Long) : AndroidViewM
     private fun refreshWeather() = viewModelScope.launch {
         try {
                 repository.updateWeatherFromServer(cityId)
-                container.value = repository.getWeather(cityId)
+                _container.value = repository.getWeather(cityId)
         }
         catch (ex: Exception){
             Log.e("DetailViewModel", ex.stackTraceToString())
