@@ -70,8 +70,8 @@ fun DatabaseWeatherContainer.asDomainObject(
     weather: DatabaseWeather,
     params: DatabaseMainWeatherParameters,
     wind: DatabaseWind,
-    rain: DatabaseRain,
-    snow: DatabaseSnow
+    rain: DatabaseRain?,
+    snow: DatabaseSnow?
 
 ): DomainWeatherContainer = DomainWeatherContainer(
     lastUpdate,
@@ -80,8 +80,8 @@ fun DatabaseWeatherContainer.asDomainObject(
     weather.asDomainObject(),
     params.asDomainObject(),
         wind.asDomainObject(),
-        rain.asDomainObject(),
-        snow.asDomainObject()
+        rain?.asDomainObject(),
+        snow?.asDomainObject()
 )
 
 fun DatabaseWeather.asDomainObject(): DomainWeather = DomainWeather(
