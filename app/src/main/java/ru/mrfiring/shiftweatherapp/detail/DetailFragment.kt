@@ -17,7 +17,9 @@ class DetailFragment : Fragment() {
     ): View? {
         val binding = DetailFragmentBinding.inflate(inflater)
         val application = requireNotNull(activity).application
-        val viewModelFactory = DetailViewModelFactory(application)
+        val argument = DetailFragmentArgs.fromBundle(arguments!!)
+
+        val viewModelFactory = DetailViewModelFactory(application, argument.cityId)
 
         val viewModel = ViewModelProvider(this, viewModelFactory)
             .get(DetailViewModel::class.java)
