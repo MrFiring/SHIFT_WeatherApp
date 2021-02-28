@@ -3,12 +3,16 @@ package ru.mrfiring.shiftweatherapp.repository.database
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import ru.mrfiring.shiftweatherapp.repository.network.City
 
 @Dao
 interface CitiesDao{
 
     @Query("select * from databasecity order by country")
     fun getCities(): LiveData<List<DatabaseCity>>
+
+    @Query("select * from databasecity where id = :id")
+    suspend fun getCityById(id: Long): DatabaseCity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCities(items:  List<DatabaseCity>)
