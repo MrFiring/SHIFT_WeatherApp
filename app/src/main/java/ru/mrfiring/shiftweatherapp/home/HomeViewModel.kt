@@ -37,8 +37,9 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun refreshDataFromServer() = viewModelScope.launch {
         try{
-            _status.value = ApiStatus.LOADING
+
             if(cities.value.isNullOrEmpty()) {
+                _status.value = ApiStatus.LOADING
                 repository.loadCitiesFromServer()
                 _status.value = ApiStatus.DONE
             }
@@ -54,6 +55,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun doneNavigating(){
         _navigateToDetails.value = null
+    }
+
+    fun isDataLoaded(){
+        _status.value = ApiStatus.DONE
     }
 
 }

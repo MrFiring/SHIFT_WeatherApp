@@ -43,6 +43,12 @@ class HomeFragment : Fragment() {
             }
         })
 
+        viewModel.cities.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()){
+                viewModel.isDataLoaded()
+            }
+        })
+
         return binding.root
     }
 
