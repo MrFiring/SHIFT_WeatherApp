@@ -8,7 +8,7 @@ import ru.mrfiring.shiftweatherapp.repository.network.City
 @Dao
 interface CitiesDao{
 
-    @Query("select * from databasecity order by country")
+    @Query("select * from databasecity order by country limit 100 offset 10")
     fun getCities(): LiveData<List<DatabaseCity>>
 
     @Query("select * from databasecity where id = :id")
