@@ -8,7 +8,7 @@ import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.repository.getRepository
 
-class DetailViewModel(application: Application, val cityId: Long) : AndroidViewModel(application) {
+class DetailViewModel(application: Application, private val cityId: Long) : AndroidViewModel(application) {
     private val _container = MutableLiveData<DomainWeatherContainer>()
     val container: LiveData<DomainWeatherContainer>
     get() = _container
