@@ -73,13 +73,13 @@ data class Clouds(
 @JsonClass(generateAdapter = true)
 data class Rain(
     @Json(name = "1h") val forLastOneHour: Double,
-    @Json(name = "3h") val forLastThreeHours: Double
+    @Json(name = "3h") val forLastThreeHours: Double?
 )
 
 @JsonClass(generateAdapter = true)
 data class Snow(
     @Json(name = "1h") val forLastOneHour: Double,
-    @Json(name = "3h") val forLastThreeHours: Double
+    @Json(name = "3h") val forLastThreeHours: Double?
 )
 
 @JsonClass(generateAdapter = true)
@@ -140,11 +140,11 @@ fun Wind.asDatabaseObject(id: Long): DatabaseWind = DatabaseWind(
 fun Rain.asDatabaseObject(id: Long): DatabaseRain = DatabaseRain(
     id,
     forLastOneHour,
-    forLastThreeHours
+    forLastThreeHours ?: -1.0
 )
 
 fun Snow.asDatabaseObject(id: Long): DatabaseSnow = DatabaseSnow(
     id,
     forLastOneHour,
-    forLastThreeHours
+    forLastThreeHours ?: -1.0
 )
