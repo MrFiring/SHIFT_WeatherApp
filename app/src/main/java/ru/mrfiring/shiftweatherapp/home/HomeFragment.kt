@@ -6,8 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
-import ru.mrfiring.shiftweatherapp.R
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import ru.mrfiring.shiftweatherapp.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
@@ -22,9 +23,25 @@ class HomeFragment : Fragment() {
         val viewModel: HomeViewModel = ViewModelProvider(this,
             viewModelFactory).get(HomeViewModel::class.java)
 
+        val adapter: HomeRecyclerViewAdapter = HomeRecyclerViewAdapter(
+                HomeRecyclerViewAdapter.ClickListener {
+                    Toast.makeText(context, "lat ${it.latitude} lon ${it.longitude}", Toast.LENGTH_SHORT).show()
+                    viewModel.onCityClicked(it)
+                }
+        )
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+        binding.citiesList.adapter = adapter
 
+        viewModel.navigateToDetails.observe(viewLifecycleOwner, Observer{
+            it?.let {
+                this.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
+                )
+                viewModel.doneNavigating()
+            }
+        })
 
         return binding.root
     }
