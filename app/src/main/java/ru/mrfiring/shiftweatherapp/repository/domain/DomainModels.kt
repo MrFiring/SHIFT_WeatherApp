@@ -50,7 +50,6 @@ data class DomainWind(
     val gust: Double
 )
 
-
 data class DomainRain(
     val forLastOneHour: Double,
     val forLastThreeHours: Double
