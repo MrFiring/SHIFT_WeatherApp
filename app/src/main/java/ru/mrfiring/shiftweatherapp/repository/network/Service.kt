@@ -27,6 +27,7 @@ interface OpenWeatherService{
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("units") units: String = "metric",
+        @Query("lang") lang: String = "ru",
         @Query("appid") apiKey: String = API_KEY
     ): WeatherContainer
 }
