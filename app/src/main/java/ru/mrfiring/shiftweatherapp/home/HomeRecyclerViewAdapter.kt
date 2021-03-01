@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,7 @@ import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 
 class HomeRecyclerViewAdapter(
     private val clickListener: ClickListener
-) : ListAdapter<DomainCity, HomeRecyclerViewAdapter.CityViewHolder>(CityDiffCallback()) {
+) : PagingDataAdapter<DomainCity, HomeRecyclerViewAdapter.CityViewHolder>(CityDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         return CityViewHolder.from(parent)
@@ -18,7 +19,10 @@ class HomeRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: CityViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item, clickListener)
+        item?.let {
+            holder.bind(item, clickListener)
+        }
+
     }
 
     class CityViewHolder(
