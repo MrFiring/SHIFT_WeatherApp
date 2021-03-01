@@ -48,6 +48,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //Material components
+    api "com.google.android.material:material:$version_mdc"
+
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
     // Navigation
