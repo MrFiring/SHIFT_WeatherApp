@@ -62,7 +62,7 @@ interface WeatherDao{
         DatabaseRain::class,
         DatabaseSnow::class
     ],
-    version = 1
+    version = 2
 )
 abstract class WeatherDatabase: RoomDatabase(){
     abstract val citiesDao: CitiesDao
@@ -77,6 +77,7 @@ fun getDatabase(context: Context): WeatherDatabase{
                 context.applicationContext,
                 WeatherDatabase::class.java, "weather_db"
                 )
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }
