@@ -101,13 +101,18 @@ fun City.asDatabaseObject() : DatabaseCity = DatabaseCity(
     coord.latitude
 )
 
-fun WeatherContainer.asDatabaseObject(clouds: Double): DatabaseWeatherContainer = DatabaseWeatherContainer(
+fun WeatherContainer.asDatabaseObject(): DatabaseWeatherContainer = DatabaseWeatherContainer(
     id,
     name,
     base,
     dt,
     timezone,
-    clouds
+    clouds.all,
+    weather.map { it.asDatabaseObject(id) },
+    main.asDatabaseObject(id),
+    wind.asDatabaseObject(id),
+    rain?.asDatabaseObject(id) ?: DatabaseRain(-1, 0.0, 0.0),
+    snow?.asDatabaseObject(id) ?: DatabaseSnow(-1, 0.0, 0.0)
 )
 
 fun Weather.asDatabaseObject(ownerId: Long): DatabaseWeather = DatabaseWeather(

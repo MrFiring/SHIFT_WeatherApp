@@ -1,5 +1,6 @@
 package ru.mrfiring.shiftweatherapp.repository.database
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -22,7 +23,18 @@ data class DatabaseWeatherContainer(
     val base: String,
     val lastUpdate: Long,
     val timeZone: Long,
-    val clouds: Double
+    val clouds: Double,
+    @Embedded(prefix = "weather")
+    val weatherList: List<DatabaseWeather>,
+    @Embedded(prefix = "main")
+    val mainParams: DatabaseMainWeatherParameters,
+    @Embedded(prefix = "wind")
+    val wind: DatabaseWind,
+    @Embedded(prefix = "rain")
+    val rain: DatabaseRain,
+    @Embedded(prefix = "snow")
+    val snow: DatabaseSnow
+
 )
 
 @Entity

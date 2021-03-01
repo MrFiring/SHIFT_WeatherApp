@@ -65,19 +65,12 @@ fun DatabaseCity.asDomainObject(): DomainCity = DomainCity(
     id, name, state, country, longitude, latitude
 )
 
-fun DatabaseWeatherContainer.asDomainObject(
-    weather: DatabaseWeather,
-    params: DatabaseMainWeatherParameters,
-    wind: DatabaseWind,
-    rain: DatabaseRain?,
-    snow: DatabaseSnow?
-
-): DomainWeatherContainer = DomainWeatherContainer(
-    lastUpdate,
-    timeZone,
-    clouds,
-    weather.asDomainObject(),
-    params.asDomainObject(),
+fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWeatherContainer(
+        lastUpdate,
+        timeZone,
+        clouds,
+        weatherList[0].asDomainObject(),
+        mainParams.asDomainObject(),
         wind.asDomainObject(),
         rain?.asDomainObject(),
         snow?.asDomainObject()
