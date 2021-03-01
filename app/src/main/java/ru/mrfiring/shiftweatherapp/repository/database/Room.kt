@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.repository.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import kotlinx.coroutines.Deferred
 import ru.mrfiring.shiftweatherapp.repository.network.City
@@ -10,7 +11,7 @@ import ru.mrfiring.shiftweatherapp.repository.network.City
 interface CitiesDao{
 
     @Query("select * from databasecity order by country limit 100 offset 10")
-    suspend fun getCities(): List<DatabaseCity>
+    suspend fun getCities(): DataSource.Factory<Int, DatabaseCity>
 
     @Query("select * from databasecity where id = :id")
     suspend fun getCityById(id: Long): DatabaseCity
