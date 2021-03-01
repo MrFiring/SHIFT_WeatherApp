@@ -63,15 +63,17 @@
 
                 <ImageView
                     android:id="@+id/countryImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_launcher_foreground" />
+                    app:loadFlagFor="@{city.country}"
+                    tools:src="@drawable/ic_launcher_foreground"
+                    />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </com.google.android.material.card.MaterialCardView>
