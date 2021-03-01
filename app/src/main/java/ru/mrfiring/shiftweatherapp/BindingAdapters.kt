@@ -10,6 +10,7 @@ import com.bumptech.glide.request.RequestOptions
 import ru.mrfiring.shiftweatherapp.home.ApiStatus
 import ru.mrfiring.shiftweatherapp.home.HomeRecyclerViewAdapter
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.repository.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.repository.network.IMG_URL
 
 @BindingAdapter("listData")
@@ -52,9 +53,10 @@ fun ImageView.loadImage(code : String?){
     }
 }
 
-@BindingAdapter("flagUrl")
-fun ImageView.loadFlagImage(url: String?){
-    url?.let{
+@BindingAdapter("loadFlagFor")
+fun ImageView.loadFlagImage(country: String?){
+    country?.let{
+        val url = FLAG_URL.format(country)
         val imgUri = url.toUri().buildUpon().scheme("https").build()
         Glide.with(context)
             .load(imgUri)
