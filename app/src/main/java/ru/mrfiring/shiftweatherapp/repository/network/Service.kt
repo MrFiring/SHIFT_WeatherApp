@@ -15,6 +15,8 @@ private const val FILE_URL = "https://bulk.openweathermap.org/sample/${FILE_NAME
 
 //Used in BindingAdapter.kt by Glide to load Weather icon
 const val IMG_URL = "http://openweathermap.org/img/wn/%s@2x.png"
+//Used in BindingAdapter.kt by Glide to load country flag
+const val FLAG_URL = "https://www.countryflags.io/%s/flat/64.png"
 
 interface OpenWeatherService{
     @GET
