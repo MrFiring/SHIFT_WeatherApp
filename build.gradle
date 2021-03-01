@@ -15,6 +15,7 @@ buildscript {
         room_version = "2.3.0-beta02"
         version_coroutines = "1.0.1"
         version_mdc = "1.4.0-alpha01"
+        version_paging = "3.0.0-beta01"
     }
     repositories {
         google()
