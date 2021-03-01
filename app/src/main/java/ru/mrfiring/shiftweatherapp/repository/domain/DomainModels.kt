@@ -69,7 +69,7 @@ fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWe
         lastUpdate,
         timeZone,
         clouds,
-        weatherList[0].asDomainObject(),
+        weather.asDomainObject(),
         mainParams.asDomainObject(),
         wind.asDomainObject(),
         rain?.asDomainObject(),

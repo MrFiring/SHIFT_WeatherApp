@@ -25,7 +25,7 @@ data class DatabaseWeatherContainer(
     val timeZone: Long,
     val clouds: Double,
     @Embedded(prefix = "weather")
-    val weatherList: List<DatabaseWeather>,
+    val weather: DatabaseWeather,
     @Embedded(prefix = "main")
     val mainParams: DatabaseMainWeatherParameters,
     @Embedded(prefix = "wind")
@@ -72,7 +72,7 @@ data class DatabaseWind(
 
 @Entity
 data class DatabaseRain(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id: Long,
     val forLastOneHour: Double,
     val forLastThreeHours: Double

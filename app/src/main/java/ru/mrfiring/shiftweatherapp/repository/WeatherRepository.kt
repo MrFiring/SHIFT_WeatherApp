@@ -27,22 +27,7 @@ class WeatherRepository(context: Context) {
          val container: DatabaseWeatherContainer? = database.weatherDao.getWeatherContainerById(id)
 
          container?.let {
-             val weatherParams = database.weatherDao.getMainWeatherParametersById(id)
-             val weatherList = database.weatherDao.getWeatherListById(id)
-
-             val weather: DatabaseWeather = if(!weatherList.isNullOrEmpty()){
-                 weatherList[0]
-             }else{
-                 DatabaseWeather(id, -1, "", "", "")
-             }
-
-             return container.asDomainObject(
-                     weather,
-                     weatherParams,
-                     DatabaseWind(id, -1.0, -1.0, -1.0),
-                     null,
-                     null
-             )
+             return container.asDomainObject()
          }
 
         return null
@@ -81,7 +66,7 @@ class WeatherRepository(context: Context) {
             )
 
             database.weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id))
-            database.weatherDao.insertWeatherContainer(container.asDatabaseObject(container.clouds.all))
+            database.weatherDao.insertWeatherContainer(container.asDatabaseObject())
             database.weatherDao.insertWind(container.wind.asDatabaseObject(id))
             val dbWeather = mutableListOf<DatabaseWeather>()
 

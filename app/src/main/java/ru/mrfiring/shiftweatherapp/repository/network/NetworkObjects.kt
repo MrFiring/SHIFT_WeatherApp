@@ -108,7 +108,7 @@ fun WeatherContainer.asDatabaseObject(): DatabaseWeatherContainer = DatabaseWeat
     dt,
     timezone,
     clouds.all,
-    weather.map { it.asDatabaseObject(id) },
+    weather[0].asDatabaseObject(id),
     main.asDatabaseObject(id),
     wind.asDatabaseObject(id),
     rain?.asDatabaseObject(id) ?: DatabaseRain(-1, 0.0, 0.0),
