@@ -51,3 +51,17 @@ fun ImageView.loadImage(code : String?){
                 .into(this)
     }
 }
+
+@BindingAdapter("flagUrl")
+fun ImageView.loadFlagImage(url: String?){
+    url?.let{
+        val imgUri = url.toUri().buildUpon().scheme("https").build()
+        Glide.with(context)
+            .load(imgUri)
+            .apply(RequestOptions()
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_connection_error)
+            )
+            .into(this)
+    }
+}
