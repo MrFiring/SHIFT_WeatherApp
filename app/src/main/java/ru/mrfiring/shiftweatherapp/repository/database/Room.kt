@@ -55,6 +55,16 @@ interface WeatherDao{
     suspend fun insertSnow(item: DatabaseSnow)
 }
 
+@Dao
+interface RemoteKeyDao{
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(remoteKey: List<RemoteKey>)
+
+    @Query("select * from remotekey where id = :id")
+    suspend fun getRemoteKeyById(id: String): RemoteKey?
+
+}
+
 @Database(
     entities = [DatabaseCity::class,
         DatabaseMainWeatherParameters::class,
@@ -62,13 +72,15 @@ interface WeatherDao{
         DatabaseWeather::class,
         DatabaseWind::class,
         DatabaseRain::class,
-        DatabaseSnow::class
+        DatabaseSnow::class,
+        RemoteKey::class
     ],
-    version = 2
+    version = 3
 )
 abstract class WeatherDatabase: RoomDatabase(){
     abstract val citiesDao: CitiesDao
     abstract val weatherDao: WeatherDao
+    abstract val remoteKeyDao: RemoteKeyDao
 }
 
 private lateinit var INSTANCE: WeatherDatabase
