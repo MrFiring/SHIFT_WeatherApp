@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.databinding.DetailFragmentBinding
 
+enum class ApiStatus { LOADING, ERROR, DONE}
+
 class DetailFragment : Fragment() {
 
     override fun onCreateView(
@@ -17,7 +19,7 @@ class DetailFragment : Fragment() {
     ): View? {
         val binding = DetailFragmentBinding.inflate(inflater)
         val application = requireNotNull(activity).application
-        val argument = DetailFragmentArgs.fromBundle(arguments!!)
+        val argument = DetailFragmentArgs.fromBundle(requireArguments())
 
         val viewModelFactory = DetailViewModelFactory(application, argument.cityId)
 

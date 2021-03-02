@@ -9,6 +9,10 @@ import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.repository.getRepository
 
 class DetailViewModel(application: Application, private val cityId: Long) : AndroidViewModel(application) {
+    private val _status = MutableLiveData<ApiStatus>()
+    val status: LiveData<ApiStatus>
+    get() = _status
+
     private val _container = MutableLiveData<DomainWeatherContainer>()
     val container: LiveData<DomainWeatherContainer>
     get() = _container
@@ -41,10 +45,13 @@ class DetailViewModel(application: Application, private val cityId: Long) : Andr
 
     private fun refreshWeather() = viewModelScope.launch {
         try {
+                _status.value = ApiStatus.LOADING
                 repository.updateWeatherFromServer(cityId)
                 _container.value = repository.getWeather(cityId)
+                _status.value = ApiStatus.DONE
         }
         catch (ex: Exception){
+            _status.value = ApiStatus.ERROR
             Log.e("DetailViewModel", ex.stackTraceToString())
         }
 
