@@ -6,11 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.databinding.HomeFragmentBinding
 
@@ -37,11 +37,16 @@ class HomeFragment : Fragment() {
             adapter.retry()
         })
 
+        adapter.withLoadStateFooter(loadStateAdapter)
 
+        adapter.addLoadStateListener{
+            viewModel.onLoadStateEvent(it.refresh)
+
+        }
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.citiesList.adapter = adapter.withLoadStateFooter(loadStateAdapter)
+        binding.citiesList.adapter = adapter
 
 
         viewModel.cities.observe(viewLifecycleOwner, Observer {
