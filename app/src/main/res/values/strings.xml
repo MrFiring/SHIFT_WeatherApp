@@ -4,4 +4,6 @@
     <string name="temp_feels_format">Ощущается как %1$.1f ℃</string>
     <string name="humidity_format">Влажность: %1$.1f</string>
     <string name="pressure_format">Давление: %1$d кПа</string>
+    <string name="retry">Retry</string>
+    <string name="something_went_wrong">Something went wrong</string>
 </resources>
