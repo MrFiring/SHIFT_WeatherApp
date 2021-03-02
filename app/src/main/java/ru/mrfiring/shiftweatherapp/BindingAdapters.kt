@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,13 +14,14 @@ import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.repository.network.IMG_URL
 
-@BindingAdapter("listData")
-fun RecyclerView.bindData(items: List<DomainCity>?){
-    items?.let {
-        val adpt = adapter as HomeRecyclerViewAdapter
-        adpt.submitList(items)
-    }
-}
+//@BindingAdapter("listData")
+//fun RecyclerView.bindData(items: PagingData<DomainCity>?){
+//    items?.let {
+//        val adpt = adapter as HomeRecyclerViewAdapter
+//
+//        adpt.submitData(items)
+//    }
+//}
 
 @BindingAdapter("apiStatus")
 fun ImageView.bindStatus(status: ApiStatus?){
