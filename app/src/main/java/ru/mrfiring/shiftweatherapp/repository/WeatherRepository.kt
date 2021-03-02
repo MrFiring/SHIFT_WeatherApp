@@ -37,7 +37,7 @@ class WeatherRepository(context: Context) {
         return Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = pagingSourceFactory,
-            remoteMediator = CityMediator(OpenWeatherApi.openWeatherService, database)
+            remoteMediator = CityMediator(OpenWeatherApi.openWeatherService, database),
 
         ).liveData.map {
             it.map { item ->
