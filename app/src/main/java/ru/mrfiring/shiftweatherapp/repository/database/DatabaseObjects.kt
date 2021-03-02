@@ -16,14 +16,6 @@ data class DatabaseCity(
 )
 
 @Entity
-data class RemoteKey(
-    @PrimaryKey
-    val id: String,
-    val prevKey: Int,
-    val nextKey: Int
-)
-
-@Entity
 data class DatabaseWeatherContainer(
     @PrimaryKey(autoGenerate = false)
     val id: Long,
