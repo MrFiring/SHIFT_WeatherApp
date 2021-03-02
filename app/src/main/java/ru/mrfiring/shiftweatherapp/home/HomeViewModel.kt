@@ -12,14 +12,8 @@ import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.getRepository
 
-enum class ApiStatus { LOADING, ERROR, DONE}
-
 @ExperimentalPagingApi
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val _status = MutableLiveData<ApiStatus>()
-    val status: LiveData<ApiStatus>
-    get() = _status
 
     private val _navigateToDetails = MutableLiveData<DomainCity?>()
     val navigateToDetails: LiveData<DomainCity?>
