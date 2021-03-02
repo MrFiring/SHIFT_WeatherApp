@@ -8,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
+import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
+    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +37,12 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.citiesList.adapter = adapter
 
+        viewModel.cities.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch{
+                adapter.submitData(it)
+            }
+        })
+
         viewModel.navigateToDetails.observe(viewLifecycleOwner, Observer{
             it?.let {
                 this.findNavController().navigate(
@@ -45,6 +55,7 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
+
 
 
 }

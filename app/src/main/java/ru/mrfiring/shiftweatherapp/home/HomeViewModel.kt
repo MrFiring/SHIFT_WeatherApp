@@ -6,16 +6,17 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import kotlinx.coroutines.launch
-import ru.mrfiring.shiftweatherapp.repository.WeatherRepository
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
-import ru.mrfiring.shiftweatherapp.repository.domain.asDomainObject
 import ru.mrfiring.shiftweatherapp.repository.getRepository
-import ru.mrfiring.shiftweatherapp.repository.network.*
 import java.lang.Exception
 
 enum class ApiStatus { LOADING, ERROR, DONE}
 
+@ExperimentalPagingApi
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _status = MutableLiveData<ApiStatus>()
@@ -28,8 +29,8 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = getRepository(application.applicationContext)
 
-    private val _cities = MutableLiveData<List<DomainCity>>()
-    val cities: LiveData<List<DomainCity>>
+    private var _cities = MutableLiveData<PagingData<DomainCity>>()
+    val cities: LiveData<PagingData<DomainCity>>
     get() = _cities
 
 
@@ -38,14 +39,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
+    @ExperimentalPagingApi
     private fun refreshDataFromServer() = viewModelScope.launch {
-        try{
+        try {
 
-            if(cities.value.isNullOrEmpty()) {
-                _status.value = ApiStatus.LOADING
-                _cities.value = repository.getCities()
-                _status.value = ApiStatus.DONE
-            }
+
+            _status.value = ApiStatus.LOADING
+            _cities = repository.getCitiesLiveData().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
+            _status.value = ApiStatus.DONE
+
         }catch (ex: Exception){
             _status.value = ApiStatus.ERROR
             Log.e("HomeViewModel", ex.toString())
