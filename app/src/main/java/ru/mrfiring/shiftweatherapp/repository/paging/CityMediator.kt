@@ -4,14 +4,12 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 import ru.mrfiring.shiftweatherapp.repository.database.DatabaseCity
 import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
-import ru.mrfiring.shiftweatherapp.repository.network.CitiesParser
-import ru.mrfiring.shiftweatherapp.repository.network.City
-import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherService
-import ru.mrfiring.shiftweatherapp.repository.network.asDatabaseObject
+import ru.mrfiring.shiftweatherapp.repository.network.*
 import java.io.IOException
 
 @ExperimentalPagingApi
@@ -33,8 +31,8 @@ class CityMediator(
                 }
 
                 return try {
-                    val citiesList: List<City> = loadCities()
-                    database.withTransaction {
+                    withContext(Dispatchers.IO){
+                        val citiesList: List<City> = loadCities()
                         database.citiesDao.insertCities(citiesList.map {
                             it.asDatabaseObject()
                         })
@@ -43,9 +41,9 @@ class CityMediator(
 
 
                 } catch (ex: IOException) {
-                    MediatorResult.Error(ex)
+                    return MediatorResult.Error(ex)
                 } catch (ex: HttpException) {
-                    MediatorResult.Error(ex)
+                    return MediatorResult.Error(ex)
                 }
             }
             else -> {
