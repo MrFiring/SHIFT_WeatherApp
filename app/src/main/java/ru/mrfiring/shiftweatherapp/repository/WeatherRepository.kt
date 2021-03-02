@@ -1,24 +1,20 @@
 package ru.mrfiring.shiftweatherapp.repository
 
-import android.app.Application
+
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
-import androidx.room.Room
+import androidx.lifecycle.*
+import androidx.paging.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.mrfiring.shiftweatherapp.repository.database.*
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeather
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.repository.domain.asDomainObject
 import ru.mrfiring.shiftweatherapp.repository.network.CitiesParser
 import ru.mrfiring.shiftweatherapp.repository.network.City
 import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherApi
 import ru.mrfiring.shiftweatherapp.repository.network.asDatabaseObject
-import java.io.IOException
+import ru.mrfiring.shiftweatherapp.repository.paging.CityMediator
 
 class WeatherRepository(context: Context) {
     private val database = getDatabase(context)
@@ -33,14 +29,19 @@ class WeatherRepository(context: Context) {
         return null
     }
 
-    suspend fun getCities(): List<DomainCity>{
-        val dbList = database.citiesDao.getCities()
-        return if(dbList.isNullOrEmpty()){
-            loadCitiesFromServer()
-            getCities()
-        }else{
-            dbList.map {
-                it.asDomainObject()
+    @ExperimentalPagingApi
+    fun getCitiesLiveData(): LiveData<PagingData<DomainCity>>{
+        val pagingSourceFactory = {
+            database.citiesDao.getCities()
+        }
+        return Pager(
+            config = PagingConfig(pageSize = 20),
+            pagingSourceFactory = pagingSourceFactory,
+            remoteMediator = CityMediator(OpenWeatherApi.openWeatherService, database)
+
+        ).liveData.map {
+            it.map { item ->
+                item.asDomainObject()
             }
         }
     }
