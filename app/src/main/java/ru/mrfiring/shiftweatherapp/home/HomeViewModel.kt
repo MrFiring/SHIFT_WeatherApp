@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.home
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import androidx.paging.cachedIn
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.getRepository
-import java.lang.Exception
 
 enum class ApiStatus { LOADING, ERROR, DONE}
 
@@ -35,23 +33,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
 
     init{
-        refreshDataFromServer()
+        bindData()
     }
 
 
     @ExperimentalPagingApi
-    private fun refreshDataFromServer() = viewModelScope.launch {
-        try {
-
-
-            _status.value = ApiStatus.LOADING
+    private fun bindData() = viewModelScope.launch {
             _cities = repository.getCitiesLiveData().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
-            _status.value = ApiStatus.DONE
-
-        }catch (ex: Exception){
-            _status.value = ApiStatus.ERROR
-            Log.e("HomeViewModel", ex.toString())
-        }
     }
 
     fun onCityClicked(city: DomainCity) {
