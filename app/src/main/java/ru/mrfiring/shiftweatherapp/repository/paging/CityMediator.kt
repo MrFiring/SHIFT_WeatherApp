@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -31,8 +32,8 @@ class CityMediator(
                 }
 
                 return try {
-                    withContext(Dispatchers.IO){
-                        val citiesList: List<City> = loadCities()
+                    val citiesList: List<City> = loadCities()
+                    database.withTransaction {
                         database.citiesDao.insertCities(citiesList.map {
                             it.asDatabaseObject()
                         })
