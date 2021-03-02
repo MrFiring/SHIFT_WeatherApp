@@ -7,14 +7,12 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import retrofit2.HttpException
 import ru.mrfiring.shiftweatherapp.repository.database.DatabaseCity
-import ru.mrfiring.shiftweatherapp.repository.database.RemoteKey
 import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
 import ru.mrfiring.shiftweatherapp.repository.network.CitiesParser
 import ru.mrfiring.shiftweatherapp.repository.network.City
 import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherService
 import ru.mrfiring.shiftweatherapp.repository.network.asDatabaseObject
 import java.io.IOException
-import java.io.InvalidObjectException
 
 @ExperimentalPagingApi
 class CityMediator(
