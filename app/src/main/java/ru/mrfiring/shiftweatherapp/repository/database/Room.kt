@@ -11,8 +11,8 @@ import ru.mrfiring.shiftweatherapp.repository.network.City
 @Dao
 interface CitiesDao{
 
-    @Query("select * from databasecity order by country limit 100 offset 10")
-    suspend fun getCities(): PagingSource<Int, DatabaseCity>
+    @Query("select * from databasecity where country != '' order by country")
+    fun getCities(): PagingSource<Int, DatabaseCity>
 
     @Query("select * from databasecity where id = :id")
     suspend fun getCityById(id: Long): DatabaseCity
