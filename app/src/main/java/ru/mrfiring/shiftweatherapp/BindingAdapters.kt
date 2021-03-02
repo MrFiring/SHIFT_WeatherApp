@@ -2,26 +2,59 @@ package ru.mrfiring.shiftweatherapp
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import androidx.paging.PagingData
-import androidx.recyclerview.widget.RecyclerView
+import androidx.paging.LoadState
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.button.MaterialButton
 import ru.mrfiring.shiftweatherapp.home.ApiStatus
-import ru.mrfiring.shiftweatherapp.home.HomeRecyclerViewAdapter
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.repository.network.IMG_URL
 
-//@BindingAdapter("listData")
-//fun RecyclerView.bindData(items: PagingData<DomainCity>?){
-//    items?.let {
-//        val adpt = adapter as HomeRecyclerViewAdapter
-//
-//        adpt.submitData(items)
-//    }
-//}
+@BindingAdapter("loadState")
+fun MaterialButton.bindLoadState(loadState: LoadState?){
+    loadState?.let {
+        visibility = when(loadState){
+            is LoadState.Error -> {
+                View.VISIBLE
+            }
+            else -> {
+                View.GONE
+            }
+        }
+    }
+}
+
+@BindingAdapter("loadState")
+fun TextView.bindLoadState(loadState: LoadState?){
+    loadState?.let {
+        visibility = when(loadState){
+            is LoadState.Error -> {
+                View.VISIBLE
+            }
+            else -> {
+                View.GONE
+            }
+        }
+    }
+}
+
+@BindingAdapter("loadState")
+fun ProgressBar.bindLoadState(loadState: LoadState?){
+    loadState?.let {
+        visibility = when(loadState){
+            is LoadState.Loading -> {
+                View.VISIBLE
+            }
+            else -> {
+                View.GONE
+            }
+        }
+    }
+}
 
 @BindingAdapter("apiStatus")
 fun ImageView.bindStatus(status: ApiStatus?){
