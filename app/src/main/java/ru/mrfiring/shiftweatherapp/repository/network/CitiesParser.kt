@@ -11,23 +11,20 @@ import java.util.zip.GZIPInputStream
 
 class CitiesParser() {
 
-    suspend fun decompressGZip(responseBody: ResponseBody): String{
+    suspend fun decompressGZip(responseBody: ResponseBody?): String {
         val output: StringBuilder = StringBuilder()
-        try{
+
+        responseBody?.let {
             val gzipStream = GZIPInputStream(ByteArrayInputStream(responseBody.bytes()))
             val input = BufferedReader(InputStreamReader(gzipStream))
 
             var read: String? = ""
-            while(read != null){
+            while (read != null) {
                 read = input.readLine()
                 output.append(read)
             }
             input.close()
             gzipStream.close()
-
-        }catch (ex: IOException){
-            Log.e("CitiesParser", "IOError ${ex.toString()}")
-
         }
         return output.toString()
     }
