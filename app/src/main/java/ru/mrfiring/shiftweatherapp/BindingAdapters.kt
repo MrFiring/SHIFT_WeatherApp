@@ -69,6 +69,8 @@ fun ImageView.bindStatus(status: ApiStatus?){
         ApiStatus.ERROR ->{
             visibility = View.VISIBLE
             setImageResource(R.drawable.ic_connection_error)
+            scaleX /= 2
+            scaleY /= 2
         }
     }
 }
