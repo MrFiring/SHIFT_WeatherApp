@@ -33,9 +33,16 @@ class HomeFragment : Fragment() {
                 }
         )
 
+        val loadStateAdapter = HomeLoadStateAdapter(HomeLoadStateAdapter.OnRetryListener {
+            adapter.retry()
+        })
+
+
+
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.citiesList.adapter = adapter
+        binding.citiesList.adapter = adapter.withLoadStateFooter(loadStateAdapter)
+
 
         viewModel.cities.observe(viewLifecycleOwner, Observer {
             lifecycleScope.launch{
