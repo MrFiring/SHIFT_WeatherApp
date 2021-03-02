@@ -1,12 +1,14 @@
 package ru.mrfiring.shiftweatherapp.repository.network
 
 import com.squareup.moshi.Moshi
+import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.Url
+import java.util.concurrent.TimeUnit
 
 private const val API_KEY = "2e94be02060a9fb7a13cfd7e5027ca72"
 private const val BASE_URL= "https://api.openweathermap.org/data/2.5/"
@@ -20,7 +22,7 @@ const val FLAG_URL = "https://www.countryflags.io/%s/flat/64.png"
 
 interface OpenWeatherService{
     @GET
-    suspend fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody
+    suspend fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody?
 
     @GET("weather")
     suspend fun getWeatherContainerByCoordinates(
