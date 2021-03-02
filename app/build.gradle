@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'koin'
 
 android {
     compileSdkVersion 30
@@ -81,5 +82,14 @@ dependencies {
     implementation "androidx.paging:paging-compose:1.0.0-alpha08"
 
     //Koin
-    implementation "org.koin:koin-core:$version_koin"
+    // Koin AndroidX Scope features
+    implementation "org.koin:koin-androidx-scope:$version_koin"
+    // Koin AndroidX ViewModel features
+    implementation "org.koin:koin-androidx-viewmodel:$version_koin"
+    // Koin AndroidX Fragment features
+    implementation "org.koin:koin-androidx-fragment:$version_koin"
+    // Koin AndroidX WorkManager
+    implementation "org.koin:koin-androidx-workmanager:$version_koin"
+    // Koin AndroidX Jetpack Compose
+    implementation "org.koin:koin-androidx-compose:$version_koin"
 }
