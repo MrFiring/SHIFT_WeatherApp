@@ -82,6 +82,8 @@ dependencies {
     implementation "androidx.paging:paging-compose:1.0.0-alpha08"
 
     //Koin
+    implementation "org.koin:koin-core:$version_koin"
+    implementation "org.koin:koin-android:$version_koin"
     // Koin AndroidX Scope features
     implementation "org.koin:koin-androidx-scope:$version_koin"
     // Koin AndroidX ViewModel features
