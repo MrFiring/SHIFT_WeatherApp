@@ -13,17 +13,17 @@ import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.GetCitiesLiveDataUseCase
 
 
 @ExperimentalPagingApi
-class HomeViewModel(application: Application, private val repository: WeatherRepository) : AndroidViewModel(application) {
+class HomeViewModel(application: Application,
+                    private val getCitiesLiveDataUseCase: GetCitiesLiveDataUseCase
+) : AndroidViewModel(application) {
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
     get() = _status
-
-
-
 
     private val _navigateToDetails = SingleLiveEvent<DomainCity?>()
     val navigateToDetails: LiveData<DomainCity?>
@@ -33,7 +33,6 @@ class HomeViewModel(application: Application, private val repository: WeatherRep
     val cities: LiveData<PagingData<DomainCity>>
     get() = _cities
 
-
     init{
         bindData()
     }
@@ -41,7 +40,7 @@ class HomeViewModel(application: Application, private val repository: WeatherRep
 
     @ExperimentalPagingApi
     private fun bindData() {
-            _cities = repository.getCitiesLiveData().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
+            _cities = getCitiesLiveDataUseCase().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
     }
 
     fun onCityClicked(city: DomainCity) {
