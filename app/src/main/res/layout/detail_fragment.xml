@@ -6,9 +6,9 @@
     <data>
         <variable
             name="viewModel"
-            type="ru.mrfiring.shiftweatherapp.detail.DetailViewModel" />
+            type="ru.mrfiring.shiftweatherapp.presentation.detail.DetailViewModel" />
         <import type="android.view.View"/>
-        <import type="ru.mrfiring.shiftweatherapp.detail.ApiStatus"/>
+        <import type="ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

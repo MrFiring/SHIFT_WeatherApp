@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.detail
+package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

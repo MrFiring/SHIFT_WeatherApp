@@ -1,10 +1,9 @@
-package ru.mrfiring.shiftweatherapp.home
+package ru.mrfiring.shiftweatherapp.presentation.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.mrfiring.shiftweatherapp.databinding.ListItemViewBinding
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity

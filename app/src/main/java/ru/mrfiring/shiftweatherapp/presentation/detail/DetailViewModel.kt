@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.detail
+package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import android.app.Application
 import android.util.Log

@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.home
+package ru.mrfiring.shiftweatherapp.presentation.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -9,8 +9,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import ru.mrfiring.shiftweatherapp.SingleLiveEvent
-import ru.mrfiring.shiftweatherapp.detail.ApiStatus
+import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
+import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 import ru.mrfiring.shiftweatherapp.repository.WeatherRepository
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 

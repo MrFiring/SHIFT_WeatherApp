@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ru.mrfiring.shiftweatherapp.home.HomeFragment"
+        android:name="ru.mrfiring.shiftweatherapp.presentation.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="ru.mrfiring.shiftweatherapp.detail.DetailFragment"
+        android:name="ru.mrfiring.shiftweatherapp.presentation.detail.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/detail_fragment">
         <argument

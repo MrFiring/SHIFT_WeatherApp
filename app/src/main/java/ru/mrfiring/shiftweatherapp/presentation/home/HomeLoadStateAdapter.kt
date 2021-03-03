@@ -1,6 +1,5 @@
-package ru.mrfiring.shiftweatherapp.home
+package ru.mrfiring.shiftweatherapp.presentation.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.LoadState

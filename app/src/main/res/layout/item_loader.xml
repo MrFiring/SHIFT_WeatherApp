@@ -6,7 +6,7 @@
     <data>
         <variable
             name="onRetryListener"
-            type="ru.mrfiring.shiftweatherapp.home.HomeLoadStateAdapter.OnRetryListener" />
+            type="ru.mrfiring.shiftweatherapp.presentation.home.HomeLoadStateAdapter.OnRetryListener" />
         <variable
             name="loadState"
             type="androidx.paging.LoadState" />
