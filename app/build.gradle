@@ -33,7 +33,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    composeOptions{
+    composeOptions {
         kotlinCompilerExtensionVersion '1.0.0-beta01'
     }
 
@@ -73,6 +73,7 @@ dependencies {
 
     //Glide
     implementation "com.github.bumptech.glide:glide:$version_glide"
+    implementation "dev.chrisbanes.accompanist:accompanist-glide:0.6.1"
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
@@ -119,4 +120,5 @@ dependencies {
     // Integration with observables
     implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-beta01'
     implementation 'androidx.compose.runtime:runtime-rxjava2:1.0.0-beta01'
+    implementation "androidx.compose.compiler:compiler:1.0.0-beta01"
 }
