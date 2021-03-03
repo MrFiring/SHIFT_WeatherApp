@@ -11,8 +11,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.button.MaterialButton
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
-import ru.mrfiring.shiftweatherapp.repository.network.FLAG_URL
-import ru.mrfiring.shiftweatherapp.repository.network.IMG_URL
+import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
+import ru.mrfiring.shiftweatherapp.data.network.IMG_URL
 
 @BindingAdapter("loadState")
 fun MaterialButton.bindLoadState(loadState: LoadState?){

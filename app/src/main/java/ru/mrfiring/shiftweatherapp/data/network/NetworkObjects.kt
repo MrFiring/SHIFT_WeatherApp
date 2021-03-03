@@ -1,8 +1,8 @@
-package ru.mrfiring.shiftweatherapp.repository.network
+package ru.mrfiring.shiftweatherapp.data.network
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import ru.mrfiring.shiftweatherapp.repository.database.*
+import ru.mrfiring.shiftweatherapp.data.database.*
 
 @JsonClass(generateAdapter = true)
 data class City(

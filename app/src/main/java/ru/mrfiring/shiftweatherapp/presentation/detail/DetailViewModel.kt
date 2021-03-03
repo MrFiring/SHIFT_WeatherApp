@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.repository.WeatherRepository
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.DomainWeatherContainer
 
 class DetailViewModel(private val cityId: Long, application: Application, private val repository: WeatherRepository) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()

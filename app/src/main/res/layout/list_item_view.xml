@@ -7,7 +7,7 @@
     <data>
         <variable
             name="city"
-            type="ru.mrfiring.shiftweatherapp.repository.domain.DomainCity" />
+            type="ru.mrfiring.shiftweatherapp.domain.DomainCity" />
         <variable
             name="clickListener"
             type="ru.mrfiring.shiftweatherapp.presentation.home.HomeRecyclerViewAdapter.ClickListener" />

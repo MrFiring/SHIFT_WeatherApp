@@ -2,7 +2,7 @@ package ru.mrfiring.shiftweatherapp.di
 
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherService
+import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
 
 val apiModule = module{
 

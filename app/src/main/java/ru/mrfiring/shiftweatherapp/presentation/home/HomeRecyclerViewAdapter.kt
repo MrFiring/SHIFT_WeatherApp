@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.mrfiring.shiftweatherapp.databinding.ListItemViewBinding
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.DomainCity
 
 class HomeRecyclerViewAdapter(
     private val clickListener: ClickListener

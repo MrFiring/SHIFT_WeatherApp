@@ -1,8 +1,6 @@
-package ru.mrfiring.shiftweatherapp.repository.domain
+package ru.mrfiring.shiftweatherapp.domain
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-import ru.mrfiring.shiftweatherapp.repository.database.*
+import ru.mrfiring.shiftweatherapp.data.database.*
 
 
 data class DomainCity(
@@ -24,7 +22,7 @@ data class DomainWeatherContainer(
     val rain: DomainRain?,
     val snow: DomainSnow?,
 
-)
+    )
 
 data class DomainWeather(
     val weatherId: Int,

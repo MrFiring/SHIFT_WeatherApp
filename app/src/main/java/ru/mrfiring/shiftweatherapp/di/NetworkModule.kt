@@ -5,11 +5,11 @@ import com.squareup.moshi.Moshi
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
-import ru.mrfiring.shiftweatherapp.repository.network.BASE_URL
-import ru.mrfiring.shiftweatherapp.repository.network.CitiesParser
-import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherService
-import ru.mrfiring.shiftweatherapp.repository.paging.CityMediator
+import ru.mrfiring.shiftweatherapp.data.database.WeatherDatabase
+import ru.mrfiring.shiftweatherapp.data.network.BASE_URL
+import ru.mrfiring.shiftweatherapp.data.network.CitiesParser
+import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
+import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 
 @ExperimentalPagingApi
 val networkModule = module {

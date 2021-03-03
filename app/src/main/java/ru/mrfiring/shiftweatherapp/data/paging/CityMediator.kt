@@ -1,17 +1,14 @@
-package ru.mrfiring.shiftweatherapp.repository.paging
+package ru.mrfiring.shiftweatherapp.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.koin.java.KoinJavaComponent.inject
 import retrofit2.HttpException
-import ru.mrfiring.shiftweatherapp.repository.database.DatabaseCity
-import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
-import ru.mrfiring.shiftweatherapp.repository.network.*
+import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
+import ru.mrfiring.shiftweatherapp.data.database.WeatherDatabase
+import ru.mrfiring.shiftweatherapp.data.network.*
 import java.io.IOException
 
 @ExperimentalPagingApi

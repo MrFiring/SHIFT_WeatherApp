@@ -11,8 +11,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
-import ru.mrfiring.shiftweatherapp.repository.WeatherRepository
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.DomainCity
 
 
 @ExperimentalPagingApi

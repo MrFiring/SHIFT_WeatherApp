@@ -1,15 +1,12 @@
-package ru.mrfiring.shiftweatherapp.repository
+package ru.mrfiring.shiftweatherapp.domain
 
 import androidx.lifecycle.*
 import androidx.paging.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.mrfiring.shiftweatherapp.repository.database.*
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
-import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
-import ru.mrfiring.shiftweatherapp.repository.domain.asDomainObject
-import ru.mrfiring.shiftweatherapp.repository.network.*
-import ru.mrfiring.shiftweatherapp.repository.paging.CityMediator
+import ru.mrfiring.shiftweatherapp.data.database.*
+import ru.mrfiring.shiftweatherapp.data.network.*
+import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 
 class WeatherRepository @ExperimentalPagingApi constructor(
         private val database: WeatherDatabase,

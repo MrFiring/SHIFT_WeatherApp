@@ -1,13 +1,10 @@
-package ru.mrfiring.shiftweatherapp.repository.network
+package ru.mrfiring.shiftweatherapp.data.network
 
-import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.ResponseBody
-import org.koin.java.KoinJavaComponent.inject
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
-import java.io.IOException
 import java.io.InputStreamReader
 import java.util.zip.GZIPInputStream
 

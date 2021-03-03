@@ -3,7 +3,7 @@ package ru.mrfiring.shiftweatherapp.di
 import android.app.Application
 import androidx.room.Room
 import org.koin.dsl.module
-import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
+import ru.mrfiring.shiftweatherapp.data.database.WeatherDatabase
 
 val databaseModule = module {
     fun provideWeatherDatabase(application: Application): WeatherDatabase {

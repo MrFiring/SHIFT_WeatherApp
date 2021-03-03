@@ -1,12 +1,8 @@
-package ru.mrfiring.shiftweatherapp.repository.database
+package ru.mrfiring.shiftweatherapp.data.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.paging.DataSource
 import androidx.paging.PagingSource
 import androidx.room.*
-import kotlinx.coroutines.Deferred
-import ru.mrfiring.shiftweatherapp.repository.network.City
 
 @Dao
 interface CitiesDao{

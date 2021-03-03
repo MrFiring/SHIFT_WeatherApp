@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.repository.database
+package ru.mrfiring.shiftweatherapp.data.database
 
 import androidx.room.Embedded
 import androidx.room.Entity
