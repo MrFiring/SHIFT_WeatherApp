@@ -11,7 +11,7 @@ import retrofit2.http.Url
 import java.util.concurrent.TimeUnit
 
 private const val API_KEY = "2e94be02060a9fb7a13cfd7e5027ca72"
-private const val BASE_URL= "https://api.openweathermap.org/data/2.5/"
+const val BASE_URL= "https://api.openweathermap.org/data/2.5/"
 private const val FILE_NAME = "city.list.min.json.gz"
 private const val FILE_URL = "https://bulk.openweathermap.org/sample/${FILE_NAME}"
 
@@ -34,16 +34,16 @@ interface OpenWeatherService{
     ): WeatherContainer
 }
 
-object OpenWeatherApi{
-    val moshi: Moshi = Moshi.Builder()
-        .build()
-
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(MoshiConverterFactory.create())
-        .build()
-
-    val openWeatherService: OpenWeatherService = retrofit.create(OpenWeatherService::class.java)
-}
+//object OpenWeatherApi{
+//    val moshi: Moshi = Moshi.Builder()
+//        .build()
+//
+//
+//    private val retrofit = Retrofit.Builder()
+//        .baseUrl(BASE_URL)
+//        .addConverterFactory(MoshiConverterFactory.create())
+//        .build()
+//
+//    val openWeatherService: OpenWeatherService = retrofit.create(OpenWeatherService::class.java)
+//}
 
