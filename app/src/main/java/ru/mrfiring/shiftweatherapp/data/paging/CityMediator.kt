@@ -4,18 +4,18 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import retrofit2.HttpException
+import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
-import ru.mrfiring.shiftweatherapp.data.database.WeatherDatabase
 import ru.mrfiring.shiftweatherapp.data.network.*
+import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
 import java.io.IOException
 
 @ExperimentalPagingApi
 class CityMediator(
     private val weatherService: OpenWeatherService,
-    val database: WeatherDatabase,
-    private val citiesParser: CitiesParser
+    private val citiesDao: CitiesDao,
+    private val citiesRepository: CitiesRepository
 ) : RemoteMediator<Int, DatabaseCity>() {
 
     override suspend fun load(
@@ -25,18 +25,17 @@ class CityMediator(
         when (loadType) {
             LoadType.REFRESH -> {
                 //Check if there is data in db
-                val citiesCount = database.citiesDao.getCountOfCities()
+                val citiesCount = citiesDao.getCountOfCities()
                 if(citiesCount > 0){
                   return MediatorResult.Success(endOfPaginationReached = true)
                 }
 
                 return try {
-                    val citiesList: List<City> = loadCities()
-                    database.withTransaction {
-                        database.citiesDao.insertCities(citiesList.map {
+                    val citiesList: List<City> = citiesRepository.loadCities()
+                        citiesDao.insertCities(citiesList.map {
                             it.asDatabaseObject()
                         })
-                    }
+
                     MediatorResult.Success(endOfPaginationReached = false)
 
 
@@ -52,9 +51,4 @@ class CityMediator(
         }
     }
 
-    private suspend fun loadCities(): List<City> {
-        val response = weatherService.getCitiesFile()
-        val decodedString = citiesParser.decompressGZip(response)
-        return citiesParser.parseJson(decodedString)
-    }
 }

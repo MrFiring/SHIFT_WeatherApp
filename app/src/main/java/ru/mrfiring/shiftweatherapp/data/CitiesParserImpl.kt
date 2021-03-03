@@ -1,16 +1,17 @@
-package ru.mrfiring.shiftweatherapp.data.network
+package ru.mrfiring.shiftweatherapp.data
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.ResponseBody
+import ru.mrfiring.shiftweatherapp.data.network.City
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
 import java.util.zip.GZIPInputStream
 
-class CitiesParser(private val moshi: Moshi) {
+class CitiesParserImpl(private val moshi: Moshi): CitiesParser {
 
-    suspend fun decompressGZip(responseBody: ResponseBody?): String {
+    override suspend fun decompressGZip(responseBody: ResponseBody?): String {
         val output: StringBuilder = StringBuilder()
 
         responseBody?.let {
@@ -28,7 +29,7 @@ class CitiesParser(private val moshi: Moshi) {
         return output.toString()
     }
 
-    suspend fun parseJson(json: String) : List<City>{
+    override suspend fun parseJson(json: String) : List<City>{
         val type = Types.newParameterizedType(List::class.java, City::class.java)
         val jsonAdapter = moshi.adapter<List<City>>(type).lenient()
         return jsonAdapter.fromJson(json) ?: emptyList()
