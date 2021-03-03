@@ -9,6 +9,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import ru.mrfiring.shiftweatherapp.SingleLiveEvent
 import ru.mrfiring.shiftweatherapp.detail.ApiStatus
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.getRepository
@@ -21,7 +22,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     val status: LiveData<ApiStatus>
     get() = _status
 
-    private val _navigateToDetails = MutableLiveData<DomainCity?>()
+
+
+
+    private val _navigateToDetails = SingleLiveEvent<DomainCity?>()
     val navigateToDetails: LiveData<DomainCity?>
     get() = _navigateToDetails
 
@@ -44,10 +48,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun onCityClicked(city: DomainCity) {
         _navigateToDetails.value = city
-    }
-
-    fun doneNavigating(){
-        _navigateToDetails.value = null
     }
 
     fun onLoadStateEvent(refreshLoadState: LoadState) {

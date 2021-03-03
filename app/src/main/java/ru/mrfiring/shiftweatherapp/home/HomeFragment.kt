@@ -60,7 +60,6 @@ class HomeFragment : Fragment() {
                 this.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToDetailFragment(it.id)
                 )
-                viewModel.doneNavigating()
             }
         })
 
