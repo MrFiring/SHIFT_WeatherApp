@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import ru.mrfiring.shiftweatherapp.di.*
 
 class WeatherApplication: Application() {
     @ExperimentalPagingApi
