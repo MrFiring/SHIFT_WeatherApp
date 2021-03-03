@@ -3,6 +3,7 @@ The application was developed during the SHIFT course (CFT company).
 
 Application is able to:
 * Fetch data from OpenWeather API
+* Load images by Glide
 * Cache the data
 
 
