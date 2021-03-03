@@ -14,6 +14,6 @@ val viewModelModule = module{
     }
 
     viewModel {
-            (cityId: Long) -> DetailViewModel(cityId, androidApplication(), get())
+            (cityId: Long) -> DetailViewModel(cityId, androidApplication(), get(), get())
     }
 }

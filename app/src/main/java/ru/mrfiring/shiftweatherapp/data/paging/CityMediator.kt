@@ -5,6 +5,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import retrofit2.HttpException
+import ru.mrfiring.shiftweatherapp.data.CitiesParser
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.network.*
@@ -15,7 +16,7 @@ import java.io.IOException
 class CityMediator(
     private val weatherService: OpenWeatherService,
     private val citiesDao: CitiesDao,
-    private val citiesRepository: CitiesRepository
+    private val citiesParser: CitiesParser
 ) : RemoteMediator<Int, DatabaseCity>() {
 
     override suspend fun load(
@@ -31,7 +32,7 @@ class CityMediator(
                 }
 
                 return try {
-                    val citiesList: List<City> = citiesRepository.loadCities()
+                    val citiesList: List<City> = loadCities()
                         citiesDao.insertCities(citiesList.map {
                             it.asDatabaseObject()
                         })
@@ -49,6 +50,12 @@ class CityMediator(
                 return MediatorResult.Success(endOfPaginationReached = true)
             }
         }
+    }
+
+    suspend fun loadCities(): List<City> {
+        val response = weatherService.getCitiesFile()
+        val decodedString = citiesParser.decompressGZip(response)
+        return citiesParser.parseJson(decodedString)
     }
 
 }

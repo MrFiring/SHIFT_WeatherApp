@@ -20,7 +20,8 @@ class WeatherApplication: Application() {
                     databaseModule,
                     networkModule,
                     repositoryModule,
-                    viewModelModule
+                    viewModelModule,
+                    useCaseModule
             )
         }
     }

@@ -14,8 +14,6 @@ import ru.mrfiring.shiftweatherapp.domain.asDomainObject
 class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
     private val citiesDao: CitiesDao,
     private val cityMediator: CityMediator,
-    private val weatherService: OpenWeatherService,
-    private val citiesParser: CitiesParser
 ): CitiesRepository {
 
     @ExperimentalPagingApi
@@ -33,11 +31,5 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
                 item.asDomainObject()
             }
         }
-    }
-
-    override suspend fun loadCities(): List<City> {
-        val response = weatherService.getCitiesFile()
-        val decodedString = citiesParser.decompressGZip(response)
-        return citiesParser.parseJson(decodedString)
     }
 }
