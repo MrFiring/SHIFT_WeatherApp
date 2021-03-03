@@ -1,7 +1,5 @@
 package ru.mrfiring.shiftweatherapp.repository
 
-
-import android.content.Context
 import androidx.lifecycle.*
 import androidx.paging.*
 import kotlinx.coroutines.Dispatchers
@@ -10,15 +8,14 @@ import ru.mrfiring.shiftweatherapp.repository.database.*
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.repository.domain.asDomainObject
-import ru.mrfiring.shiftweatherapp.repository.network.CitiesParser
-import ru.mrfiring.shiftweatherapp.repository.network.City
-import ru.mrfiring.shiftweatherapp.repository.network.OpenWeatherApi
-import ru.mrfiring.shiftweatherapp.repository.network.asDatabaseObject
+import ru.mrfiring.shiftweatherapp.repository.network.*
 import ru.mrfiring.shiftweatherapp.repository.paging.CityMediator
 
-class WeatherRepository(context: Context) {
-    private val database = getDatabase(context)
-
+class WeatherRepository @ExperimentalPagingApi constructor(
+        private val database: WeatherDatabase,
+        private val networkService: OpenWeatherService,
+        private val cityMediator: CityMediator
+) {
     suspend fun getWeather(id: Long): DomainWeatherContainer?{
          val container: DatabaseWeatherContainer? = database.weatherDao.getWeatherContainerById(id)
 
@@ -37,7 +34,7 @@ class WeatherRepository(context: Context) {
         return Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = pagingSourceFactory,
-            remoteMediator = CityMediator(OpenWeatherApi.openWeatherService, database),
+            remoteMediator = cityMediator,
 
         ).liveData.map {
             it.map { item ->
@@ -46,23 +43,10 @@ class WeatherRepository(context: Context) {
         }
     }
 
-    private suspend fun loadCitiesFromServer(){
-        withContext(Dispatchers.IO){
-            val responseBody = OpenWeatherApi.openWeatherService.getCitiesFile()
-            val parser = CitiesParser()
-            val rawData = parser.decompressGZip(responseBody)
-            val list: List<City> = parser.parseJson(rawData)
-
-            database.citiesDao.insertCities(list.map {
-                it.asDatabaseObject()
-            })
-        }
-    }
-
     suspend fun updateWeatherFromServer(id: Long){
         withContext(Dispatchers.IO){
             val dbCity = database.citiesDao.getCityById(id)
-            val container = OpenWeatherApi.openWeatherService.getWeatherContainerByCoordinates(
+            val container = networkService.getWeatherContainerByCoordinates(
                 dbCity.latitude, dbCity.longitude
             )
 
@@ -86,14 +70,4 @@ class WeatherRepository(context: Context) {
         }
     }
 
-}
-
-private lateinit var INSTANCE: WeatherRepository
-fun getRepository(context: Context): WeatherRepository {
-    synchronized(WeatherRepository::class.java){
-        if(!::INSTANCE.isInitialized){
-            INSTANCE = WeatherRepository(context)
-        }
-    }
-    return INSTANCE
 }
