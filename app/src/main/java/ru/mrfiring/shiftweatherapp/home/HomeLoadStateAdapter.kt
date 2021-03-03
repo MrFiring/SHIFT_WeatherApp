@@ -20,11 +20,6 @@ class HomeLoadStateAdapter(
         return ViewHolder.from(parent)
     }
 
-    override fun displayLoadStateAsItem(loadState: LoadState): Boolean {
-        Log.d("stateadapter", "Current status of loadState $loadState")
-        return loadState is LoadState.Loading || loadState is LoadState.Error || loadState is LoadState.NotLoading
-    }
-
     class ViewHolder(private val binding: ItemLoaderBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(loadState: LoadState, onRetryListener: OnRetryListener){
