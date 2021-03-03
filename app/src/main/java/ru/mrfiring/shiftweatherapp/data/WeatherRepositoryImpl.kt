@@ -14,14 +14,10 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
         private val citiesDao: CitiesDao,
         private val networkService: OpenWeatherService,
 ): WeatherRepository {
-    override suspend fun getWeather(id: Long): DomainWeatherContainer?{
-         val container: DatabaseWeatherContainer? = weatherDao.getWeatherContainerById(id)
+    override suspend fun getWeather(id: Long): DomainWeatherContainer{
+         val container: DatabaseWeatherContainer = weatherDao.getWeatherContainerById(id)
 
-         container?.let {
-             return container.asDomainObject()
-         }
-
-        return null
+        return container.asDomainObject()
     }
     override suspend fun updateWeatherFromServer(id: Long){
         withContext(Dispatchers.IO){
