@@ -28,17 +28,3 @@ interface OpenWeatherService{
         @Query("appid") apiKey: String = API_KEY
     ): WeatherContainer
 }
-
-//object OpenWeatherApi{
-//    val moshi: Moshi = Moshi.Builder()
-//        .build()
-//
-//
-//    private val retrofit = Retrofit.Builder()
-//        .baseUrl(BASE_URL)
-//        .addConverterFactory(MoshiConverterFactory.create())
-//        .build()
-//
-//    val openWeatherService: OpenWeatherService = retrofit.create(OpenWeatherService::class.java)
-//}
-
