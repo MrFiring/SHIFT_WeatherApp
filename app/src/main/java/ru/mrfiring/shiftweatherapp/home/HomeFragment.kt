@@ -1,6 +1,5 @@
 package ru.mrfiring.shiftweatherapp.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,23 +9,21 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import androidx.paging.LoadState
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.mrfiring.shiftweatherapp.databinding.HomeFragmentBinding
 
 class HomeFragment : Fragment() {
+
+    @ExperimentalPagingApi
+    private val viewModel: HomeViewModel by sharedViewModel<HomeViewModel>()
+
     @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding = HomeFragmentBinding.inflate(layoutInflater)
-        val application = requireNotNull(activity).application
-        val viewModelFactory = HomeViewModelFactory(application)
-
-        val viewModel: HomeViewModel = ViewModelProvider(this,
-            viewModelFactory).get(HomeViewModel::class.java)
-
         val adapter = HomeRecyclerViewAdapter(
                 HomeRecyclerViewAdapter.ClickListener {
                     viewModel.onCityClicked(it)

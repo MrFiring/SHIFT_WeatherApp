@@ -1,18 +1,17 @@
 package ru.mrfiring.shiftweatherapp.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.mrfiring.shiftweatherapp.R
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.databinding.DetailFragmentBinding
 
 enum class ApiStatus { LOADING, ERROR, DONE}
 
 class DetailFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,11 +19,7 @@ class DetailFragment : Fragment() {
         val binding = DetailFragmentBinding.inflate(inflater)
         val application = requireNotNull(activity).application
         val argument = DetailFragmentArgs.fromBundle(requireArguments())
-
-        val viewModelFactory = DetailViewModelFactory(application, argument.cityId)
-
-        val viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(DetailViewModel::class.java)
+        val viewModel: DetailViewModel by sharedViewModel { parametersOf(argument.cityId)}
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
