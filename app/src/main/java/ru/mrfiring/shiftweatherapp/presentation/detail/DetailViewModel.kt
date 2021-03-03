@@ -5,10 +5,15 @@ import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
+import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 
-class DetailViewModel(private val cityId: Long, application: Application, private val repository: WeatherRepository) : AndroidViewModel(application) {
+class DetailViewModel(private val cityId: Long,
+                      application: Application,
+                      private val updateWeatherUseCase: UpdateWeatherUseCase,
+                      private val getWeatherUseCase: GetWeatherUseCase
+) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
     get() = _status
@@ -44,8 +49,8 @@ class DetailViewModel(private val cityId: Long, application: Application, privat
     private fun refreshWeather() = viewModelScope.launch {
         try {
                 _status.value = ApiStatus.LOADING
-                repository.updateWeatherFromServer(cityId)
-                _container.value = repository.getWeather(cityId)
+               updateWeatherUseCase(cityId)
+                _container.value = getWeatherUseCase(cityId)!!
                 _status.value = ApiStatus.DONE
         }
         catch (ex: Exception){
