@@ -69,18 +69,3 @@ abstract class WeatherDatabase: RoomDatabase(){
     abstract val citiesDao: CitiesDao
     abstract val weatherDao: WeatherDao
 }
-
-private lateinit var INSTANCE: WeatherDatabase
-fun getDatabase(context: Context): WeatherDatabase{
-    synchronized(WeatherDatabase::class.java){
-        if(!::INSTANCE.isInitialized){
-            INSTANCE = Room.databaseBuilder(
-                context.applicationContext,
-                WeatherDatabase::class.java, "weather_db"
-                )
-                .fallbackToDestructiveMigration()
-                .build()
-        }
-    }
-    return INSTANCE
-}
