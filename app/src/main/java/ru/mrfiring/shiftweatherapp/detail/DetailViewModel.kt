@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
+import ru.mrfiring.shiftweatherapp.repository.WeatherRepository
 import ru.mrfiring.shiftweatherapp.repository.domain.DomainWeatherContainer
-import ru.mrfiring.shiftweatherapp.repository.getRepository
 
-class DetailViewModel(application: Application, private val cityId: Long) : AndroidViewModel(application) {
+class DetailViewModel(private val cityId: Long, application: Application, private val repository: WeatherRepository) : AndroidViewModel(application) {
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
     get() = _status
@@ -16,8 +16,6 @@ class DetailViewModel(application: Application, private val cityId: Long) : Andr
     private val _container = MutableLiveData<DomainWeatherContainer>()
     val container: LiveData<DomainWeatherContainer>
     get() = _container
-
-    val repository = getRepository(application.applicationContext)
 
     val formattedTemperature: LiveData<String> = Transformations.map(_container){
         application.resources.getString(R.string.temp_format, it.mainParams.temp)

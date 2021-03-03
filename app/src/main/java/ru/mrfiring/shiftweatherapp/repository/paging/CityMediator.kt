@@ -7,6 +7,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.koin.java.KoinJavaComponent.inject
 import retrofit2.HttpException
 import ru.mrfiring.shiftweatherapp.repository.database.DatabaseCity
 import ru.mrfiring.shiftweatherapp.repository.database.WeatherDatabase
@@ -16,7 +17,8 @@ import java.io.IOException
 @ExperimentalPagingApi
 class CityMediator(
     private val weatherService: OpenWeatherService,
-    val database: WeatherDatabase
+    val database: WeatherDatabase,
+    private val citiesParser: CitiesParser
 ) : RemoteMediator<Int, DatabaseCity>() {
 
     override suspend fun load(
@@ -55,8 +57,7 @@ class CityMediator(
 
     private suspend fun loadCities(): List<City> {
         val response = weatherService.getCitiesFile()
-        val parser = CitiesParser()
-        val decodedString = parser.decompressGZip(response)
-        return parser.parseJson(decodedString)
+        val decodedString = citiesParser.decompressGZip(response)
+        return citiesParser.parseJson(decodedString)
     }
 }
