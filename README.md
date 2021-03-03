@@ -8,7 +8,7 @@ Application is able to:
 
 
 ## Preview
-Main screen with list of cities (Flag of the country (not implemented yet:), Name of the city and short country name ).
+Main screen with list of cities (Flag of the country, Name of the city and short country name ).
 
 ![MainScreen Preview](/imgs/mainscreen.jpg)
 
