@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -28,6 +26,7 @@ import ru.mrfiring.shiftweatherapp.data.network.IMG_URL
 import ru.mrfiring.shiftweatherapp.domain.DomainMainWeatherParameters
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainWeather
+import ru.mrfiring.shiftweatherapp.presentation.ShowLoading
 
 enum class ApiStatus { LOADING, ERROR, DONE}
 
@@ -58,8 +57,8 @@ class DetailFragment : Fragment() {
 fun WeatherCard(domainWeather: DomainWeather) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+                .fillMaxWidth()
+                .padding(16.dp),
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -72,9 +71,9 @@ fun WeatherCard(domainWeather: DomainWeather) {
                 contentDescription = "Weather image",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(100.dp)
-                    .width(100.dp)
-                    .padding(0.dp, 8.dp)
+                        .height(100.dp)
+                        .width(100.dp)
+                        .padding(0.dp, 8.dp)
             )
 
             Text(
@@ -85,7 +84,7 @@ fun WeatherCard(domainWeather: DomainWeather) {
             Text(
                 text = domainWeather.description,
                 modifier = Modifier.padding(4.dp),
-                style = MaterialTheme.typography.caption
+                style = MaterialTheme.typography.subtitle1
             )
 
         }
@@ -96,8 +95,8 @@ fun WeatherCard(domainWeather: DomainWeather) {
 fun MainParametersCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
+                .fillMaxWidth()
+                .padding(16.dp),
     ) {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -168,7 +167,7 @@ fun Details(viewModel: DetailViewModel){
             MainParametersCard(params!!.mainParams)
         }
     }else {
-        Text(text = "HELLO WORLD", style = MaterialTheme.typography.h3)
+        ShowLoading()
     }
 
 }
