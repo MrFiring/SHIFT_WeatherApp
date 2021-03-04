@@ -1,10 +1,10 @@
 package ru.mrfiring.shiftweatherapp.domain
 
-import androidx.lifecycle.LiveData
-import androidx.paging.*
-import ru.mrfiring.shiftweatherapp.data.network.City
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
 
 interface CitiesRepository {
     @ExperimentalPagingApi
-    fun getCitiesLiveData(): LiveData<PagingData<DomainCity>>
+    fun getCitiesLiveData(): Flow<PagingData<DomainCity>>
 }

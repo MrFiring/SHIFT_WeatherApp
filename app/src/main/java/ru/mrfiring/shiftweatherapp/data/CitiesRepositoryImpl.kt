@@ -1,11 +1,9 @@
 package ru.mrfiring.shiftweatherapp.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.paging.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
-import ru.mrfiring.shiftweatherapp.data.network.City
-import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
 import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
@@ -17,7 +15,7 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
 ): CitiesRepository {
 
     @ExperimentalPagingApi
-    override fun getCitiesLiveData(): LiveData<PagingData<DomainCity>> {
+    override fun getCitiesLiveData(): Flow<PagingData<DomainCity>> {
         val pagingSourceFactory = {
             citiesDao.getCities()
         }
@@ -26,7 +24,7 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
             pagingSourceFactory = pagingSourceFactory,
             remoteMediator = cityMediator,
 
-            ).liveData.map {
+            ).flow.map {
             it.map { item ->
                 item.asDomainObject()
             }

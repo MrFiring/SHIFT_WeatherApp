@@ -9,38 +9,38 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
-import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
-import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import kotlinx.coroutines.flow.Flow
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
+import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 
 @ExperimentalPagingApi
 class HomeViewModel(application: Application,
-                    private val getCitiesLiveDataUseCase: GetCitiesLiveDataUseCase
+                    private val getCitiesFlowUseCase: GetCitiesLiveDataUseCase
 ) : AndroidViewModel(application) {
 
     private val _status = MutableLiveData<ApiStatus>()
     val status: LiveData<ApiStatus>
-    get() = _status
+        get() = _status
 
     private val _navigateToDetails = SingleLiveEvent<DomainCity?>()
     val navigateToDetails: LiveData<DomainCity?>
-    get() = _navigateToDetails
+        get() = _navigateToDetails
 
-    private var _cities = MutableLiveData<PagingData<DomainCity>>()
-    val cities: LiveData<PagingData<DomainCity>>
-    get() = _cities
+    private lateinit var _cities: Flow<PagingData<DomainCity>>
+    val cities: Flow<PagingData<DomainCity>>
+        get() = _cities
 
-    init{
+    init {
         bindData()
     }
 
 
     @ExperimentalPagingApi
     private fun bindData() {
-            _cities = getCitiesLiveDataUseCase().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
+        _cities = getCitiesFlowUseCase().cachedIn(viewModelScope)
     }
 
     fun onCityClicked(city: DomainCity) {
