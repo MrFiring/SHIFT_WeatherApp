@@ -8,7 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainWind
 
 @Composable
@@ -16,23 +18,29 @@ fun WindCard(domainWind: DomainWind) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            val formattedDirection =
+                stringResource(id = R.string.direction_format, domainWind.degToWord())
+            val formattedSpeed = stringResource(id = R.string.speed_format, domainWind.speed)
             Text(
-                text = "Direction of wind is ${domainWind.degToWord()}"
+                text = formattedDirection
             )
             Text(
-                text = "Speed: ${domainWind.speed}",
+                text = formattedSpeed,
                 modifier = Modifier.padding(4.dp)
             )
             if (domainWind.gust > 0) {
+                val formattedGust = stringResource(id = R.string.gust_format, domainWind.gust)
                 Text(
-                    text = "Gust up to ${domainWind.gust}"
+                    text = formattedGust
                 )
+            } else {
+                Text(text = stringResource(id = R.string.no_gust))
             }
 
         }

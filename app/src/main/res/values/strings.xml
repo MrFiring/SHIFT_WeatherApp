@@ -7,4 +7,8 @@
     <string name="retry">Retry</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="network_error">Something went wrong…</string>
+    <string name="direction_format">Direction of wind is %1$s</string>
+    <string name="speed_format">Speed: %1$.1f m/s</string>
+    <string name="gust_format">Gust up to %1$.1f</string>
+    <string name="no_gust">Without gust</string>
 </resources>
