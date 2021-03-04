@@ -14,23 +14,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import dev.chrisbanes.accompanist.glide.GlideImage
-import org.koin.androidx.compose.getViewModel
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
+import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.presentation.Navigations
 
 @ExperimentalPagingApi
 @Composable
-fun HomeScreen(navController: NavController, viewModel: HomeViewModel = getViewModel()) {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: HomeViewModel = getViewModel()
+) {
     val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
     LazyColumn {
         items(lazyPagingItems) {
             it?.let { city ->
-                CityItem(domainCity = city) {}
+                CityItem(domainCity = city) {
+                    navController.navigate("${Navigations.Details}/${city.id}")
+                }
             }
         }
     }
