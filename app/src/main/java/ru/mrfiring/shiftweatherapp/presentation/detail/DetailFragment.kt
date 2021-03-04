@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
 import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.data.network.IMG_URL
@@ -37,8 +38,8 @@ class DetailFragment : Fragment() {
     ): View? {
 
         val argument = DetailFragmentArgs.fromBundle(requireArguments())
-//        val viewModel: DetailViewModel by sharedViewModel { parametersOf(argument.cityId)}
-        val viewModel: DetailViewModel = getSharedViewModel { parametersOf(argument.cityId)}
+
+        val viewModel: DetailViewModel = getViewModel { parametersOf(argument.cityId)}
         viewModel.refreshWeather()
         return ComposeView(requireContext()).apply {
             setContent {
