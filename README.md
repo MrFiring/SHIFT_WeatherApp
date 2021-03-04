@@ -7,7 +7,7 @@ Application is able to:
 * Cache the data
 
 
-## Preview
+## Preview (Deprecated)
 Main screen with list of cities (Flag of the country, Name of the city and short country name ).
 
 ![MainScreen Preview](/imgs/mainscreen.jpg)
