@@ -6,4 +6,5 @@
     <string name="pressure_format">Давление: %1$d кПа</string>
     <string name="retry">Retry</string>
     <string name="something_went_wrong">Something went wrong</string>
+    <string name="network_error">Something went wrong...</string>
 </resources>
