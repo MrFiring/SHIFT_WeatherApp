@@ -16,7 +16,7 @@ buildscript {
         version_coroutines = "1.0.1"
         version_mdc = "1.4.0-alpha01"
         version_paging = "3.0.0-beta01"
-        version_koin = '2.2.2'
+        version_koin = '3.0.1-alpha-6'
     }
     repositories {
         google()
@@ -26,7 +26,6 @@ buildscript {
         classpath 'com.android.tools.build:gradle:7.0.0-alpha08'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
-        classpath "org.koin:koin-gradle-plugin:$version_koin"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
