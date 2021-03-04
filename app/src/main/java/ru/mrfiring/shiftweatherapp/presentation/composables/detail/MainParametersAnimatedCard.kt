@@ -1,6 +1,5 @@
 package ru.mrfiring.shiftweatherapp.presentation.composables.detail
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -15,7 +14,6 @@ import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainMainWeatherParameters
 
 
-@ExperimentalAnimationApi
 @Composable
 fun MainParametersAnimatedCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
     Card(
