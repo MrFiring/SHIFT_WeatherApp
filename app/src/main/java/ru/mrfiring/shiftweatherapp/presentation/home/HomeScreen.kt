@@ -24,6 +24,7 @@ import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
+import ru.mrfiring.shiftweatherapp.presentation.ShowAppBar
 
 @ExperimentalPagingApi
 @Composable
@@ -32,11 +33,15 @@ fun HomeScreen(
     viewModel: HomeViewModel = getViewModel()
 ) {
     val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
-    LazyColumn {
-        items(lazyPagingItems) {
-            it?.let { city ->
-                CityItem(domainCity = city) {
-                    navController.navigate("${Navigations.Details}/${city.id}")
+    Column {
+        ShowAppBar("Weather")
+
+        LazyColumn {
+            items(lazyPagingItems) {
+                it?.let { city ->
+                    CityItem(domainCity = city) {
+                        navController.navigate("${Navigations.Details}/${city.id}")
+                    }
                 }
             }
         }
