@@ -43,14 +43,14 @@ class DetailViewModel(private val cityId: Long,
 
 
     init{
-        refreshWeather()
+
     }
 
-    private fun refreshWeather() = viewModelScope.launch {
+    fun refreshWeather() = viewModelScope.launch {
         try {
                 _status.value = ApiStatus.LOADING
                updateWeatherUseCase(cityId)
-                _container.value = getWeatherUseCase(cityId)!!
+                _container.value = getWeatherUseCase(cityId)
                 _status.value = ApiStatus.DONE
         }
         catch (ex: Exception){
