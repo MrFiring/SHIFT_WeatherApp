@@ -19,6 +19,7 @@ import ru.mrfiring.shiftweatherapp.presentation.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WeatherCard
+import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WindCard
 
 enum class ApiStatus { LOADING, ERROR, DONE}
 
@@ -57,6 +58,7 @@ fun Details(viewModel: DetailViewModel) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 WeatherCard(params!!.weather)
                 MainParametersAnimatedCard(params!!.mainParams)
+                WindCard(domainWind = params!!.wind)
             }
         }
         else -> {
