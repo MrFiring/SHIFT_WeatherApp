@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.databinding.DetailFragmentBinding
@@ -19,7 +21,7 @@ class DetailFragment : Fragment() {
         val binding = DetailFragmentBinding.inflate(inflater)
         val application = requireNotNull(activity).application
         val argument = DetailFragmentArgs.fromBundle(requireArguments())
-        val viewModel: DetailViewModel by sharedViewModel { parametersOf(argument.cityId)}
+        val viewModel: DetailViewModel = getViewModel { parametersOf(argument.cityId)}
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
