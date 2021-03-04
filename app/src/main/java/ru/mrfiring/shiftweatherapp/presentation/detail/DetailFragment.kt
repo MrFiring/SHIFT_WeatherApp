@@ -56,8 +56,8 @@ fun Details(viewModel: DetailViewModel) {
         }
         ApiStatus.DONE -> {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                WeatherCard(params!!.weather)
                 MainParametersAnimatedCard(params!!.mainParams)
+                WeatherCard(params!!.weather)
                 WindCard(domainWind = params!!.wind)
             }
         }
