@@ -1,16 +1,18 @@
 package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.di.getViewModel
-import ru.mrfiring.shiftweatherapp.presentation.ShowAppBar
-import ru.mrfiring.shiftweatherapp.presentation.ShowLoading
-import ru.mrfiring.shiftweatherapp.presentation.ShowNetworkError
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WeatherCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WindCard
@@ -29,7 +31,7 @@ fun DetailScreen(
         ShowAppBar(title = "Weather Details")
         when (status) {
             ApiStatus.LOADING -> {
-                ShowLoading()
+                ShowLoading(modifier = Modifier.fillMaxSize())
             }
             ApiStatus.DONE -> {
                 params?.let {
@@ -41,7 +43,10 @@ fun DetailScreen(
                 }
             }
             else -> {
-                ShowNetworkError(viewModel::onRetryPressed)
+                ShowNetworkError(
+                    modifier = Modifier.fillMaxSize(),
+                    onRetry = viewModel::onRetryPressed
+                )
             }
 
         }
