@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation
+package ru.mrfiring.shiftweatherapp.presentation.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,11 +26,15 @@ fun ShowAppBar(title: String) {
 }
 
 @Composable
-fun ShowLoading() {
+fun ShowLoading(
+    modifier: Modifier = Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
+) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxSize()
+        horizontalAlignment = horizontalAlignment,
+        verticalArrangement = verticalArrangement,
+        modifier = modifier
     ) {
         CircularProgressIndicator()
         Text(
@@ -41,10 +45,16 @@ fun ShowLoading() {
 }
 
 @Composable
-fun ShowNetworkError(onRetry: () -> Unit) {
+fun ShowNetworkError(
+    modifier: Modifier = Modifier,
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    verticalArrangement: Arrangement.Vertical = Arrangement.Center,
+    onRetry: () -> Unit
+) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        horizontalAlignment = horizontalAlignment,
+        verticalArrangement = verticalArrangement,
+        modifier = modifier
     ) {
         val errorImg = painterResource(id = R.drawable.ic_connection_error)
         val text = stringResource(id = R.string.network_error)
