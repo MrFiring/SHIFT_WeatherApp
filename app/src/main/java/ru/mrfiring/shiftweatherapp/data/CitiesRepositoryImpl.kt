@@ -19,7 +19,12 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
             citiesDao.getCities()
         }
         return Pager(
-            config = PagingConfig(pageSize = 40),
+            config = PagingConfig(
+                pageSize = 40,
+                //If maxSize isn't set it will lead to OutOfMemory.
+                //Due to by default maxSize has value of infinity it means that page never will be dropped
+                maxSize = 130 //maxSize = pageSize + 2*preFetchSize + 10 (from me)
+            ),
             pagingSourceFactory = pagingSourceFactory,
             remoteMediator = cityMediator,
 
