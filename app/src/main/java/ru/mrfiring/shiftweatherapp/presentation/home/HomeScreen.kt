@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import dev.chrisbanes.accompanist.glide.GlideImage
@@ -24,7 +25,9 @@ import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
-import ru.mrfiring.shiftweatherapp.presentation.ShowAppBar
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
+import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 
 @ExperimentalPagingApi
 @Composable
@@ -44,10 +47,28 @@ fun HomeScreen(
                     }
                 }
             }
+
+            lazyPagingItems.apply {
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        item { ShowLoading(modifier = Modifier.fillMaxSize()) }
+                    }
+                    is LoadState.Error -> {
+                        item {
+                            ShowNetworkError(
+                                modifier = Modifier.fillMaxSize(),
+                                onRetry = lazyPagingItems::retry
+                            )
+                        }
+                    }
+                    //Do nothing
+                    else -> {
+                    }
+                }
+            }
         }
     }
 }
-
 
 @Composable
 fun CityItem(domainCity: DomainCity, onClick: () -> Unit) {
