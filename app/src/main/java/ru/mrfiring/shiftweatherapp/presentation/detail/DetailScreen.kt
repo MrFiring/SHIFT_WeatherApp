@@ -25,17 +25,19 @@ fun DetailScreen(
 ) {
     val params by viewModel.container.observeAsState()
     val status by viewModel.status.observeAsState()
-    Column() {
+    Column {
         ShowAppBar(title = "Weather Details")
         when (status) {
             ApiStatus.LOADING -> {
                 ShowLoading()
             }
             ApiStatus.DONE -> {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    MainParametersAnimatedCard(params!!.mainParams)
-                    WeatherCard(params!!.weather)
-                    WindCard(domainWind = params!!.wind)
+                params?.let {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        MainParametersAnimatedCard(params!!.mainParams)
+                        WeatherCard(params!!.weather)
+                        WindCard(domainWind = params!!.wind)
+                    }
                 }
             }
             else -> {
