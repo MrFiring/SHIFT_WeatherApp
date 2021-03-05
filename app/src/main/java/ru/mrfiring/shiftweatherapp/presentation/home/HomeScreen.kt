@@ -48,7 +48,9 @@ fun HomeScreen(
                 }
             }
 
+            //Show loading state by appending item to the LazyColumn
             lazyPagingItems.apply {
+                //Only check refresh state. Others are minor.
                 when (loadState.refresh) {
                     is LoadState.Loading -> {
                         item { ShowLoading(modifier = Modifier.fillMaxSize()) }
