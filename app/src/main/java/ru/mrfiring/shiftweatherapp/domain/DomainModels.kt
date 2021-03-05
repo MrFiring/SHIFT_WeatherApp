@@ -1,6 +1,5 @@
 package ru.mrfiring.shiftweatherapp.domain
 
-import ru.mrfiring.shiftweatherapp.data.database.*
 import kotlin.math.roundToInt
 
 
@@ -48,6 +47,8 @@ data class DomainWind(
     val deg: Double,
     val gust: Double
 ) {
+    //The variable deg show the direction of wind (where it comes from),
+    //So that we start to count from North it's zero deg
     fun degToWord(): String {
         when (deg.roundToInt()) {
             0 -> {
@@ -93,38 +94,4 @@ data class DomainSnow(
     val forLastThreeHours: Double
 )
 
-fun DatabaseCity.asDomainObject(): DomainCity = DomainCity(
-    id, name, state, country, longitude, latitude
-)
-
-fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWeatherContainer(
-        lastUpdate,
-        timeZone,
-        clouds,
-        weather.asDomainObject(),
-        mainParams.asDomainObject(),
-        wind.asDomainObject(),
-        rain?.asDomainObject(),
-        snow?.asDomainObject()
-)
-
-fun DatabaseWeather.asDomainObject(): DomainWeather = DomainWeather(
-    weatherId, main, description, icon
-)
-
-fun DatabaseMainWeatherParameters.asDomainObject(): DomainMainWeatherParameters = DomainMainWeatherParameters(
-    temp, feelsLike, tempMin, tempMax, pressure, humidity, pressureAtSeaLevel, pressureAtGroundLevel
-)
-
-fun DatabaseWind.asDomainObject(): DomainWind = DomainWind(
-   speed, deg, gust
-)
-
-fun DatabaseRain.asDomainObject(): DomainRain = DomainRain(
-    forLastOneHour, forLastThreeHours
-)
-
-fun DatabaseSnow.asDomainObject(): DomainSnow = DomainSnow(
-    forLastOneHour, forLastThreeHours
-)
 
