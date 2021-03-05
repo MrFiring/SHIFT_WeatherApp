@@ -130,5 +130,5 @@ dependencies {
     implementation "androidx.compose.runtime:runtime-rxjava2:$version_compose"
     implementation "androidx.compose.compiler:compiler:$version_compose"
     //ConstraintLayout Compose
-    implementation "androidx.constraintlayout:constraintlayout-compose:$version_compose_minor"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha03"
 }
