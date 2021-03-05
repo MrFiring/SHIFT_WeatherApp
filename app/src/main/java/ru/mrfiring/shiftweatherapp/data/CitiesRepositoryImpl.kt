@@ -19,7 +19,7 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
             citiesDao.getCities()
         }
         return Pager(
-            config = PagingConfig(pageSize = 20),
+            config = PagingConfig(pageSize = 40),
             pagingSourceFactory = pagingSourceFactory,
             remoteMediator = cityMediator,
 
