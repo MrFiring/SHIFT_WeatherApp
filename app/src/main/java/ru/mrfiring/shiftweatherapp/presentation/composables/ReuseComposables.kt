@@ -13,8 +13,9 @@ import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 
 @Composable
-fun ShowAppBar(title: String) {
+fun ShowAppBar(title: String, modifier: Modifier = Modifier) {
     TopAppBar(
+        modifier = modifier,
         title = {
             Text(
                 text = title,
