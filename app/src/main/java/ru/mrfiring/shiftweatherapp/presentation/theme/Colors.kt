@@ -31,6 +31,6 @@ internal val LightColors = lightColors(
     secondary = Orange800,
     secondaryVariant = Color.White,
     onSecondary = Color.Black,
-    background = Color.Blue,
+    background = Color.White,
     surface = LightBack
 )
