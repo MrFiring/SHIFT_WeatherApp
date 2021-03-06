@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
+import androidx.navigation.compose.popUpTo
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -36,14 +38,19 @@ fun HomeScreen(
     viewModel: HomeViewModel = getViewModel()
 ) {
     val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
+    val lazyListState = rememberLazyListState()
+
     Column {
         ShowAppBar("Weather")
 
-        LazyColumn {
+        LazyColumn(state = lazyListState) {
             items(lazyPagingItems) {
                 it?.let { city ->
                     CityItem(domainCity = city) {
-                        navController.navigate("${Navigations.Details}/${city.id}")
+                        navController.navigate("${Navigations.Details}/${city.id}") {
+                            //Need to navigateUp correctly on a real device
+                            popUpTo(Navigations.Home) { inclusive = false }
+                        }
                     }
                 }
             }
