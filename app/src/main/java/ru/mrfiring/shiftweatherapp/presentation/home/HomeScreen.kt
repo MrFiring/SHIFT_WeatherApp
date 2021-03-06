@@ -3,6 +3,7 @@ package ru.mrfiring.shiftweatherapp.presentation.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
@@ -20,6 +21,7 @@ import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
+import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 
 @ExperimentalPagingApi
@@ -51,7 +53,12 @@ fun HomeScreen(
                     //Only check refresh state. Others are minor.
                     when (loadState.refresh) {
                         is LoadState.Loading -> {
-                            item { ShowLoading(modifier = Modifier.fillMaxSize()) }
+                            item {
+                                ThemeAwareCard(modifier = Modifier.fillMaxWidth()) {
+                                    ShowLoading(modifier = Modifier.fillMaxSize())
+                                }
+                            }
+
                         }
                         is LoadState.Error -> {
                             item {
