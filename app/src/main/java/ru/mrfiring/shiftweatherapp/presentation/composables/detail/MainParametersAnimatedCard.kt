@@ -16,8 +16,7 @@ import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidt
 
 @Composable
 fun MainParametersAnimatedCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
-    CardWithPaddingAndFillWidth(
-    ) {
+    CardWithPaddingAndFillWidth {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally

@@ -15,11 +15,7 @@ import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidt
 
 @Composable
 fun WindCard(domainWind: DomainWind) {
-    CardWithPaddingAndFillWidth(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
+    CardWithPaddingAndFillWidth {
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
