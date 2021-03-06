@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation.composables.detail
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -12,11 +11,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
 
 
 @Composable
 fun MainParametersAnimatedCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
-    Card(
+    ThemeAwareCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),

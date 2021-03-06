@@ -3,7 +3,6 @@ package ru.mrfiring.shiftweatherapp.presentation.composables.detail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -12,10 +11,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainWind
+import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
 
 @Composable
 fun WindCard(domainWind: DomainWind) {
-    Card(
+    ThemeAwareCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
