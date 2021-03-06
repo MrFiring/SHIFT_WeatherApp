@@ -11,11 +11,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainWind
-import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
+import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable
 fun WindCard(domainWind: DomainWind) {
-    ThemeAwareCard(
+    CardWithPaddingAndFillWidth(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)

@@ -11,15 +11,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.DomainMainWeatherParameters
-import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
+import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 
 @Composable
 fun MainParametersAnimatedCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
-    ThemeAwareCard(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
+    CardWithPaddingAndFillWidth(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),

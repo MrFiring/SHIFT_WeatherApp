@@ -15,17 +15,15 @@ import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
-import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
+import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable
 fun CityItem(domainCity: DomainCity, onClick: () -> Unit) {
-    ThemeAwareCard(
-        modifier = Modifier
-            .padding(4.dp)
-            .fillMaxWidth()
-            .clickable {
-                onClick()
-            }
+    CardWithPaddingAndFillWidth(
+        modifier = Modifier.clickable {
+            onClick()
+        },
+        padding = PaddingValues(4.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

@@ -11,11 +11,11 @@ import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.mrfiring.shiftweatherapp.data.network.IMG_URL
 import ru.mrfiring.shiftweatherapp.domain.DomainWeather
-import ru.mrfiring.shiftweatherapp.presentation.theme.ThemeAwareCard
+import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable
 fun WeatherCard(domainWeather: DomainWeather) {
-    ThemeAwareCard(
+    CardWithPaddingAndFillWidth(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),

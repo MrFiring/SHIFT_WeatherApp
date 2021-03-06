@@ -91,3 +91,17 @@ fun ShowNetworkError(
 
 
 }
+
+@Composable
+fun ThemeAwareCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Card(
+        modifier = modifier,
+        backgroundColor = if (MaterialTheme.colors.isLight) {
+            MaterialTheme.colors.background
+        } else {
+            MaterialTheme.colors.surface
+        }
+    ) {
+        content()
+    }
+}

@@ -1,19 +1,23 @@
 package ru.mrfiring.shiftweatherapp.presentation.theme
 
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 
 @Composable
-fun ThemeAwareCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Card(
-        modifier = modifier,
-        backgroundColor = if (MaterialTheme.colors.isLight) {
-            MaterialTheme.colors.background
-        } else {
-            MaterialTheme.colors.surface
-        }
+fun CardWithPaddingAndFillWidth(
+    modifier: Modifier = Modifier,
+    padding: PaddingValues = PaddingValues(8.dp),
+    content: @Composable () -> Unit
+) {
+    ThemeAwareCard(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(padding)
     ) {
         content()
     }
