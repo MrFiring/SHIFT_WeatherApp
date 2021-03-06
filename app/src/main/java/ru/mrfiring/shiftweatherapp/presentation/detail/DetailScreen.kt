@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -27,33 +28,35 @@ fun DetailScreen(
 ) {
     val container by viewModel.container.observeAsState()
     val status by viewModel.status.observeAsState()
-    Column {
-        ShowAppBar(title = "Weather Details")
+    Surface {
+        Column(modifier = Modifier.fillMaxSize()) {
+            ShowAppBar(title = "Weather Details")
 
-        //Check the status of data and show content or state of the load
-        when (status) {
-            //Show progress bar
-            ApiStatus.LOADING -> {
-                ShowLoading(modifier = Modifier.fillMaxSize())
-            }
-            //Elements are loaded successfully then show them
-            ApiStatus.DONE -> {
-                container?.let {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        MainParametersAnimatedCard(it.mainParams)
-                        WeatherCard(it.weather)
-                        WindCard(domainWind = it.wind)
+            //Check the status of data and show content or state of the load
+            when (status) {
+                //Show progress bar
+                ApiStatus.LOADING -> {
+                    ShowLoading(modifier = Modifier.fillMaxSize())
+                }
+                //Elements are loaded successfully then show them
+                ApiStatus.DONE -> {
+                    container?.let {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            MainParametersAnimatedCard(it.mainParams)
+                            WeatherCard(it.weather)
+                            WindCard(domainWind = it.wind)
+                        }
                     }
                 }
-            }
-            //Show network error message with retry button
-            else -> {
-                ShowNetworkError(
-                    modifier = Modifier.fillMaxSize(),
-                    onRetry = viewModel::onRetryPressed
-                )
-            }
+                //Show network error message with retry button
+                else -> {
+                    ShowNetworkError(
+                        modifier = Modifier.fillMaxSize(),
+                        onRetry = viewModel::onRetryPressed
+                    )
+                }
 
+            }
         }
     }
 
