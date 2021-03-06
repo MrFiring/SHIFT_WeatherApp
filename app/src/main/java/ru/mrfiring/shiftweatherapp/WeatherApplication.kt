@@ -16,12 +16,13 @@ class WeatherApplication: Application() {
             androidLogger()
             androidContext(this@WeatherApplication)
             modules(
-                    apiModule,
-                    databaseModule,
-                    networkModule,
-                    repositoryModule,
-                    viewModelModule,
-                    useCaseModule
+                apiModule,
+                databaseModule,
+                networkModule,
+                repositoryModule,
+                viewModelModule,
+                useCaseModule,
+                stateModule
             )
         }
     }
