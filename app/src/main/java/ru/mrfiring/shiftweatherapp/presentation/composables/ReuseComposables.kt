@@ -42,7 +42,13 @@ fun ShowLoading(
         verticalArrangement = verticalArrangement,
         modifier = modifier
     ) {
-        CircularProgressIndicator(color = MaterialTheme.colors.onPrimary)
+        CircularProgressIndicator(
+            color = if (MaterialTheme.colors.isLight) {
+                MaterialTheme.colors.primary
+            } else {
+                MaterialTheme.colors.onPrimary
+            }
+        )
         Text(
             text = "Loading...", style = MaterialTheme.typography.button,
             modifier = Modifier.padding(8.dp)
