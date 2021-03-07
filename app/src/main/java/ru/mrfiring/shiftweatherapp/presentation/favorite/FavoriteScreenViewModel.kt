@@ -41,4 +41,6 @@ class FavoriteScreenViewModel(
 
     }
 
+    fun onRetry() = bindFavorites()
+
 }
