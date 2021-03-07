@@ -14,16 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navArgument
-import androidx.navigation.compose.rememberNavController
+import androidx.navigation.compose.*
 import androidx.paging.ExperimentalPagingApi
+import ru.mrfiring.shiftweatherapp.R
+import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
-import ru.mrfiring.shiftweatherapp.presentation.composables.home.items
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
 import ru.mrfiring.shiftweatherapp.presentation.splash.SplashScreen
@@ -55,7 +53,26 @@ class MainActivity : ComponentActivity() {
                     drawerContent = {
                         HomeDrawerHeader { themeState.value = !themeState.value }
                         Divider(modifier = Modifier.padding(bottom = 8.dp))
-                        HomeDrawerContent(items)
+                        HomeDrawerContent(
+                            listOf(
+                                DomainDrawerMenuItem(
+                                    drawableId = R.drawable.ic_city_icon,
+                                    text = "Show cities",
+                                    onClick = { /*TODO*/ }),
+                                DomainDrawerMenuItem(
+                                    drawableId = R.drawable.ic_country_icon,
+                                    text = "Show countries",
+                                    onClick = { /*TODO*/ }),
+                                DomainDrawerMenuItem(
+                                    drawableId = R.drawable.ic_favorite,
+                                    text = "Favorites",
+                                    onClick = { navController.navigate(Navigations.Favorites) }),
+                                DomainDrawerMenuItem(
+                                    drawableId = R.drawable.ic_settings,
+                                    text = "Settings",
+                                    onClick = { /*TODO*/ })
+                            )
+                        )
                     }
                 ) {
                     MainNavigationGraph(navController = navController)
