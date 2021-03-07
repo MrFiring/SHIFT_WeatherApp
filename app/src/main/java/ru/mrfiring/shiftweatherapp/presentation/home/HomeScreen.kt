@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation.home
 
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +25,8 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
+import ru.mrfiring.shiftweatherapp.presentation.composables.home.ShowHomeDrawer
+
 @ExperimentalPagingApi
 @Composable
 fun HomeScreen(
@@ -37,49 +38,51 @@ fun HomeScreen(
     val lazyListState = rememberLazyListState()
 
     Surface(modifier = Modifier.fillMaxSize()) {
-        Column {
-            ShowAppBar(
-                title = "Weather",
-                modifier = Modifier.clickable { themeState.value = !themeState.value })
-
-            LazyColumn(state = lazyListState) {
-                items(lazyPagingItems) {
-                    it?.let { city ->
-                        CityItem(domainCity = city) {
-                            navController.navigate("${Navigations.Details}/${city.id}") {
-                                //Need to navigateUp correctly on a real device
-                                popUpTo(Navigations.Home) { inclusive = false }
+        ShowHomeDrawer(onBtnClick = { themeState.value = !themeState.value }) {
+            Column {
+                ShowAppBar(
+                    title = "Weather"
+                )
+                LazyColumn(state = lazyListState) {
+                    items(lazyPagingItems) {
+                        it?.let { city ->
+                            CityItem(domainCity = city) {
+                                navController.navigate("${Navigations.Details}/${city.id}") {
+                                    //Need to navigateUp correctly on a real device
+                                    popUpTo(Navigations.Home) { inclusive = false }
+                                }
                             }
                         }
                     }
-                }
 
-                //Show loading state by appending item to the LazyColumn
-                lazyPagingItems.apply {
-                    //Only check refresh state. Others are minor.
-                    when (loadState.refresh) {
-                        is LoadState.Loading -> {
-                            item {
-                                ThemeAwareCard(modifier = Modifier.fillMaxWidth()) {
-                                    ShowLoading(modifier = Modifier.fillMaxSize())
+                    //Show loading state by appending item to the LazyColumn
+                    lazyPagingItems.apply {
+                        //Only check refresh state. Others are minor.
+                        when (loadState.refresh) {
+                            is LoadState.Loading -> {
+                                item {
+                                    ThemeAwareCard(modifier = Modifier.fillMaxWidth()) {
+                                        ShowLoading(modifier = Modifier.fillMaxSize())
+                                    }
+                                }
+
+                            }
+                            is LoadState.Error -> {
+                                item {
+                                    ShowNetworkError(
+                                        modifier = Modifier.fillMaxSize(),
+                                        onRetry = lazyPagingItems::retry
+                                    )
                                 }
                             }
-
-                        }
-                        is LoadState.Error -> {
-                            item {
-                                ShowNetworkError(
-                                    modifier = Modifier.fillMaxSize(),
-                                    onRetry = lazyPagingItems::retry
-                                )
+                            //Do nothing
+                            else -> {
                             }
-                        }
-                        //Do nothing
-                        else -> {
                         }
                     }
                 }
             }
         }
+
     }
 }
