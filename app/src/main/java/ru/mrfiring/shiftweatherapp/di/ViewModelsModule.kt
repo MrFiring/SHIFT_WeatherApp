@@ -6,14 +6,19 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreenViewModel
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailViewModel
+import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreenViewModel
 
 @ExperimentalPagingApi
 val viewModelModule = module{
-    viewModel{
+    viewModel {
         CitiesScreenViewModel(androidApplication(), get())
     }
 
     viewModel {
-            (cityId: Long) -> DetailViewModel(cityId, androidApplication(), get(), get())
+        FavoriteScreenViewModel(androidApplication(), get(), get())
+    }
+
+    viewModel { (cityId: Long) ->
+        DetailViewModel(cityId, androidApplication(), get(), get())
     }
 }
