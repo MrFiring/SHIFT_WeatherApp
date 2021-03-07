@@ -26,6 +26,7 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.ShowHomeDrawer
+import ru.mrfiring.shiftweatherapp.presentation.composables.home.items
 
 @ExperimentalPagingApi
 @Composable
@@ -38,7 +39,7 @@ fun HomeScreen(
     val lazyListState = rememberLazyListState()
 
     Surface(modifier = Modifier.fillMaxSize()) {
-        ShowHomeDrawer(onBtnClick = { themeState.value = !themeState.value }) {
+        ShowHomeDrawer(onBtnClick = { themeState.value = !themeState.value }, items = items) {
             Column {
                 ShowAppBar(
                     title = "Weather"
