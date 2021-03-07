@@ -21,8 +21,7 @@ class WeatherApplication: Application() {
                 networkModule,
                 repositoryModule,
                 viewModelModule,
-                useCaseModule,
-                stateModule
+                useCaseModule
             )
         }
     }
