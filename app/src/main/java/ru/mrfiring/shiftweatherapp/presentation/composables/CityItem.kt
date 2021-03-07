@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.presentation.composables.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
@@ -9,6 +10,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
@@ -18,11 +21,16 @@ import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable
-fun CityItem(domainCity: DomainCity, onClick: () -> Unit) {
+fun CityItem(domainCity: DomainCity, onLongTap: (Offset) -> Unit = {}, onClick: (Offset) -> Unit) {
     CardWithPaddingAndFillWidth(
-        modifier = Modifier.clickable {
-            onClick()
-        },
+        modifier = Modifier
+            .pointerInput(Unit) { //To determine longPress and tap.
+                detectTapGestures(
+                    onLongPress = onLongTap,
+                    onTap = onClick
+                )
+            }
+            .clickable { }, //Only for ripple effect
         padding = PaddingValues(4.dp)
     ) {
         Row(
