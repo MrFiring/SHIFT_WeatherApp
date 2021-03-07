@@ -9,7 +9,8 @@ data class DomainCity(
     val state: String,
     val country: String,
     val longitude: Double,
-    val latitude: Double
+    val latitude: Double,
+    val favorite: Boolean
 )
 
 data class DomainWeatherContainer(

@@ -1,6 +1,5 @@
 package ru.mrfiring.shiftweatherapp.data.database
 
-import android.content.Context
 import androidx.paging.PagingSource
 import androidx.room.*
 
@@ -10,11 +9,14 @@ interface CitiesDao{
     @Query("select * from databasecity where country != '' order by country")
     fun getCities(): PagingSource<Int, DatabaseCity>
 
+    @Query("select * from databasecity where favorite = 1")
+    fun getFavoriteCities(): List<DatabaseCity>
+
     @Query("select * from databasecity where id = :id")
     suspend fun getCityById(id: Long): DatabaseCity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCities(items:  List<DatabaseCity>)
+    suspend fun insertCities(items: List<DatabaseCity>)
 
     @Query("select count(id) from databasecity")
     suspend fun getCountOfCities(): Int
@@ -63,7 +65,7 @@ interface WeatherDao{
         DatabaseRain::class,
         DatabaseSnow::class,
     ],
-    version = 4
+    version = 5
 )
 abstract class WeatherDatabase: RoomDatabase(){
     abstract val citiesDao: CitiesDao

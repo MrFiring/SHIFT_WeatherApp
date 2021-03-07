@@ -12,7 +12,8 @@ data class DatabaseCity(
     val state: String,
     val country: String,
     val longitude: Double,
-    val latitude: Double
+    val latitude: Double,
+    val favorite: Boolean = false
 )
 
 @Entity
