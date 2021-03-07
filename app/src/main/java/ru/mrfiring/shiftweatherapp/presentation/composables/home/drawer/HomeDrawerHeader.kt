@@ -3,9 +3,7 @@ package ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -30,28 +28,31 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             .padding(horizontal = 8.dp)
     ) {
         val switcher = painterResource(id = R.drawable.ic_theme_switcher)
-        Image(
-            painter = switcher,
-            contentDescription = "Switch theme",
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
-                .align(Alignment.End)
-                .padding(vertical = 8.dp)
-                .clickable { onClick() }
                 .background(
                     color = if (isLight) {
                         MaterialTheme.colors.surface
                     } else {
                         MaterialTheme.colors.secondary
                     }, shape = CircleShape
-                ),
-
-            colorFilter = if (isLight) {
-                ColorFilter.tint(MaterialTheme.colors.primary)
-            } else {
-                ColorFilter.tint(MaterialTheme.colors.onPrimary)
-            }
-
-        )
+                )
+                .align(Alignment.End)
+                .padding(8.dp)
+                .size(32.dp, 30.dp)
+        ) {
+            Image(
+                painter = switcher,
+                contentDescription = "Switch theme",
+                modifier = Modifier.clickable { onClick() },
+                colorFilter = if (isLight) {
+                    ColorFilter.tint(MaterialTheme.colors.primary)
+                } else {
+                    ColorFilter.tint(MaterialTheme.colors.onPrimary)
+                }
+            )
+        }
         Image(
             painter = painterResource(id = R.drawable.ic_launcher_foreground),
             contentDescription = "User avatar",
