@@ -37,7 +37,7 @@ fun SplashScreen(navController: NavController) {
                 )
         )
 
-        navController.navigate(Navigations.Home) {
+        navController.navigate(Navigations.Cities) {
             popUpTo(Navigations.Splash) {
                 inclusive = true
             }

@@ -40,7 +40,7 @@ fun CitiesScreen(
                         CityItem(domainCity = city) {
                             navController.navigate("${Navigations.Details}/${city.id}") {
                                 //Need to navigateUp correctly on a real device
-                                popUpTo(Navigations.Home) { inclusive = false }
+                                popUpTo(Navigations.Cities) { inclusive = false }
                             }
                         }
                     }
