@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.map
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
-import ru.mrfiring.shiftweatherapp.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
     private val citiesDao: CitiesDao,

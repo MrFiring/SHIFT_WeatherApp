@@ -8,8 +8,8 @@ import ru.mrfiring.shiftweatherapp.data.database.DatabaseWeather
 import ru.mrfiring.shiftweatherapp.data.database.DatabaseWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.database.WeatherDao
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
-import ru.mrfiring.shiftweatherapp.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
 
 class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
         private val weatherDao: WeatherDao,

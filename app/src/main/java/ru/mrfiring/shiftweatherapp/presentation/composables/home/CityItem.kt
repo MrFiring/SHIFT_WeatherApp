@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
-import ru.mrfiring.shiftweatherapp.domain.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable

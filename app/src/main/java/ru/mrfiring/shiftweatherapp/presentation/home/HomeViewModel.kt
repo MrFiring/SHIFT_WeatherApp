@@ -7,8 +7,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
-import ru.mrfiring.shiftweatherapp.domain.DomainCity
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 @ExperimentalPagingApi
 class HomeViewModel(application: Application,

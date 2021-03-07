@@ -10,7 +10,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.mrfiring.shiftweatherapp.data.network.IMG_URL
-import ru.mrfiring.shiftweatherapp.domain.DomainWeather
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWeather
 import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 @Composable

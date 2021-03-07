@@ -2,7 +2,7 @@ package ru.mrfiring.shiftweatherapp.data
 
 import ru.mrfiring.shiftweatherapp.data.database.*
 import ru.mrfiring.shiftweatherapp.data.network.*
-import ru.mrfiring.shiftweatherapp.domain.*
+import ru.mrfiring.shiftweatherapp.domain.models.*
 
 fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWeatherContainer(
     lastUpdate,

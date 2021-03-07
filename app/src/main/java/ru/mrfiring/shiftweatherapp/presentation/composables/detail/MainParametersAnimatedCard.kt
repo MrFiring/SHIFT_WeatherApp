@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.domain.DomainMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.domain.models.DomainMainWeatherParameters
 import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 
 

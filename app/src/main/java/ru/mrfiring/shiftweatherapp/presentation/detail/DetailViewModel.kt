@@ -7,9 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.mrfiring.shiftweatherapp.domain.DomainWeatherContainer
 import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
 
 class DetailViewModel(private val cityId: Long,
                       application: Application,
