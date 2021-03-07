@@ -32,7 +32,7 @@ fun DetailScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             ShowAppBar(title = "Weather Details")
 
-            //Check the status of data and show content or state of the load
+            //Check the status of data and show content or state of the loading
             when (status) {
                 //Show progress bar
                 ApiStatus.LOADING -> {
