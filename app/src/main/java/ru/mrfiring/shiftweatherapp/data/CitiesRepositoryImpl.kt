@@ -34,4 +34,8 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
             }
         }
     }
+
+    override suspend fun getFavoriteCities(): List<DomainCity> {
+        return citiesDao.getFavoriteCities().map { it.asDomainObject() }
+    }
 }

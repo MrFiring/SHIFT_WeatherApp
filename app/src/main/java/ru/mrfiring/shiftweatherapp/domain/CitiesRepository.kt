@@ -8,4 +8,6 @@ import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 interface CitiesRepository {
     @ExperimentalPagingApi
     fun getCitiesLiveData(): Flow<PagingData<DomainCity>>
+
+    suspend fun getFavoriteCities(): List<DomainCity>
 }
