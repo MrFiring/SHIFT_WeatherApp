@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation.composables.home
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.CircularProgressIndicator
@@ -29,8 +28,7 @@ fun CityItem(domainCity: DomainCity, onLongTap: (Offset) -> Unit = {}, onClick: 
                     onLongPress = onLongTap,
                     onTap = onClick
                 )
-            }
-            .clickable { }, //Only for ripple effect
+            },
         padding = PaddingValues(4.dp)
     ) {
         Row(
