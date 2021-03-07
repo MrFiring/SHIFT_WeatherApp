@@ -8,12 +8,14 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import kotlinx.coroutines.flow.Flow
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowUseCase
+import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 @ExperimentalPagingApi
 class CitiesScreenViewModel(
     application: Application,
-    private val getCitiesFlowUseCase: GetCitiesFlowUseCase
+    private val getCitiesFlowUseCase: GetCitiesFlowUseCase,
+    private val updateCityUseCase: UpdateCityUseCase
 ) : AndroidViewModel(application) {
 
     private lateinit var _cities: Flow<PagingData<DomainCity>>

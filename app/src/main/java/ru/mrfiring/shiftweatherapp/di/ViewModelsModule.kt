@@ -11,7 +11,7 @@ import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreenViewModel
 @ExperimentalPagingApi
 val viewModelModule = module{
     viewModel {
-        CitiesScreenViewModel(androidApplication(), get())
+        CitiesScreenViewModel(androidApplication(), get(), get())
     }
 
     viewModel {
