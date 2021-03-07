@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.domain
+package ru.mrfiring.shiftweatherapp.domain.models
 
 import kotlin.math.roundToInt
 
