@@ -8,7 +8,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -18,13 +19,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.ExperimentalPagingApi
-import org.koin.android.ext.android.inject
+import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.items
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
-import ru.mrfiring.shiftweatherapp.presentation.home.HomeScreen
 import ru.mrfiring.shiftweatherapp.presentation.splash.SplashScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val navController = rememberNavController()
-            val themeState by inject<MutableState<Boolean>>()
+            val themeState = remember { mutableStateOf(true) }
             val scaffoldState = rememberScaffoldState()
             WeatherTheme(darkTheme = themeState.value) {
                 Scaffold(
@@ -73,7 +73,7 @@ fun MainNavigationGraph(navController: NavHostController) {
             SplashScreen(navController = navController)
         }
         composable(route = Navigations.Home) {
-            HomeScreen(navController = navController)
+            CitiesScreen(navController = navController)
         }
         composable(
             route = "${Navigations.Details}/{cityId}",

@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation.home
+package ru.mrfiring.shiftweatherapp.presentation.cities
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -11,8 +11,9 @@ import ru.mrfiring.shiftweatherapp.domain.GetCitiesLiveDataUseCase
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 @ExperimentalPagingApi
-class HomeViewModel(application: Application,
-                    private val getCitiesFlowUseCase: GetCitiesLiveDataUseCase
+class CitiesScreenViewModel(
+    application: Application,
+    private val getCitiesFlowUseCase: GetCitiesLiveDataUseCase
 ) : AndroidViewModel(application) {
 
     private lateinit var _cities: Flow<PagingData<DomainCity>>

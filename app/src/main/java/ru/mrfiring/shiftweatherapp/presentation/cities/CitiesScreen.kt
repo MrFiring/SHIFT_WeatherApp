@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation.home
+package ru.mrfiring.shiftweatherapp.presentation.cities
 
 
 import androidx.compose.foundation.layout.Column
@@ -25,9 +25,9 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 
 @ExperimentalPagingApi
 @Composable
-fun HomeScreen(
+fun CitiesScreen(
     navController: NavController,
-    viewModel: HomeViewModel = getViewModel()
+    viewModel: CitiesScreenViewModel = getViewModel()
 ) {
     val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
     val lazyListState = rememberLazyListState()
