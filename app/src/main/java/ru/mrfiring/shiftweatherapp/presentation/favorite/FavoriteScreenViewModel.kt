@@ -6,13 +6,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
-class FavoriteScreenViewModel(application: Application) : AndroidViewModel(application) {
+class FavoriteScreenViewModel(
+    application: Application,
+    private val getFavoriteCitiesLiveDataUseCase: GetFavoriteCitiesLiveDataUseCase,
+    private val updateCityUseCase: UpdateCityUseCase
+) : AndroidViewModel(application) {
 
-    private val _favorites = MutableLiveData<DomainCity>()
-    val favorites: LiveData<DomainCity>
+    private var _favorites = MutableLiveData<List<DomainCity>>()
+    val favorites: LiveData<List<DomainCity>>
         get() = _favorites
 
     private val _status = MutableLiveData<ApiStatus>()
@@ -26,7 +32,7 @@ class FavoriteScreenViewModel(application: Application) : AndroidViewModel(appli
     private fun bindFavorites() = viewModelScope.launch {
         try {
             _status.value = ApiStatus.LOADING
-            //Do work here)
+            _favorites = getFavoriteCitiesLiveDataUseCase() as MutableLiveData<List<DomainCity>>
             _status.value = ApiStatus.DONE
         } catch (ex: Exception) {
             //Print ex here)
