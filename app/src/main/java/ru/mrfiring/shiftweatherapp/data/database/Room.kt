@@ -1,16 +1,20 @@
 package ru.mrfiring.shiftweatherapp.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 
 @Dao
-interface CitiesDao{
+interface CitiesDao {
 
     @Query("select * from databasecity where country != '' order by country")
     fun getCities(): PagingSource<Int, DatabaseCity>
 
     @Query("select * from databasecity where favorite = 1")
-    fun getFavoriteCities(): List<DatabaseCity>
+    fun getFavoriteCities(): LiveData<List<DatabaseCity>>
+
+    @Update
+    suspend fun updateCity(city: DatabaseCity)
 
     @Query("select * from databasecity where id = :id")
     suspend fun getCityById(id: Long): DatabaseCity

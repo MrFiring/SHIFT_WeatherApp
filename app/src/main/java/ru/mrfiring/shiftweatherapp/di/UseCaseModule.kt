@@ -5,10 +5,22 @@ import ru.mrfiring.shiftweatherapp.domain.*
 
 val useCaseModule = module{
 
-    fun provideGetCitiesLiveDataUseCase(
+    fun provideGetCitiesFlowUseCase(
         repository: CitiesRepository
-    ): GetCitiesLiveDataUseCase{
-        return GetCitiesLiveDataUseCase(repository)
+    ): GetCitiesFlowUseCase {
+        return GetCitiesFlowUseCase(repository)
+    }
+
+    fun provideGetFavoriteCitiesUseCase(
+        repository: CitiesRepository
+    ): GetFavoriteCitiesUseCase {
+        return GetFavoriteCitiesUseCase(repository)
+    }
+
+    fun provideUpdateCityUseCase(
+        repository: CitiesRepository
+    ): UpdateCityUseCase {
+        return UpdateCityUseCase(repository)
     }
 
     fun provideGetWeatherUseCase(
@@ -23,7 +35,10 @@ val useCaseModule = module{
         return UpdateWeatherUseCase(repository)
     }
 
-    factory { provideGetCitiesLiveDataUseCase(get()) }
+    factory { provideGetCitiesFlowUseCase(get()) }
+    factory { provideGetFavoriteCitiesUseCase(get()) }
+    factory { provideUpdateCityUseCase(get()) }
+
     factory { provideGetWeatherUseCase(get()) }
     factory { provideUpdateWeatherUseCase(get()) }
 }
