@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.di.getViewModel
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard
@@ -30,7 +29,6 @@ fun DetailScreen(
     val status by viewModel.status.observeAsState()
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
-            ShowAppBar(title = "Weather Details")
 
             //Check the status of data and show content or state of the loading
             when (status) {
