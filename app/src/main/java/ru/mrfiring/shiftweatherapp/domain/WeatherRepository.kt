@@ -1,6 +1,9 @@
 package ru.mrfiring.shiftweatherapp.domain
 
+import io.reactivex.Maybe
+import io.reactivex.disposables.Disposable
+
 interface WeatherRepository {
-    suspend fun getWeather(id: Long): DomainWeatherContainer
-    suspend fun updateWeatherFromServer(id: Long)
+    fun getWeather(id: Long): Maybe<DomainWeatherContainer>
+    fun updateWeatherFromServer(id: Long): Disposable
 }
