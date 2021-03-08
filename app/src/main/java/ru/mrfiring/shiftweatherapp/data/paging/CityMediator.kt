@@ -3,59 +3,64 @@ package ru.mrfiring.shiftweatherapp.data.paging
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
-import androidx.paging.RemoteMediator
-import retrofit2.HttpException
+import androidx.paging.rxjava2.RxRemoteMediator
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import ru.mrfiring.shiftweatherapp.data.CitiesParser
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
-import ru.mrfiring.shiftweatherapp.data.network.*
-import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
-import java.io.IOException
+import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
+import ru.mrfiring.shiftweatherapp.data.network.asDatabaseObject
 
 @ExperimentalPagingApi
 class CityMediator(
     private val weatherService: OpenWeatherService,
     private val citiesDao: CitiesDao,
     private val citiesParser: CitiesParser
-) : RemoteMediator<Int, DatabaseCity>() {
+) : RxRemoteMediator<Int, DatabaseCity>() {
 
-    override suspend fun load(
+    override fun loadSingle(
         loadType: LoadType,
         state: PagingState<Int, DatabaseCity>
-    ): MediatorResult {
-        when (loadType) {
-            LoadType.REFRESH -> {
-                //Check if there is data in db
-                val citiesCount = citiesDao.getCountOfCities()
-                if(citiesCount > 0){
-                  return MediatorResult.Success(endOfPaginationReached = true)
-                }
+    ): Single<MediatorResult> {
+        return Single.just(loadType)
+            .subscribeOn(Schedulers.io())
+            .flatMap {
+                when (it) {
+                    LoadType.REFRESH -> {
+                        if (citiesDao.getCountOfCities() > 0) {
+                            Single.just(MediatorResult.Success(endOfPaginationReached = true))
+                        }
 
-                return try {
-                    val citiesList: List<City> = loadCities()
-                        citiesDao.insertCities(citiesList.map {
-                            it.asDatabaseObject()
-                        })
+                        weatherService.getCitiesFile()
+                            .flatMap { response ->
+                                citiesParser.decompressGZip(response)
+                            }
+                            .flatMap { json ->
+                                citiesParser.parseJson(json)
+                            }
+                            .map { cities ->
+                                cities.map { city -> city.asDatabaseObject() }
+                            }
+                            .map { dbCities ->
+                                citiesDao.insertCities(dbCities)
+                            }
+                            .map<MediatorResult> { result ->
+                                MediatorResult.Success(endOfPaginationReached = false)
 
-                    MediatorResult.Success(endOfPaginationReached = false)
-
-
-                } catch (ex: IOException) {
-                    return MediatorResult.Error(ex)
-                } catch (ex: HttpException) {
-                    return MediatorResult.Error(ex)
+                            }
+                            .onErrorReturn { err ->
+                                MediatorResult.Error(err)
+                            }
+                    }
+                    else -> {
+                        Single.just(MediatorResult.Success(endOfPaginationReached = true))
+                    }
                 }
             }
-            else -> {
-                return MediatorResult.Success(endOfPaginationReached = true)
+            .onErrorReturn {
+                MediatorResult.Error(it)
             }
-        }
-    }
-
-    suspend fun loadCities(): List<City> {
-        val response = weatherService.getCitiesFile()
-        val decodedString = citiesParser.decompressGZip(response)
-        return citiesParser.parseJson(decodedString)
     }
 
 }
