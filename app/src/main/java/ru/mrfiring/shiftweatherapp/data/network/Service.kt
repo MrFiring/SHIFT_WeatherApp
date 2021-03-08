@@ -18,7 +18,7 @@ const val FLAG_URL = "https://www.countryflags.io/%s/flat/64.png"
 
 interface OpenWeatherService{
     @GET
-    fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody?
+    fun getCitiesFile(@Url path: String = FILE_URL): Single<ResponseBody>
 
     @GET("weather")
     fun getWeatherContainerByCoordinates(

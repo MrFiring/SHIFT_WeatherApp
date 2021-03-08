@@ -18,7 +18,7 @@ interface CitiesDao{
     fun insertCities(items: List<DatabaseCity>): Completable
 
     @Query("select count(id) from databasecity")
-    fun getCountOfCities(): Maybe<Int>
+    fun getCountOfCities(): Int
 }
 
 @Dao
