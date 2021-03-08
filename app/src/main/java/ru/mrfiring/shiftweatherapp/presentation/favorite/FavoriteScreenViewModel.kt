@@ -1,6 +1,7 @@
 package ru.mrfiring.shiftweatherapp.presentation.favorite
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,7 +36,7 @@ class FavoriteScreenViewModel(
             _favorites = getFavoriteCitiesLiveDataUseCase() as MutableLiveData<List<DomainCity>>
             _status.value = ApiStatus.DONE
         } catch (ex: Exception) {
-            //Print ex here)
+            Log.e("FavoriteScreenViewModel", ex.stackTrace.toString())
             _status.value = ApiStatus.ERROR
         }
 
