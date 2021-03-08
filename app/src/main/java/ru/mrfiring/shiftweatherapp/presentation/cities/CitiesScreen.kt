@@ -37,7 +37,12 @@ fun CitiesScreen(
             LazyColumn(state = lazyListState) {
                 items(lazyPagingItems) {
                     it?.let { city ->
-                        CityItem(domainCity = city) {
+                        CityItem(
+                            domainCity = city,
+                            onLongTap = {
+                                viewModel.onLongPress(city)
+                            }
+                        ) {
                             navController.navigate("${Navigations.Details}/${city.id}") {
                                 //Need to navigateUp correctly on a real device
                                 popUpTo(Navigations.Cities) { inclusive = false }
