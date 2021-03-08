@@ -1,8 +1,9 @@
 package ru.mrfiring.shiftweatherapp.data.database
 
-import android.content.Context
 import androidx.paging.PagingSource
 import androidx.room.*
+import io.reactivex.Completable
+import io.reactivex.Maybe
 
 @Dao
 interface CitiesDao{
@@ -11,46 +12,52 @@ interface CitiesDao{
     fun getCities(): PagingSource<Int, DatabaseCity>
 
     @Query("select * from databasecity where id = :id")
-    suspend fun getCityById(id: Long): DatabaseCity
+    fun getCityById(id: Long): Maybe<DatabaseCity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCities(items:  List<DatabaseCity>)
+    fun insertCities(items: List<DatabaseCity>): Completable
 
     @Query("select count(id) from databasecity")
-    suspend fun getCountOfCities(): Int
+    fun getCountOfCities(): Maybe<Int>
 }
 
 @Dao
 interface WeatherDao{
     @Query("select * from databaseweathercontainer where id = :id")
-    suspend fun getWeatherContainerById(id: Long): DatabaseWeatherContainer
+    fun getWeatherContainerById(id: Long): Maybe<DatabaseWeatherContainer>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWeatherContainer(item: DatabaseWeatherContainer)
+    fun insertWeatherContainer(item: DatabaseWeatherContainer): Completable
 
     @Query("select * from databaseweather where id = :id")
-    suspend fun getWeatherListById(id: Long): List<DatabaseWeather>
+    fun getWeatherListById(id: Long): Maybe<List<DatabaseWeather>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllWeather(items: List<DatabaseWeather>)
+    fun insertAllWeather(items: List<DatabaseWeather>): Completable
 
     @Query("select * from databasemainweatherparameters where id = :id")
-    suspend fun getMainWeatherParametersById(id: Long): DatabaseMainWeatherParameters
+    fun getMainWeatherParametersById(id: Long): Maybe<DatabaseMainWeatherParameters>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertMainWeatherParameters(item: DatabaseMainWeatherParameters)
+    fun insertMainWeatherParameters(item: DatabaseMainWeatherParameters): Completable
 
     @Query("select * from databasewind where id = :id")
-    suspend fun getWindById(id: Long): DatabaseWind
+    fun getWindById(id: Long): Maybe<DatabaseWind>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWind(item: DatabaseWind)
+    fun insertWind(item: DatabaseWind): Completable
 
     @Query("select * from databaserain where id = :id")
-    suspend fun getRainById(id: Long): DatabaseRain
+    fun getRainById(id: Long): Maybe<DatabaseRain>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRain(item: DatabaseRain)
+    fun insertRain(item: DatabaseRain): Completable
 
     @Query("select * from databasesnow where id = :id")
-    suspend fun getSnowById(id: Long): DatabaseSnow
+    fun getSnowById(id: Long): Maybe<DatabaseSnow>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSnow(item: DatabaseSnow)
+    fun insertSnow(item: DatabaseSnow): Completable
 }
 
 
