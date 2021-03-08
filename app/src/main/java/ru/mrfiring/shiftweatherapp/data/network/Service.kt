@@ -1,5 +1,6 @@
 package ru.mrfiring.shiftweatherapp.data.network
 
+import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,14 +18,14 @@ const val FLAG_URL = "https://www.countryflags.io/%s/flat/64.png"
 
 interface OpenWeatherService{
     @GET
-    suspend fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody?
+    fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody?
 
     @GET("weather")
-    suspend fun getWeatherContainerByCoordinates(
+    fun getWeatherContainerByCoordinates(
         @Query("lat") latitude: Double,
         @Query("lon") longitude: Double,
         @Query("units") units: String = "metric",
         @Query("lang") lang: String = "ru",
         @Query("appid") apiKey: String = API_KEY
-    ): WeatherContainer
+    ): Single<WeatherContainer>
 }
