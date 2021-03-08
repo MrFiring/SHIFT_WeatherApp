@@ -9,7 +9,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import ru.mrfiring.shiftweatherapp.di.getViewModel
+import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
@@ -28,9 +30,9 @@ fun FavoriteScreen(
 
         LazyColumn() {
 
-            items(favorites) {
-                CityItem(domainCity = it, onClick = {
-                    //Do nothing)
+            items(favorites) { city ->
+                CityItem(domainCity = city, onClick = {
+                    navController.navigate("${Navigations.Details}/${city.id}")
                 })
             }
 
