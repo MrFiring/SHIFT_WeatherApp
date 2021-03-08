@@ -17,6 +17,9 @@ buildscript {
         version_mdc = "1.4.0-alpha01"
         version_paging = "3.0.0-beta01"
         version_koin = '2.2.2'
+        version_rxjava = '2.2.21'
+        version_rxandroid = '2.1.1'
+        version_adapter_rxjava = '2.9.0'
     }
     repositories {
         google()
