@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Maybe
+import io.reactivex.Single
 
 @Dao
 interface CitiesDao{
@@ -12,7 +13,7 @@ interface CitiesDao{
     fun getCities(): PagingSource<Int, DatabaseCity>
 
     @Query("select * from databasecity where id = :id")
-    fun getCityById(id: Long): Maybe<DatabaseCity>
+    fun getCityById(id: Long): Single<DatabaseCity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCities(items: List<DatabaseCity>): Completable
