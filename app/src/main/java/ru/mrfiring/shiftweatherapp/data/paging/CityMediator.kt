@@ -29,7 +29,7 @@ class CityMediator(
                 when (it) {
                     LoadType.REFRESH -> {
                         if (citiesDao.getCountOfCities() > 0) {
-                            Single.just(MediatorResult.Success(endOfPaginationReached = true))
+                            return@flatMap Single.just(MediatorResult.Success(endOfPaginationReached = true))
                         }
 
                         weatherService.getCitiesFile()
