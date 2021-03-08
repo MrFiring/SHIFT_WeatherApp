@@ -28,7 +28,7 @@ fun FavoriteScreen(
 
     Column(modifier = Modifier.fillMaxWidth()) {
 
-        LazyColumn() {
+        LazyColumn {
 
             items(favorites) { city ->
                 CityItem(domainCity = city, onClick = {
