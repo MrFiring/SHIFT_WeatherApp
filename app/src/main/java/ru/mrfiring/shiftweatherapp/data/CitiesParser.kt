@@ -6,5 +6,5 @@ import ru.mrfiring.shiftweatherapp.data.network.City
 
 interface CitiesParser {
     fun parseJson(json: String): Single<List<City>>
-    fun decompressGZip(responseBody: ResponseBody?): Single<String>
+    fun decompressGZip(responseBody: ResponseBody): Single<String>
 }
