@@ -10,12 +10,14 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
 import androidx.paging.ExperimentalPagingApi
+import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
@@ -46,10 +48,19 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             val themeState = remember { mutableStateOf(true) }
             val scaffoldState = rememberScaffoldState()
+            val coroutineScope = rememberCoroutineScope()
             WeatherTheme(darkTheme = themeState.value) {
                 Scaffold(
                     scaffoldState = scaffoldState,
-                    topBar = { ShowAppBar(title = "Weather") },
+                    topBar = {
+                        ShowAppBar(title = "Weather",
+                            onNavigationClick = {
+                                coroutineScope.launch {
+                                    scaffoldState.drawerState.open()
+                                }
+                            }
+                        )
+                    },
                     drawerContent = {
                         HomeDrawerHeader { themeState.value = !themeState.value }
                         Divider(modifier = Modifier.padding(bottom = 8.dp))
@@ -66,7 +77,11 @@ class MainActivity : ComponentActivity() {
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_favorite,
                                     text = "Favorites",
-                                    onClick = { navController.navigate(Navigations.Favorites) }),
+                                    onClick = {
+                                        navController.navigate(Navigations.Favorites) {
+                                            popUpTo(Navigations.Cities) {}
+                                        }
+                                    }),
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_settings,
                                     text = "Settings",

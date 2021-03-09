@@ -3,6 +3,8 @@ package ru.mrfiring.shiftweatherapp.presentation.composables
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,7 +15,11 @@ import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 
 @Composable
-fun ShowAppBar(title: String, modifier: Modifier = Modifier) {
+fun ShowAppBar(
+    title: String,
+    modifier: Modifier = Modifier,
+    onNavigationClick: () -> Unit = {}
+) {
     TopAppBar(
         modifier = modifier,
         title = {
@@ -26,6 +32,19 @@ fun ShowAppBar(title: String, modifier: Modifier = Modifier) {
                     Color.Unspecified
                 }
             )
+        },
+        navigationIcon = {
+            IconButton(onClick = onNavigationClick) {
+                Icon(
+                    imageVector = Icons.Filled.Menu,
+                    contentDescription = null,
+                    tint = if (MaterialTheme.colors.isLight) {
+                        MaterialTheme.colors.secondaryVariant
+                    } else {
+                        MaterialTheme.colors.onPrimary
+                    }
+                )
+            }
         },
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary
