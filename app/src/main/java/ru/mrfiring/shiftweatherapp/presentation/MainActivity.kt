@@ -69,7 +69,11 @@ class MainActivity : ComponentActivity() {
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_city_icon,
                                     text = "Show cities",
-                                    onClick = { /*TODO*/ }),
+                                    onClick = {
+                                        navController.navigate(Navigations.Cities) {
+                                            launchSingleTop = true
+                                        }
+                                    }),
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_country_icon,
                                     text = "Show countries",
@@ -79,6 +83,7 @@ class MainActivity : ComponentActivity() {
                                     text = "Favorites",
                                     onClick = {
                                         navController.navigate(Navigations.Favorites) {
+                                            launchSingleTop = true
                                             popUpTo(Navigations.Cities) {}
                                         }
                                     }),
