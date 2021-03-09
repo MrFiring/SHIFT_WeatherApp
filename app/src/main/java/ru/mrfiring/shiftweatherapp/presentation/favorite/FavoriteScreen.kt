@@ -25,15 +25,19 @@ fun FavoriteScreen(
 ) {
     val favorites by viewModel.favorites.observeAsState(initial = emptyList())
     val status by viewModel.status.observeAsState(initial = ApiStatus.LOADING)
-
     Column(modifier = Modifier.fillMaxWidth()) {
 
         LazyColumn {
 
             items(favorites) { city ->
-                CityItem(domainCity = city, onClick = {
-                    navController.navigate("${Navigations.Details}/${city.id}")
-                })
+                CityItem(
+                    domainCity = city,
+                    onLongTap = {
+                        viewModel.onLongPress(city)
+                    },
+                    onClick = {
+                        navController.navigate("${Navigations.Details}/${city.id}")
+                    })
             }
 
             favorites.apply {

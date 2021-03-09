@@ -44,4 +44,9 @@ class FavoriteScreenViewModel(
 
     fun onRetry() = bindFavorites()
 
+    fun onLongPress(city: DomainCity) = viewModelScope.launch {
+        city.favorite = !city.favorite
+        updateCityUseCase(city = city)
+    }
+
 }
