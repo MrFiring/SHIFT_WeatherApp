@@ -38,10 +38,10 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
                 for (weather in container.weather) {
                     dbWeather.add(weather.asDatabaseObject(id))
                 }
-                Completable.merge (
-                    weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id))
-                    weatherDao.insertWeatherContainer(container.asDatabaseObject())
-                    weatherDao.insertWind(container.wind.asDatabaseObject(id))
+                Completable.mergeArray(
+                    weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id)),
+                    weatherDao.insertWeatherContainer(container.asDatabaseObject()),
+                    weatherDao.insertWind(container.wind.asDatabaseObject(id)),
                     weatherDao.insertAllWeather(dbWeather)
                 )
             }
