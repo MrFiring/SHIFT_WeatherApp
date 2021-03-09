@@ -1,13 +1,16 @@
 # SHIFT Weather App (Android)
 The application was developed during the SHIFT course (CFT company).
 
+UI is based on Jetpack Compose
+
 Application is able to:
 * Fetch data from OpenWeather API
 * Load images by Glide
 * Cache the data
+* Change self theme in realtime
 
 
-## Preview (Deprecated)
+## Preview
 Main screen with list of cities (Flag of the country, Name of the city and short country name ).
 
 ![MainScreen Preview](/imgs/mainscreen.jpg)
@@ -16,5 +19,9 @@ Main screen with list of cities (Flag of the country, Name of the city and short
 Detail screen with some data about the current weather.
 
 ![DetailScreen Preview](/imgs/detailscreen.jpg)
+
+Navigation Drawer
+
+![NavigationDrawer Preview](/imgs/draweropen.jpg)
 
 
