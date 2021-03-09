@@ -1,8 +1,9 @@
 package ru.mrfiring.shiftweatherapp.data
 
 import androidx.paging.ExperimentalPagingApi
-import io.reactivex.Maybe
-import io.reactivex.disposables.Disposable
+import io.reactivex.Completable
+import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.DatabaseWeather
 import ru.mrfiring.shiftweatherapp.data.database.WeatherDao
@@ -17,14 +18,15 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
     private val citiesDao: CitiesDao,
     private val networkService: OpenWeatherService,
 ) : WeatherRepository {
-    override fun getWeather(id: Long): Maybe<DomainWeatherContainer> {
+    override fun getWeather(id: Long): Single<DomainWeatherContainer> {
         return weatherDao.getWeatherContainerById(id).map {
             it.asDomainObject()
-        }
+        }.toSingle()
     }
 
-    override fun updateWeatherFromServer(id: Long): Disposable {
+    override fun updateWeatherFromServer(id: Long): Completable {
         return citiesDao.getCityById(id)
+            .subscribeOn(Schedulers.io())
             .flatMap { dbCity ->
                 networkService.getWeatherContainerByCoordinates(
                     dbCity.latitude,
@@ -46,7 +48,10 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
                 container.snow?.let {
                     weatherDao.insertSnow(it.asDatabaseObject(id))
                 }
-            }.subscribe()
+            }
+            .flatMapCompletable {
+                Completable.complete()
+            }.onErrorComplete()
 
 
     }
