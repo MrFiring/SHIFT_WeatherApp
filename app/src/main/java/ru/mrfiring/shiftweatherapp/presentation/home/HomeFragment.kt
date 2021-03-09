@@ -1,15 +1,13 @@
 package ru.mrfiring.shiftweatherapp.presentation.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.mrfiring.shiftweatherapp.databinding.HomeFragmentBinding
 
@@ -38,7 +36,6 @@ class HomeFragment : Fragment() {
 
         adapter.addLoadStateListener{
             viewModel.onLoadStateEvent(it.refresh)
-
         }
 
         binding.viewModel = viewModel
@@ -47,9 +44,7 @@ class HomeFragment : Fragment() {
 
 
         viewModel.cities.observe(viewLifecycleOwner, Observer {
-            lifecycleScope.launch{
-                adapter.submitData(it)
-            }
+            adapter.submitData(lifecycle, it)
         })
 
         viewModel.navigateToDetails.observe(viewLifecycleOwner, Observer{

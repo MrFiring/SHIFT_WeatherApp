@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
+import androidx.paging.rxjava2.cachedIn
+import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.mrfiring.shiftweatherapp.domain.DomainCity
-import ru.mrfiring.shiftweatherapp.domain.GetCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowableUseCase
 import ru.mrfiring.shiftweatherapp.presentation.BaseViewModel
 import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
@@ -18,7 +20,7 @@ import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 @ExperimentalPagingApi
 class HomeViewModel(
     application: Application,
-    private val getCitiesLiveDataUseCase: GetCitiesLiveDataUseCase
+    private val getCitiesFlowableUseCase: GetCitiesFlowableUseCase
 ) : BaseViewModel(application) {
 
     private val _status = MutableLiveData<ApiStatus>()
@@ -31,16 +33,24 @@ class HomeViewModel(
 
     private var _cities = MutableLiveData<PagingData<DomainCity>>()
     val cities: LiveData<PagingData<DomainCity>>
-    get() = _cities
+        get() = _cities
 
-    init{
+    init {
         bindData()
     }
 
 
+    @ExperimentalCoroutinesApi
     @ExperimentalPagingApi
     private fun bindData() {
-            _cities = getCitiesLiveDataUseCase().cachedIn(viewModelScope) as MutableLiveData<PagingData<DomainCity>>
+        getCitiesFlowableUseCase().cachedIn(viewModelScope)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                _cities.value = it
+            }, {
+                it.printStackTrace()
+            })
+            .untilDestroy()
     }
 
     fun onCityClicked(city: DomainCity) {
@@ -48,16 +58,16 @@ class HomeViewModel(
     }
 
     fun onLoadStateEvent(refreshLoadState: LoadState) {
-        _status.value = if(refreshLoadState is LoadState.Loading && _status.value != ApiStatus.LOADING){
-            ApiStatus.LOADING
-        }else if(refreshLoadState is LoadState.Error && _status.value != ApiStatus.ERROR){
-            ApiStatus.ERROR
-        }else{
-            ApiStatus.DONE
-        }
+        _status.value =
+            if (refreshLoadState is LoadState.Loading && _status.value != ApiStatus.LOADING) {
+                ApiStatus.LOADING
+            } else if (refreshLoadState is LoadState.Error && _status.value != ApiStatus.ERROR) {
+                ApiStatus.ERROR
+            } else {
+                ApiStatus.DONE
+            }
 
     }
-
 
 
 }
