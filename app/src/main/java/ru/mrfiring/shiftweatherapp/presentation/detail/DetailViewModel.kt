@@ -55,9 +55,11 @@ class DetailViewModel(
         updateWeatherUseCase(cityId)
             .andThen(getWeatherUseCase(cityId))
             .observeOn(AndroidSchedulers.mainThread())
+            .doAfterSuccess {
+                _status.value = ApiStatus.DONE
+            }
             .subscribe({
                 _container.value = it
-                _status.value = ApiStatus.DONE
             }, {
                 Log.e("DetailViewModel", it.stackTraceToString())
                 _status.value = ApiStatus.ERROR

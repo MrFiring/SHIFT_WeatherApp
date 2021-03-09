@@ -21,7 +21,7 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
     override fun getWeather(id: Long): Single<DomainWeatherContainer> {
         return weatherDao.getWeatherContainerById(id).map {
             it.asDomainObject()
-        }.toSingle()
+        }
     }
 
     override fun updateWeatherFromServer(id: Long): Completable {
@@ -33,25 +33,18 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
                     dbCity.longitude
                 )
             }
-            .map { container ->
-                weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id))
-                weatherDao.insertWeatherContainer(container.asDatabaseObject())
-                weatherDao.insertWind(container.wind.asDatabaseObject(id))
-                val dbWeather = mutableListOf<DatabaseWeather>()
-                for (weather in container.weather) {
-                    dbWeather.add(weather.asDatabaseObject(id))
-                }
-                weatherDao.insertAllWeather(dbWeather)
-                container.rain?.let {
-                    weatherDao.insertRain(it.asDatabaseObject(id))
-                }
-                container.snow?.let {
-                    weatherDao.insertSnow(it.asDatabaseObject(id))
+            .flatMapCompletable { container ->
+                Completable.merge {
+                    weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id))
+                    weatherDao.insertWeatherContainer(container.asDatabaseObject())
+                    weatherDao.insertWind(container.wind.asDatabaseObject(id))
+                    val dbWeather = mutableListOf<DatabaseWeather>()
+                    for (weather in container.weather) {
+                        dbWeather.add(weather.asDatabaseObject(id))
+                    }
+                    weatherDao.insertAllWeather(dbWeather)
                 }
             }
-            .flatMapCompletable {
-                Completable.complete()
-            }.onErrorComplete()
 
 
     }
