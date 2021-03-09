@@ -34,18 +34,16 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
                 )
             }
             .flatMapCompletable { container ->
-                Completable.merge {
+                val dbWeather = mutableListOf<DatabaseWeather>()
+                for (weather in container.weather) {
+                    dbWeather.add(weather.asDatabaseObject(id))
+                }
+                Completable.merge (
                     weatherDao.insertMainWeatherParameters(container.main.asDatabaseObject(id))
                     weatherDao.insertWeatherContainer(container.asDatabaseObject())
                     weatherDao.insertWind(container.wind.asDatabaseObject(id))
-                    val dbWeather = mutableListOf<DatabaseWeather>()
-                    for (weather in container.weather) {
-                        dbWeather.add(weather.asDatabaseObject(id))
-                    }
                     weatherDao.insertAllWeather(dbWeather)
-                }
+                )
             }
-
-
     }
 }
