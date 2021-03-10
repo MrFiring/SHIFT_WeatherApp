@@ -26,12 +26,10 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDraw
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
-import ru.mrfiring.shiftweatherapp.presentation.splash.SplashScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 
 object Navigations {
-    const val Splash = "splash"
     const val Cities = "cities"
     const val Favorites = "favorites"
     const val Details = "details"
@@ -107,11 +105,7 @@ class MainActivity : ComponentActivity() {
 @ExperimentalPagingApi
 @Composable
 fun MainNavigationGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Navigations.Splash) {
-        composable(route = Navigations.Splash) {
-            SplashScreen(navController = navController)
-        }
-
+    NavHost(navController = navController, startDestination = Navigations.Cities) {
         composable(route = Navigations.Cities) {
             CitiesScreen(navController = navController)
         }
