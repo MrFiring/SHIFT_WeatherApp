@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.domain
 
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.slot
 import junit.framework.Assert.assertEquals
@@ -44,7 +43,6 @@ class GetWeatherUseCaseTest {
 
         val result = getWeatherUseCase(0)
 
-        coVerify { weatherRepository.getWeather(capture(slot())) }
         assertEquals(domainWeatherContainer, result)
     }
 
