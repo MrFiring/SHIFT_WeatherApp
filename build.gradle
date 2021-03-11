@@ -26,6 +26,7 @@ buildscript {
         version_junit = '4.13.2'
         version_ext_junit = '1.1.2'
         version_coroutines_test = '1.4.3'
+        version_core_testing = '2.1.0'
     }
     repositories {
         google()

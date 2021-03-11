@@ -65,6 +65,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$version_compose"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutines_test"
+    testImplementation "androidx.arch.core:core-testing:$version_core_testing"
 
     //Material components
     api "com.google.android.material:material:$version_mdc"
