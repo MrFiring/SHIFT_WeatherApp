@@ -4,12 +4,11 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Rule
 import org.junit.Test
+import ru.mrfiring.shiftweatherapp.CoroutineTestRule
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 @ExperimentalCoroutinesApi
@@ -22,22 +21,11 @@ class GetFavoriteCitiesLiveDataUseCaseTest {
     private val getFavoriteCitiesLiveDataUseCase =
         GetFavoriteCitiesLiveDataUseCase(citiesRepository)
 
-    @ObsoleteCoroutinesApi
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
-    @Before
-    fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
+    @get:Rule
+    val coroutineRule = CoroutineTestRule()
 
     @Test
-    fun `get favorite cities EXPECTED to return list of cities`() = runBlocking {
+    fun `get favorite cities EXPECTED to return list of cities`() = runBlockingTest {
         coEvery { citiesRepository.getFavoriteCities().value } returns listOf(city)
 
         val cities = getFavoriteCitiesLiveDataUseCase()

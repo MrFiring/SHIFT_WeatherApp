@@ -4,14 +4,15 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import io.mockk.slot
 import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Rule
 import org.junit.Test
+import ru.mrfiring.shiftweatherapp.CoroutineTestRule
 import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
 
+@ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class GetWeatherUseCaseTest {
 
@@ -21,24 +22,11 @@ class GetWeatherUseCaseTest {
     private val getWeatherUseCase = GetWeatherUseCase(weatherRepository)
 
 
-    @ObsoleteCoroutinesApi
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
-    @ExperimentalCoroutinesApi
-    @Before
-    fun setUp() {
-        Dispatchers.setMain(mainThreadSurrogate)
-    }
-
-    @ExperimentalCoroutinesApi
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
+    @get:Rule
+    val coroutineRule = CoroutineTestRule()
 
     @Test
-    fun `get weather EXPECTED to return weather container`() = runBlocking {
+    fun `get weather EXPECTED to return weather container`() = runBlockingTest {
         coEvery { weatherRepository.getWeather(capture(slot())) } returns domainWeatherContainer
 
         val result = getWeatherUseCase(0)
