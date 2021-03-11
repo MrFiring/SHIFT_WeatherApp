@@ -8,7 +8,6 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
@@ -41,11 +40,6 @@ class CitiesViewModelTest {
         40.0,
         false
     )
-
-    @Before
-    fun provideFlow() {
-
-    }
 
     @ExperimentalPagingApi
     @Test
