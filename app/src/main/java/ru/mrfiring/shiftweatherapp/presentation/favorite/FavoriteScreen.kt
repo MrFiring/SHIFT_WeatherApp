@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
 import androidx.navigation.compose.navigate
 import ru.mrfiring.shiftweatherapp.di.getViewModel
@@ -39,12 +40,12 @@ fun FavoriteScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "There isn't any favorite city.\n " +
-                        "You can add a city with long tap on it."
+                modifier = Modifier.testTag("NoFavoritesText"),
+                text = "There isn't any favorite city.\nYou can add a city with long tap on it."
             )
         }
     } else {
-        LazyColumn() {
+        LazyColumn(Modifier.testTag("FavoriteLazy")) {
 
             items(favorites) { city ->
                 CityItem(
