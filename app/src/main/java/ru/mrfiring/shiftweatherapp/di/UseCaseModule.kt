@@ -11,6 +11,12 @@ val useCaseModule = module{
         return GetCitiesFlowUseCase(repository)
     }
 
+    fun provideGetCitiesByCountryFlowUseCase(
+        repository: CitiesRepository
+    ): GetCitiesByCountryFlowUseCase {
+        return GetCitiesByCountryFlowUseCase(repository)
+    }
+
     fun provideGetFavoriteLiveDataCitiesUseCase(
         repository: CitiesRepository
     ): GetFavoriteCitiesLiveDataUseCase {
@@ -42,7 +48,10 @@ val useCaseModule = module{
     }
 
     factory { provideGetCitiesFlowUseCase(get()) }
+    factory { provideGetCitiesByCountryFlowUseCase(get()) }
+
     factory { provideGetFavoriteLiveDataCitiesUseCase(get()) }
+
     factory { provideGetCountriesUseCase(get()) }
     factory { provideUpdateCityUseCase(get()) }
 
