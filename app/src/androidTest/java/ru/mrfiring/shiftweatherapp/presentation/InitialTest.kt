@@ -29,7 +29,7 @@ class InitialTest {
     @Test
     fun openDrawerAndCheck() {
         composeTestRule.onNodeWithTag("DrawerButton").performClick()
-
+        composeTestRule.onNodeWithText("Favorites").assertIsDisplayed()
     }
 
     @Test
