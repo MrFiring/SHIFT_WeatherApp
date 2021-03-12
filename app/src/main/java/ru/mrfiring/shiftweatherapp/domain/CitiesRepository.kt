@@ -10,6 +10,8 @@ interface CitiesRepository {
     @ExperimentalPagingApi
     fun getCitiesFlow(): Flow<PagingData<DomainCity>>
 
+    fun getCitiesByCountryFlow(country: String): Flow<PagingData<DomainCity>>
+
     suspend fun getFavoriteCities(): LiveData<List<DomainCity>>
     suspend fun updateCity(city: DomainCity)
 

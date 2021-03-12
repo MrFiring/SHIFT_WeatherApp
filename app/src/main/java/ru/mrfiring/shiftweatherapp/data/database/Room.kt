@@ -10,6 +10,9 @@ interface CitiesDao {
     @Query("select * from databasecity where country != '' order by country")
     fun getCities(): PagingSource<Int, DatabaseCity>
 
+    @Query("select * from databasecity where country = :country")
+    fun getCitiesByCountry(country: String): PagingSource<Int, DatabaseCity>
+
     @Query("select * from databasecity where favorite = 1")
     fun getFavoriteCities(): LiveData<List<DatabaseCity>>
 

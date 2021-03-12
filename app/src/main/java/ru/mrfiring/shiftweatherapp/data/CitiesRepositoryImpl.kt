@@ -37,6 +37,23 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
         }
     }
 
+    override fun getCitiesByCountryFlow(country: String): Flow<PagingData<DomainCity>> {
+        val pagingSourceFactory = {
+            citiesDao.getCitiesByCountry(country)
+        }
+        return Pager(
+            config = PagingConfig(
+                pageSize = 40,
+                maxSize = 130
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow.map {
+            it.map { item ->
+                item.asDomainObject()
+            }
+        }
+    }
+
     override suspend fun getFavoriteCities(): LiveData<List<DomainCity>> {
         return Transformations.map(citiesDao.getFavoriteCities()) {
             it.map { city ->
