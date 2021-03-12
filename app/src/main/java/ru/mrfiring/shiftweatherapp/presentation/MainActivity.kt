@@ -3,6 +3,7 @@ package ru.mrfiring.shiftweatherapp.presentation
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
@@ -24,6 +25,7 @@ import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
+import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
@@ -33,9 +35,11 @@ object Navigations {
     const val Cities = "cities"
     const val Favorites = "favorites"
     const val Details = "details"
+    const val Countries = "countries"
 
 }
 
+@ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
     @ExperimentalPagingApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,7 +79,11 @@ class MainActivity : ComponentActivity() {
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_country_icon,
                                     text = "Show countries",
-                                    onClick = { /*TODO*/ }),
+                                    onClick = {
+                                        navController.navigate(Navigations.Countries) {
+                                            launchSingleTop = true
+                                        }
+                                    }),
                                 DomainDrawerMenuItem(
                                     drawableId = R.drawable.ic_favorite,
                                     text = "Favorites",
@@ -102,6 +110,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalFoundationApi
 @ExperimentalPagingApi
 @Composable
 fun MainNavigationGraph(navController: NavHostController) {
@@ -112,6 +121,10 @@ fun MainNavigationGraph(navController: NavHostController) {
 
         composable(route = Navigations.Favorites) {
             FavoriteScreen(navController = navController)
+        }
+
+        composable(route = Navigations.Countries) {
+            CountriesScreen(navController = navController)
         }
 
         composable(
