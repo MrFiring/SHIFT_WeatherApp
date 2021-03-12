@@ -15,17 +15,20 @@ val databaseModule = module {
             .build()
     }
 
-    fun provideCitiesDao(weatherDatabase: WeatherDatabase): CitiesDao{
+    fun provideCitiesDao(weatherDatabase: WeatherDatabase): CitiesDao {
         return CitiesDao_Impl(weatherDatabase)
     }
 
-    fun provideWeatherDao(weatherDatabase: WeatherDatabase): WeatherDao{
+    fun provideWeatherDao(weatherDatabase: WeatherDatabase): WeatherDao {
         return WeatherDao_Impl(weatherDatabase)
     }
 
+    fun provideCountriesDao(weatherDatabase: WeatherDatabase): CountriesDao {
+        return CountriesDao_Impl(weatherDatabase)
+    }
 
-
-    single {provideWeatherDatabase(get())}
-    single {provideCitiesDao(get())}
-    single {provideWeatherDao(get())}
+    single { provideWeatherDatabase(get()) }
+    single { provideCitiesDao(get()) }
+    single { provideWeatherDao(get()) }
+    single { provideCountriesDao(get()) }
 }
