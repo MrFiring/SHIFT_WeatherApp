@@ -1,7 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,7 +36,6 @@ class DetailViewModel(private val cityId: Long,
             _status.value = ApiStatus.DONE
         } catch (ex: Exception) {
             _status.value = ApiStatus.ERROR
-            Log.e("DetailViewModel", ex.stackTraceToString())
         }
 
     }
