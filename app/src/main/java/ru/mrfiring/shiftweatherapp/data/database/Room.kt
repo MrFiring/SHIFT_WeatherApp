@@ -29,7 +29,7 @@ interface CitiesDao {
 @Dao
 interface CountriesDao {
     @Query("select distinct country from databasecity")
-    fun getCountriesLiveData(): LiveData<List<String>>
+    suspend fun getCountries(): List<String>
 }
 
 @Dao
