@@ -39,19 +39,14 @@ class CitiesRepositoryTest {
 
     private val citiesRepository = CitiesRepositoryImpl(citiesDao, cityMediator)
 
+    @Test
+    fun `get favorite cities EXPECTED to call citiesDao favorite cities`() = runBlockingTest {
+        coEvery { citiesDao.getFavoriteCities() } returns liveDataFavorites
 
-//    @Test
-//    fun `get favorite cities EXPECTED to call get favorite cities method of dao`() = runBlockingTest {
-//        coEvery { citiesDao.getFavoriteCities() } returns liveDataFavorites
-//        withContext(Dispatchers.Main) {
-//            val result = citiesRepository.getFavoriteCities()
-//            coVerify { citiesDao.getFavoriteCities() }
-//            assertEquals()
-//        }
-//
-//
-//    }
+        citiesRepository.getFavoriteCities()
 
+        coVerify { citiesDao.getFavoriteCities() }
+    }
 
     @Test
     fun `update city EXPECTED to call dao update city`() = runBlockingTest {
