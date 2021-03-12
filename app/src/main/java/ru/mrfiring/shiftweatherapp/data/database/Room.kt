@@ -27,9 +27,16 @@ interface CitiesDao {
 }
 
 @Dao
-interface WeatherDao{
+interface CountriesDao {
+    @Query("select distinct country from databasecity")
+    fun getCountriesLiveData(): LiveData<List<String>>
+}
+
+@Dao
+interface WeatherDao {
     @Query("select * from databaseweathercontainer where id = :id")
     suspend fun getWeatherContainerById(id: Long): DatabaseWeatherContainer
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWeatherContainer(item: DatabaseWeatherContainer)
 
@@ -59,7 +66,6 @@ interface WeatherDao{
     suspend fun insertSnow(item: DatabaseSnow)
 }
 
-
 @Database(
     entities = [DatabaseCity::class,
         DatabaseMainWeatherParameters::class,
@@ -74,4 +80,5 @@ interface WeatherDao{
 abstract class WeatherDatabase: RoomDatabase(){
     abstract val citiesDao: CitiesDao
     abstract val weatherDao: WeatherDao
+    abstract val countriesDao: CountriesDao
 }
