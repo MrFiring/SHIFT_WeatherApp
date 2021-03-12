@@ -8,6 +8,7 @@ import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
@@ -27,6 +28,8 @@ class CitiesViewModelTest {
     private val updateCityUseCase: UpdateCityUseCase = UpdateCityUseCase(citiesRepository)
     private val pagingFlow: Flow<PagingData<DomainCity>> = mockk()
 
+    @ExperimentalPagingApi
+    private lateinit var citiesScreenViewModel: CitiesScreenViewModel
 
     @get:Rule
     val coroutineRule = CoroutineTestRule()
@@ -42,16 +45,20 @@ class CitiesViewModelTest {
     )
 
     @ExperimentalPagingApi
-    @Test
-    fun `update city EXPECTED to call useCase update city and invert favorite`() = runBlockingTest {
+    @Before
+    fun setupVM() {
         coEvery { getCitiesFlowUseCase() } returns pagingFlow
-        //There is no way to move VM into class body due to init block
-        @ExperimentalPagingApi
-        val citiesScreenViewModel = CitiesScreenViewModel(
+
+        citiesScreenViewModel = CitiesScreenViewModel(
             application,
             getCitiesFlowUseCase,
             updateCityUseCase
         )
+    }
+
+    @ExperimentalPagingApi
+    @Test
+    fun `update city EXPECTED to call useCase update city and invert favorite`() = runBlockingTest {
         coEvery { updateCityUseCase(domainCity) } just runs
 
         citiesScreenViewModel.onLongPress(domainCity)
