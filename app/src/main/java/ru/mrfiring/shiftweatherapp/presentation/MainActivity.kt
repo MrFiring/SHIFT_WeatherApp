@@ -115,12 +115,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainNavigationGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Navigations.Cities) {
+
+        composable(route = Navigations.Favorites) {
+            FavoriteScreen(navController = navController)
+        }
+
         composable(route = Navigations.Cities) {
             CitiesScreen(navController = navController)
         }
 
-        composable(route = Navigations.Favorites) {
-            FavoriteScreen(navController = navController)
+        composable(
+            route = "${Navigations.Cities}/?country={country}",
+            arguments = listOf(navArgument("country") { defaultValue = "" })
+        ) { backStackEntry ->
+            val arg = backStackEntry.arguments?.getString("country")
+            CitiesScreen(navController = navController, arg ?: "")
         }
 
         composable(route = Navigations.Countries) {

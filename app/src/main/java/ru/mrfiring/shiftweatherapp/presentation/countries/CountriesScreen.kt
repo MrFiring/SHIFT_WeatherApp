@@ -1,6 +1,7 @@
 package ru.mrfiring.shiftweatherapp.presentation.countries
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,9 +16,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.navigate
 import dev.chrisbanes.accompanist.glide.GlideImage
 import ru.mrfiring.shiftweatherapp.data.network.FLAG_URL
 import ru.mrfiring.shiftweatherapp.di.getViewModel
+import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 
@@ -41,6 +44,9 @@ fun CountriesScreen(
                     modifier = Modifier
                         .size(128.dp, 100.dp)
                         .padding(4.dp)
+                        .clickable {
+                            navController.navigate(route = "${Navigations.Cities}/?country=$country")
+                        }
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally

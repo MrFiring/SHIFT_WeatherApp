@@ -16,6 +16,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
@@ -27,7 +28,8 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 @Composable
 fun CitiesScreen(
     navController: NavController,
-    viewModel: CitiesScreenViewModel = getViewModel()
+    country: String = "",
+    viewModel: CitiesScreenViewModel = getViewModel { parametersOf(country) }
 ) {
     val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
     val lazyListState = rememberLazyListState()
