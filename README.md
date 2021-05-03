@@ -1,6 +1,4 @@
 # SHIFT Weather App (Android)
-[![Android CI](https://github.com/MrFiring/SHIFT_WeatherApp/actions/workflows/android.yml/badge.svg)](https://github.com/MrFiring/SHIFT_WeatherApp/actions/workflows/android.yml)
-
 The application was developed during the SHIFT course (CFT company).
 
 UI is based on Jetpack Compose
