@@ -1,4 +1,6 @@
 # SHIFT Weather App (Android)
+[![Android CI](https://github.com/MrFiring/SHIFT_WeatherApp/actions/workflows/android.yml/badge.svg)](https://github.com/MrFiring/SHIFT_WeatherApp/actions/workflows/android.yml)
+
 The application was developed during the SHIFT course (CFT company).
 
 UI is based on Jetpack Compose
@@ -11,17 +13,8 @@ Application is able to:
 
 
 ## Preview
-Main screen with list of cities (Flag of the country, Name of the city and short country name ).
-
-![MainScreen Preview](/imgs/mainscreen.jpg)
-
-
-Detail screen with some data about the current weather.
-
-![DetailScreen Preview](/imgs/detailscreen.jpg)
-
-Navigation Drawer
-
-![NavigationDrawer Preview](/imgs/draweropen.jpg)
+| ![MainScreen Preview](/imgs/mainscreen.jpg) | ![DetailScreen Preview](/imgs/detailscreen.jpg) |
+| ------ | ------ |
+| ![NavigationDrawer Preview](/imgs/draweropen.jpg) ||
 
 
