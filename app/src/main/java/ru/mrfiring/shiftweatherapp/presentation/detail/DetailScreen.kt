@@ -9,8 +9,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
-import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard

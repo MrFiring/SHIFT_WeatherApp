@@ -16,7 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
@@ -101,6 +104,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) {
+                    it.calculateBottomPadding()
                     MainNavigationGraph(navController = navController)
                 }
 

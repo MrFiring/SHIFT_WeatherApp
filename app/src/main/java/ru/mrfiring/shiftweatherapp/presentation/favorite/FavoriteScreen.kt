@@ -14,8 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
-import ru.mrfiring.shiftweatherapp.di.getViewModel
+import org.koin.androidx.compose.getViewModel
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError

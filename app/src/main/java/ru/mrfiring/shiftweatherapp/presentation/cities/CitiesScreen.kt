@@ -10,14 +10,11 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.popUpTo
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
+import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
-import ru.mrfiring.shiftweatherapp.di.getViewModel
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
@@ -37,8 +34,11 @@ fun CitiesScreen(
     Surface(modifier = Modifier.fillMaxSize()) {
         Column {
             LazyColumn(state = lazyListState) {
-                items(lazyPagingItems) {
-                    it?.let { city ->
+
+
+                items(count = lazyPagingItems.itemCount) {
+                    val city = lazyPagingItems[it]
+                    if (city != null) {
                         CityItem(
                             domainCity = city,
                             onLongTap = {
