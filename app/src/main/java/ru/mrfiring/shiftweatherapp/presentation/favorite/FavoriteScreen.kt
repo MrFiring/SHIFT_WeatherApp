@@ -16,9 +16,9 @@ import androidx.compose.ui.platform.testTag
 import androidx.navigation.NavController
 import org.koin.androidx.compose.getViewModel
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
+import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
-import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 

@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation.composables.home
+package ru.mrfiring.shiftweatherapp.presentation.composables
 
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement

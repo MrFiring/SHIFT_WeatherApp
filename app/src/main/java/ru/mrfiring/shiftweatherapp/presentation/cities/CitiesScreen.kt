@@ -16,10 +16,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.presentation.Navigations
+import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
-import ru.mrfiring.shiftweatherapp.presentation.composables.home.CityItem
 
 @ExperimentalPagingApi
 @Composable
