@@ -3,7 +3,7 @@ package ru.mrfiring.shiftweatherapp.data
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.ResponseBody
-import ru.mrfiring.shiftweatherapp.data.network.model.City
+import ru.mrfiring.shiftweatherapp.data.network.model.CityModel
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
@@ -29,9 +29,9 @@ class CitiesParserImpl(private val moshi: Moshi): CitiesParser {
         return output.toString()
     }
 
-    override suspend fun parseJson(json: String) : List<City>{
-        val type = Types.newParameterizedType(List::class.java, City::class.java)
-        val jsonAdapter = moshi.adapter<List<City>>(type).lenient()
+    override suspend fun parseJson(json: String): List<CityModel> {
+        val type = Types.newParameterizedType(List::class.java, CityModel::class.java)
+        val jsonAdapter = moshi.adapter<List<CityModel>>(type).lenient()
         return jsonAdapter.fromJson(json) ?: emptyList()
     }
 }

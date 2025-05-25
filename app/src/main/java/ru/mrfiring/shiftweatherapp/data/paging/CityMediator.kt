@@ -10,7 +10,7 @@ import ru.mrfiring.shiftweatherapp.data.asDatabaseObject
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
-import ru.mrfiring.shiftweatherapp.data.network.model.City
+import ru.mrfiring.shiftweatherapp.data.network.model.CityModel
 import java.io.IOException
 
 @ExperimentalPagingApi
@@ -33,7 +33,7 @@ class CityMediator(
                 }
 
                 return try {
-                    val citiesList: List<City> = loadCities()
+                    val citiesList: List<CityModel> = loadCities()
                         citiesDao.insertCities(citiesList.map {
                             it.asDatabaseObject()
                         })
@@ -53,7 +53,7 @@ class CityMediator(
         }
     }
 
-    suspend fun loadCities(): List<City> {
+    suspend fun loadCities(): List<CityModel> {
         val response = weatherService.getCitiesFile()
         val decodedString = citiesParser.decompressGZip(response)
         return citiesParser.parseJson(decodedString)

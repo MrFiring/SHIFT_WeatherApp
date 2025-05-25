@@ -3,8 +3,9 @@ package ru.mrfiring.shiftweatherapp.data.network.model
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class Wind(
-    val speed: Double,
-    val deg: Double,
-    val gust: Double?
+data class WeatherModel(
+    val id: Int,
+    val main: String,
+    val description: String,
+    val icon: String
 )

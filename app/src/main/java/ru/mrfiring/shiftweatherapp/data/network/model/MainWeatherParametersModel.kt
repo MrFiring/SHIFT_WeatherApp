@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MainWeatherParameters(
+data class MainWeatherParametersModel(
     val temp: Double,
     @Json(name = "feels_like") val feelsLike: Double,
     @Json(name = "temp_min") val tempMin: Double,
