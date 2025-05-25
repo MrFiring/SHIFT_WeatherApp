@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.data.network
+package ru.mrfiring.shiftweatherapp.data.network.model
 
 import com.squareup.moshi.JsonClass
 

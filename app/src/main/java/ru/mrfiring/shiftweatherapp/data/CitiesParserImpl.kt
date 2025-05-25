@@ -3,7 +3,7 @@ package ru.mrfiring.shiftweatherapp.data
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import okhttp3.ResponseBody
-import ru.mrfiring.shiftweatherapp.data.network.City
+import ru.mrfiring.shiftweatherapp.data.network.model.City
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader

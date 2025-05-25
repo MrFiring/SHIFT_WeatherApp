@@ -9,8 +9,8 @@ import ru.mrfiring.shiftweatherapp.data.CitiesParser
 import ru.mrfiring.shiftweatherapp.data.asDatabaseObject
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
-import ru.mrfiring.shiftweatherapp.data.network.City
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
+import ru.mrfiring.shiftweatherapp.data.network.model.City
 import java.io.IOException
 
 @ExperimentalPagingApi
