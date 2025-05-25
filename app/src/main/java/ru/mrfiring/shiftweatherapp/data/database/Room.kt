@@ -2,7 +2,20 @@ package ru.mrfiring.shiftweatherapp.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.RoomDatabase
+import androidx.room.Update
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseRain
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseSnow
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeather
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWind
 
 @Dao
 interface CitiesDao {
@@ -70,7 +83,8 @@ interface WeatherDao {
 }
 
 @Database(
-    entities = [DatabaseCity::class,
+    entities = [
+        DatabaseCity::class,
         DatabaseMainWeatherParameters::class,
         DatabaseWeatherContainer::class,
         DatabaseWeather::class,

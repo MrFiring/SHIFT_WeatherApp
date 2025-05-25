@@ -1,8 +1,23 @@
 package ru.mrfiring.shiftweatherapp.data
 
-import ru.mrfiring.shiftweatherapp.data.database.*
-import ru.mrfiring.shiftweatherapp.data.network.*
-import ru.mrfiring.shiftweatherapp.domain.models.*
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseRain
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseSnow
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeather
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWind
+import ru.mrfiring.shiftweatherapp.data.network.MainWeatherParameters
+import ru.mrfiring.shiftweatherapp.data.network.Rain
+import ru.mrfiring.shiftweatherapp.data.network.Snow
+import ru.mrfiring.shiftweatherapp.data.network.Weather
+import ru.mrfiring.shiftweatherapp.data.network.WeatherContainer
+import ru.mrfiring.shiftweatherapp.data.network.Wind
+import ru.mrfiring.shiftweatherapp.domain.models.DomainMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.domain.models.DomainRain
+import ru.mrfiring.shiftweatherapp.domain.models.DomainSnow
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWeather
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.models.DomainWind
 
 fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWeatherContainer(
     lastUpdate,

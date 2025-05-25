@@ -9,6 +9,12 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.data.database.*
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseRain
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseSnow
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeather
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWind
 import java.io.IOException
 
 class WeatherDaoTest {

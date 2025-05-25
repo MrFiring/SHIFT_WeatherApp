@@ -12,8 +12,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
-import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.database.WeatherDatabase
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
 import ru.mrfiring.shiftweatherapp.getOrAwaitValue
 import java.io.IOException
 

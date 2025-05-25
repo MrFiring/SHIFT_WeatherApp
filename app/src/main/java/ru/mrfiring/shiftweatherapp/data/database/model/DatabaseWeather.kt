@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.data.database
+package ru.mrfiring.shiftweatherapp.data.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,6 +1,6 @@
 package ru.mrfiring.shiftweatherapp.data
 
-import ru.mrfiring.shiftweatherapp.data.database.DatabaseCity
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.network.City
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 

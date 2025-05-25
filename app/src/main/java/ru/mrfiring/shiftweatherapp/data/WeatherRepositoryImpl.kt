@@ -4,9 +4,9 @@ import androidx.paging.ExperimentalPagingApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
-import ru.mrfiring.shiftweatherapp.data.database.DatabaseWeather
-import ru.mrfiring.shiftweatherapp.data.database.DatabaseWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.database.WeatherDao
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeather
+import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
