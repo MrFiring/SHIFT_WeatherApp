@@ -11,11 +11,6 @@ const val BASE_URL= "https://api.openweathermap.org/data/2.5/"
 private const val FILE_NAME = "city.list.min.json.gz"
 private const val FILE_URL = "https://bulk.openweathermap.org/sample/${FILE_NAME}"
 
-//Used in BindingAdapter.kt by Glide to load Weather icon
-const val IMG_URL = "https://openweathermap.org/img/wn/%s@2x.png"
-//Used in BindingAdapter.kt by Glide to load country flag
-const val FLAG_URL = "https://www.countryflags.io/%s/flat/64.png"
-
 interface OpenWeatherService{
     @GET
     suspend fun getCitiesFile(@Url path: String = FILE_URL): ResponseBody?
