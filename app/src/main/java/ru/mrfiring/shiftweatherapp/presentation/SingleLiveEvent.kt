@@ -1,8 +1,15 @@
 package ru.mrfiring.shiftweatherapp.presentation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.annotation.MainThread
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisallowComposableCalls
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import java.util.concurrent.atomic.AtomicBoolean
@@ -71,5 +78,18 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
     companion object {
 
         private val TAG = "SingleLiveEvent"
+    }
+}
+
+@SuppressLint("ComposableNaming")
+@Composable
+inline fun <T> LiveData<T>.observeAsEvent(crossinline block: @DisallowComposableCalls () -> Unit) {
+    val observer = remember { Observer<T> { block() } }
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    DisposableEffect(Unit) {
+        this@observeAsEvent.observe(lifecycleOwner, observer)
+
+        onDispose { this@observeAsEvent.removeObserver(observer) }
     }
 }

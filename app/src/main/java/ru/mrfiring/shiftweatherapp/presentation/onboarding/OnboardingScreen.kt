@@ -33,6 +33,7 @@ import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import org.koin.androidx.compose.koinViewModel
 import ru.mrfiring.shiftweatherapp.R
+import ru.mrfiring.shiftweatherapp.presentation.observeAsEvent
 import ru.mrfiring.shiftweatherapp.presentation.theme.Orange800
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
@@ -48,6 +49,8 @@ fun OnboardingScreen(
         onPermissionResult = { granted -> viewModel.handleLocationRequestResult(granted) }
     )
     val state by viewModel.state.observeAsState(OnboardingState(locationGranted = false))
+    viewModel.goNextEvent.observeAsEvent { onNext() }
+    viewModel.locationAvailableEvent.observeAsEvent { onLocationAvailable() }
 
     DisposableEffect(locationPermissionState.status.isGranted) {
         viewModel.handleInitialLocationGranted(locationPermissionState.status.isGranted)
