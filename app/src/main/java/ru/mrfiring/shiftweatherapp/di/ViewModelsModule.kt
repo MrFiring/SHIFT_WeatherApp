@@ -8,9 +8,15 @@ import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreenViewModel
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreenViewModel
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailViewModel
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreenViewModel
+import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingViewModel
 
 @ExperimentalPagingApi
-val viewModelModule = module{
+val viewModelModule = module {
+
+    viewModel {
+        OnboardingViewModel()
+    }
+
     viewModel { (country: String) ->
         CitiesScreenViewModel(androidApplication(), country, get(), get(), get())
     }

@@ -1,5 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation.onboarding
 
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,6 +18,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,12 +28,45 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import org.koin.androidx.compose.koinViewModel
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.presentation.theme.Orange800
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(
+    viewModel: OnboardingViewModel = koinViewModel<OnboardingViewModel>(),
+    onLocationAvailable: () -> Unit,
+    onNext: () -> Unit
+) {
+    val locationPermissionState = rememberPermissionState(
+        permission = ACCESS_COARSE_LOCATION,
+        onPermissionResult = { granted -> viewModel.handleLocationRequestResult(granted) }
+    )
+    val state by viewModel.state.observeAsState(OnboardingState(locationGranted = false))
+
+    DisposableEffect(locationPermissionState.status.isGranted) {
+        viewModel.handleInitialLocationGranted(locationPermissionState.status.isGranted)
+        onDispose { }
+    }
+
+    OnboardingContent(
+        locationGranted = state.locationGranted,
+        onAllowAccessClick = { locationPermissionState.launchPermissionRequest() },
+        onNextClick = viewModel::goNext
+    )
+}
+
+@Composable
+fun OnboardingContent(
+    locationGranted: Boolean,
+    onAllowAccessClick: () -> Unit,
+    onNextClick: () -> Unit,
+) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -69,8 +106,14 @@ fun OnboardingScreen() {
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                val nextActionHint = if (locationGranted) {
+                    "You already gave the location permission"
+                } else {
+                    "Tap the button below to allow access"
+                }
+
                 Text(
-                    "Tap the button below to allow access",
+                    text = nextActionHint,
                     style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Center,
                     color = MaterialTheme.colors.onSecondary
@@ -79,24 +122,35 @@ fun OnboardingScreen() {
 
             // TODO Remove hardcoded colors. There is a problem with theme in all over the project.
             Column {
-                OutlinedButton(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-                    Text("Allow Location Access", color = Orange800)
+                if (!locationGranted) {
+                    OutlinedButton(
+                        onClick = onAllowAccessClick,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Allow Location Access", color = Orange800)
+                    }
                 }
 
-                TextButton(onClick = {}, modifier = Modifier.fillMaxWidth()) {
-                    Text("Go next without permission", color = Orange800)
+                TextButton(
+                    onClick = onNextClick,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("Go next", color = Orange800)
                 }
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
 @Composable
 fun OnboardingDarkPreview() {
     WeatherTheme(true) {
-        OnboardingScreen()
+        OnboardingContent(
+            locationGranted = false,
+            onAllowAccessClick = {},
+            onNextClick = {}
+        )
     }
 }
 
@@ -104,6 +158,10 @@ fun OnboardingDarkPreview() {
 @Composable
 fun OnboardingPreview() {
     WeatherTheme(false) {
-        OnboardingScreen()
+        OnboardingContent(
+            locationGranted = false,
+            onAllowAccessClick = {},
+            onNextClick = {}
+        )
     }
 }

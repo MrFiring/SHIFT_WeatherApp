@@ -116,4 +116,7 @@ dependencies {
     implementation "androidx.compose.compiler:compiler:$version_compose"
     //ConstraintLayout Compose
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
+    //Accompanist permission
+    implementation "com.google.accompanist:accompanist-permissions:0.32.0"
 }
