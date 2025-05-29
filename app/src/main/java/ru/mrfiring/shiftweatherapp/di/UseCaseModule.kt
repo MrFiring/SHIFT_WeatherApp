@@ -1,7 +1,17 @@
 package ru.mrfiring.shiftweatherapp.di
 
 import org.koin.dsl.module
-import ru.mrfiring.shiftweatherapp.domain.*
+import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
+import ru.mrfiring.shiftweatherapp.domain.CountriesRepository
+import ru.mrfiring.shiftweatherapp.domain.GetCitiesByCountryFlowUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetCountriesUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
+import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
+import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
+import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 
 val useCaseModule = module{
 
@@ -57,4 +67,6 @@ val useCaseModule = module{
 
     factory { provideGetWeatherUseCase(get()) }
     factory { provideUpdateWeatherUseCase(get()) }
+
+    factory { GetCurrentLocationUseCase(get()) }
 }

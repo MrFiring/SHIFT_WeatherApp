@@ -1,9 +1,12 @@
 package ru.mrfiring.shiftweatherapp.di
 
 import androidx.paging.ExperimentalPagingApi
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import ru.mrfiring.shiftweatherapp.data.CitiesRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.CountriesRepositoryImpl
+import ru.mrfiring.shiftweatherapp.data.LocationDataSource
+import ru.mrfiring.shiftweatherapp.data.LocationRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.WeatherRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.CountriesDao
@@ -13,6 +16,7 @@ import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
 import ru.mrfiring.shiftweatherapp.domain.CountriesRepository
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.location.LocationRepository
 
 @ExperimentalPagingApi
 val repositoryModule = module {
@@ -39,4 +43,7 @@ val repositoryModule = module {
     single { provideWeatherRepository(get(), get(), get()) }
     single { provideCitiesRepository(get(), get()) }
     single { provideCountriesRepository(get()) }
+
+    factory { LocationDataSource(androidContext()) }
+    factory<LocationRepository> { LocationRepositoryImpl(locationDataSource = get()) }
 }
