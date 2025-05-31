@@ -39,7 +39,6 @@ object Navigations {
     const val Favorites = "favorites"
     const val Details = "details"
     const val Countries = "countries"
-
 }
 
 @ExperimentalFoundationApi
@@ -58,7 +57,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     scaffoldState = scaffoldState,
                     topBar = {
-                        ShowAppBar(title = "Weather",
+                        ShowAppBar(
+                            title = "Weather",
                             onNavigationClick = {
                                 coroutineScope.launch {
                                     scaffoldState.drawerState.open()
@@ -141,12 +141,20 @@ fun MainNavigationGraph(navController: NavHostController) {
         }
 
         composable(
-            route = "${Navigations.Details}/{cityId}",
-            arguments = listOf(navArgument("cityId") { type = NavType.LongType })
+            route = "${Navigations.Details}?cityId={cityId}",
+            arguments = listOf(navArgument("cityId") {
+                type = NavType.LongType
+                defaultValue = -1
+            })
         ) { backStackEntry ->
-            backStackEntry.arguments?.getLong("cityId")?.let {
-                DetailScreen(navController = navController, it)
+            val cityId = backStackEntry.arguments?.getLong("cityId")?.run {
+                if (this != -1L) {
+                    this
+                } else {
+                    null
+                }
             }
+            DetailScreen(navController = navController, cityId = cityId)
         }
     }
 }

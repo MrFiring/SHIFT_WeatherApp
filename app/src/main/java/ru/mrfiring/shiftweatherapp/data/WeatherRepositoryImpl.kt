@@ -9,6 +9,7 @@ import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeather
 import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
+import ru.mrfiring.shiftweatherapp.domain.location.Location
 import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
 
 class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
@@ -21,6 +22,7 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
 
         return container.asDomainObject()
     }
+
     override suspend fun updateWeatherFromServer(id: Long){
         withContext(Dispatchers.IO){
             val dbCity = citiesDao.getCityById(id)
@@ -46,5 +48,12 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
 
 
         }
+    }
+
+    override suspend fun getWeather(location: Location): DomainWeatherContainer {
+        val model =
+            networkService.getWeatherContainerByCoordinates(location.latitude, location.longitude)
+
+        return model.asDatabaseObject().asDomainObject()
     }
 }

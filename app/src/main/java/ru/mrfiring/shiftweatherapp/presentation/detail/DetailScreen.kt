@@ -22,7 +22,7 @@ enum class ApiStatus { LOADING, ERROR, DONE }
 @Composable
 fun DetailScreen(
     navController: NavController, //For the future things)
-    cityId: Long,
+    cityId: Long?,
     viewModel: DetailViewModel = getViewModel { parametersOf(cityId) }
 ) {
     val container by viewModel.container.observeAsState()

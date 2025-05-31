@@ -45,7 +45,7 @@ fun CitiesScreen(
                                 viewModel.onLongPress(city)
                             }
                         ) {
-                            navController.navigate("${Navigations.Details}/${city.id}") {
+                            navController.navigate("${Navigations.Details}?cityId=${city.id}") {
                                 //Need to navigateUp correctly on a real device
                                 popUpTo(Navigations.Cities) { inclusive = false }
                             }

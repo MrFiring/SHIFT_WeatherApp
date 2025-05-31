@@ -29,7 +29,7 @@ val viewModelModule = module {
         FavoriteScreenViewModel(androidApplication(), get(), get())
     }
 
-    viewModel { (cityId: Long) ->
-        DetailViewModel(cityId, androidApplication(), get(), get())
+    viewModel { (cityId: Long?) ->
+        DetailViewModel(cityId, androidApplication(), get(), get(), get())
     }
 }

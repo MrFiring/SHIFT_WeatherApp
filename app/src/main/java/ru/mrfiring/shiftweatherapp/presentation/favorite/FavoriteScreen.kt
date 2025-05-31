@@ -53,7 +53,7 @@ fun FavoriteScreen(
                         viewModel.onLongPress(city)
                     },
                     onClick = {
-                        navController.navigate("${Navigations.Details}/${city.id}")
+                        navController.navigate("${Navigations.Details}?cityId=${city.id}")
                     })
             }
 
