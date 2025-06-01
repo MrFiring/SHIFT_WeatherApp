@@ -3,13 +3,16 @@ package ru.mrfiring.shiftweatherapp.presentation.onboarding
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.mrfiring.shiftweatherapp.domain.onboarding.SetOnboardingPassedUseCase
 import ru.mrfiring.shiftweatherapp.presentation.SingleLiveEvent
 
 data class OnboardingState(
     val locationGranted: Boolean
 )
 
-class OnboardingViewModel : ViewModel() {
+class OnboardingViewModel(
+    private val setOnboardingPassedUseCase: SetOnboardingPassedUseCase,
+) : ViewModel() {
 
     private val _state = MutableLiveData<OnboardingState>()
     val state: LiveData<OnboardingState> = _state
@@ -28,12 +31,15 @@ class OnboardingViewModel : ViewModel() {
         _state.value = OnboardingState(granted)
 
         if (granted) {
+            setOnboardingPassedUseCase()
             _locationAvailableEvent.call()
         }
     }
 
     fun goNext() {
         val locationGranted = requireNotNull(_state.value).locationGranted
+
+        setOnboardingPassedUseCase()
 
         if (locationGranted) {
             _locationAvailableEvent.call()

@@ -1,5 +1,7 @@
 package ru.mrfiring.shiftweatherapp.presentation
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,8 +24,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
+import ru.mrfiring.shiftweatherapp.domain.onboarding.IsOnboardingPassedUseCase
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
@@ -45,10 +49,14 @@ object Navigations {
 
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
+
+    private val isOnboardingPassedUseCase: IsOnboardingPassedUseCase by inject()
+
     @ExperimentalPagingApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val locationGranted =
+            checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
         setContent {
             val navController = rememberNavController()
@@ -107,7 +115,13 @@ class MainActivity : ComponentActivity() {
                     }
                 ) {
                     it.calculateBottomPadding()
-                    MainNavigationGraph(navController = navController)
+                    MainNavigationGraph(
+                        navController = navController,
+                        startDestination = getStartDestination(
+                            isOnboardingPassedUseCase(),
+                            locationGranted
+                        )
+                    )
                 }
 
             }
@@ -116,11 +130,24 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private fun getStartDestination(onboardingPassed: Boolean, locationGranted: Boolean) =
+    when {
+        !onboardingPassed -> Navigations.Onboarding
+        !locationGranted -> Navigations.Cities
+        else -> Navigations.Details
+    }
+
 @ExperimentalFoundationApi
 @ExperimentalPagingApi
 @Composable
-fun MainNavigationGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Navigations.Onboarding) {
+fun MainNavigationGraph(
+    navController: NavHostController,
+    startDestination: String,
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
 
         composable(route = Navigations.Onboarding) {
             OnboardingScreen(

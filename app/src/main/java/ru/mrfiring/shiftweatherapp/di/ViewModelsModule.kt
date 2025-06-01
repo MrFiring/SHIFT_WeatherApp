@@ -14,7 +14,7 @@ import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingViewModel
 val viewModelModule = module {
 
     viewModel {
-        OnboardingViewModel()
+        OnboardingViewModel(setOnboardingPassedUseCase = get())
     }
 
     viewModel { (country: String) ->

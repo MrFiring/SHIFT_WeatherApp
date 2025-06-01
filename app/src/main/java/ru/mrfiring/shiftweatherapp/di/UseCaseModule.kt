@@ -12,6 +12,8 @@ import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
+import ru.mrfiring.shiftweatherapp.domain.onboarding.IsOnboardingPassedUseCase
+import ru.mrfiring.shiftweatherapp.domain.onboarding.SetOnboardingPassedUseCase
 
 val useCaseModule = module{
 
@@ -69,4 +71,7 @@ val useCaseModule = module{
     factory { provideUpdateWeatherUseCase(get()) }
 
     factory { GetCurrentLocationUseCase(get()) }
+
+    factory { IsOnboardingPassedUseCase(repository = get()) }
+    factory { SetOnboardingPassedUseCase(repository = get()) }
 }
