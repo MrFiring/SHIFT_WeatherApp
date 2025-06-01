@@ -31,10 +31,12 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDraw
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
+import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 
 object Navigations {
+    const val Onboarding = "onboarding"
     const val Cities = "cities"
     const val Favorites = "favorites"
     const val Details = "details"
@@ -118,7 +120,14 @@ class MainActivity : ComponentActivity() {
 @ExperimentalPagingApi
 @Composable
 fun MainNavigationGraph(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = Navigations.Cities) {
+    NavHost(navController = navController, startDestination = Navigations.Onboarding) {
+
+        composable(route = Navigations.Onboarding) {
+            OnboardingScreen(
+                onLocationAvailable = { navController.navigate(Navigations.Details) },
+                onNext = { navController.navigate(Navigations.Cities) },
+            )
+        }
 
         composable(route = Navigations.Favorites) {
             FavoriteScreen(navController = navController)
