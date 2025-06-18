@@ -161,7 +161,14 @@ fun MainNavigationGraph(
         }
 
         composable(route = Navigations.Cities) {
-            CitiesScreen(navController = navController)
+            CitiesScreen(
+                onCityClick = { cityId ->
+                    navController.navigate("${Navigations.Details}?cityId=$cityId") {
+                        //Need to navigateUp correctly on a real device
+                        popUpTo(Navigations.Cities) { inclusive = false }
+                    }
+                }
+            )
         }
 
         composable(
@@ -169,7 +176,15 @@ fun MainNavigationGraph(
             arguments = listOf(navArgument("country") { defaultValue = "" })
         ) { backStackEntry ->
             val arg = backStackEntry.arguments?.getString("country")
-            CitiesScreen(navController = navController, arg ?: "")
+            CitiesScreen(
+                onCityClick = { cityId ->
+                    navController.navigate("${Navigations.Details}?cityId=$cityId") {
+                        //Need to navigateUp correctly on a real device
+                        popUpTo(Navigations.Cities) { inclusive = false }
+                    }
+                },
+                country = arg ?: ""
+            )
         }
 
         composable(route = Navigations.Countries) {

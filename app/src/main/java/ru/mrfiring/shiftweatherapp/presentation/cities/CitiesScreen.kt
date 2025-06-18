@@ -9,13 +9,11 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import org.koin.androidx.compose.getViewModel
 import org.koin.core.parameter.parametersOf
-import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
@@ -24,7 +22,7 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 @ExperimentalPagingApi
 @Composable
 fun CitiesScreen(
-    navController: NavController,
+    onCityClick: (Long) -> Unit,
     country: String = "",
     viewModel: CitiesScreenViewModel = getViewModel { parametersOf(country) }
 ) {
@@ -43,13 +41,7 @@ fun CitiesScreen(
                             domainCity = city,
                             onLongTap = {
                                 viewModel.onLongPress(city)
-                            }
-                        ) {
-                            navController.navigate("${Navigations.Details}?cityId=${city.id}") {
-                                //Need to navigateUp correctly on a real device
-                                popUpTo(Navigations.Cities) { inclusive = false }
-                            }
-                        }
+                            }, onClick = { onCityClick(city.id) })
                     }
                 }
 
