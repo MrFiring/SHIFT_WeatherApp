@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "kotlinx-serialization"
 
 android {
     defaultConfig {
@@ -86,6 +87,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutines"
 
+    // Decompose
+    implementation "com.arkivanov.decompose:decompose:$version_decompose"
+    implementation "com.arkivanov.decompose:extensions-compose:$version_decompose_ext"
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$version_paging"
