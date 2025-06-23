@@ -8,9 +8,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard
@@ -21,12 +18,10 @@ enum class ApiStatus { LOADING, ERROR, DONE }
 
 @Composable
 fun DetailScreen(
-    navController: NavController, //For the future things)
-    cityId: Long?,
-    viewModel: DetailViewModel = getViewModel { parametersOf(cityId) }
+    detailComponent: DetailComponent,
 ) {
-    val container by viewModel.container.observeAsState()
-    val status by viewModel.status.observeAsState()
+    val container by detailComponent.container.observeAsState()
+    val status by detailComponent.status.observeAsState()
     Surface {
         Column(modifier = Modifier.fillMaxSize()) {
 
@@ -50,7 +45,7 @@ fun DetailScreen(
                 else -> {
                     ShowNetworkError(
                         modifier = Modifier.fillMaxSize(),
-                        onRetry = viewModel::onRetryPressed
+                        onRetry = detailComponent::onRetryPressed
                     )
                 }
 

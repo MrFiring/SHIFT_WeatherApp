@@ -37,6 +37,7 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
+import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingScreen
@@ -227,7 +228,16 @@ fun MainNavigationGraph(
                     null
                 }
             }
-            DetailScreen(navController = navController, cityId = cityId)
+
+            val component = DetailComponentImpl(
+                componentContext = defaultComponentContext,
+                cityId = cityId,
+                updateWeatherUseCase = get(),
+                getWeatherUseCase = get(),
+                getCurrentLocationUseCase = get(),
+            )
+
+            DetailScreen(component)
         }
     }
 }
