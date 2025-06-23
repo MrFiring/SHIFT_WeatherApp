@@ -16,21 +16,17 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import org.koin.androidx.compose.getViewModel
-import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 
 @ExperimentalFoundationApi
 @Composable
 fun CountriesScreen(
-    navController: NavController,
-    viewModel: CountriesScreenViewModel = getViewModel()
+    countriesComponent: CountriesComponent,
 ) {
-    val countries by viewModel.countries.observeAsState(initial = listOf(""))
+    val countries by countriesComponent.countries.observeAsState(initial = listOf(""))
 
-    if (countries.isNullOrEmpty()) {
+    if (countries.isEmpty()) {
         ShowLoading(Modifier.fillMaxSize())
     } else {
         LazyVerticalGrid(
@@ -42,7 +38,7 @@ fun CountriesScreen(
                         .size(128.dp, 100.dp)
                         .padding(4.dp)
                         .clickable {
-                            navController.navigate(route = "${Navigations.Cities}/?country=$country")
+                            countriesComponent.onCountryClick(country)
                         }
                 ) {
                     Column(

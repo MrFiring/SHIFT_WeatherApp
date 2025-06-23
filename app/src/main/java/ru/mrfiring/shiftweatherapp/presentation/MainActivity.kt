@@ -36,6 +36,7 @@ import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
+import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
@@ -211,7 +212,14 @@ fun MainNavigationGraph(
         }
 
         composable(route = Navigations.Countries) {
-            CountriesScreen(navController = navController)
+
+            val component = CountriesComponentImpl(
+                componentContext = defaultComponentContext,
+                getCountriesUseCase = get(),
+                countryClickHandler = { navController.navigate(route = "${Navigations.Cities}/?country=$it") }
+            )
+
+            CountriesScreen(component)
         }
 
         composable(
