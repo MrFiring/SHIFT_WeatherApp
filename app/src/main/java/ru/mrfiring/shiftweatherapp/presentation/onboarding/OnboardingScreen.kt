@@ -31,36 +31,30 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import org.koin.androidx.compose.koinViewModel
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.presentation.observeAsEvent
 import ru.mrfiring.shiftweatherapp.presentation.theme.Orange800
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun OnboardingScreen(
-    viewModel: OnboardingViewModel = koinViewModel<OnboardingViewModel>(),
-    onLocationAvailable: () -> Unit,
-    onNext: () -> Unit
+    onboardingComponent: OnboardingComponent,
 ) {
     val locationPermissionState = rememberPermissionState(
         permission = ACCESS_COARSE_LOCATION,
-        onPermissionResult = { granted -> viewModel.handleLocationRequestResult(granted) }
+        onPermissionResult = { granted -> onboardingComponent.handleLocationRequestResult(granted) }
     )
-    val state by viewModel.state.observeAsState(OnboardingState(locationGranted = false))
-    viewModel.goNextEvent.observeAsEvent { onNext() }
-    viewModel.locationAvailableEvent.observeAsEvent { onLocationAvailable() }
+    val state by onboardingComponent.state.observeAsState(OnboardingState(locationGranted = false))
 
     DisposableEffect(locationPermissionState.status.isGranted) {
-        viewModel.handleInitialLocationGranted(locationPermissionState.status.isGranted)
+        onboardingComponent.handleInitialLocationGranted(locationPermissionState.status.isGranted)
         onDispose { }
     }
 
     OnboardingContent(
         locationGranted = state.locationGranted,
         onAllowAccessClick = { locationPermissionState.launchPermissionRequest() },
-        onNextClick = viewModel::goNext
+        onNextClick = onboardingComponent::goNext
     )
 }
 

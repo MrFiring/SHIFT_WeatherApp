@@ -42,6 +42,7 @@ import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
+import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
@@ -160,10 +161,14 @@ fun MainNavigationGraph(
     ) {
 
         composable(route = Navigations.Onboarding) {
-            OnboardingScreen(
-                onLocationAvailable = { navController.navigate(Navigations.Details) },
-                onNext = { navController.navigate(Navigations.Cities) },
+            val component = OnboardingComponentImpl(
+                componentContext = defaultComponentContext,
+                setOnboardingPassedUseCase = get(),
+                locationAvailableHandler = { navController.navigate(Navigations.Details) },
+                goNextHandler = { navController.navigate(Navigations.Cities) }
             )
+
+            OnboardingScreen(component)
         }
 
         composable(route = Navigations.Favorites) {
