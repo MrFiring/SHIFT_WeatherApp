@@ -21,6 +21,7 @@ buildscript {
         version_compose_minor = '1.3.0-alpha03'
         version_decompose = '2.2.3'
         version_decompose_ext = "3.0.0"
+        version_decompose_lifecycle = "2.0.0"
 
         //Test implementations
         version_mockk = '1.10.6'

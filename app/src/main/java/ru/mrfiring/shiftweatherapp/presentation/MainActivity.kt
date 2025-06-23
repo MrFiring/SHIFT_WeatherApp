@@ -23,11 +23,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.paging.ExperimentalPagingApi
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.defaultComponentContext
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import ru.mrfiring.shiftweatherapp.R
+import ru.mrfiring.shiftweatherapp.di.get
 import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
 import ru.mrfiring.shiftweatherapp.domain.onboarding.IsOnboardingPassedUseCase
+import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
@@ -57,6 +61,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val locationGranted =
             checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val defaultContext = defaultComponentContext()
 
         setContent {
             val navController = rememberNavController()
@@ -120,7 +125,8 @@ class MainActivity : ComponentActivity() {
                         startDestination = getStartDestination(
                             isOnboardingPassedUseCase(),
                             locationGranted
-                        )
+                        ),
+                        defaultComponentContext = defaultContext
                     )
                 }
 
@@ -143,6 +149,7 @@ private fun getStartDestination(onboardingPassed: Boolean, locationGranted: Bool
 fun MainNavigationGraph(
     navController: NavHostController,
     startDestination: String,
+    defaultComponentContext: ComponentContext,
 ) {
     NavHost(
         navController = navController,
@@ -161,14 +168,22 @@ fun MainNavigationGraph(
         }
 
         composable(route = Navigations.Cities) {
-            CitiesScreen(
-                onCityClick = { cityId ->
-                    navController.navigate("${Navigations.Details}?cityId=$cityId") {
+
+            val component = CitiesComponentImpl(
+                componentContext = defaultComponentContext,
+                country = "",
+                onCitySelect = { city ->
+                    navController.navigate("${Navigations.Details}?cityId=${city.id}") {
                         //Need to navigateUp correctly on a real device
                         popUpTo(Navigations.Cities) { inclusive = false }
                     }
-                }
+                },
+                getCitiesFlowUseCase = get(),
+                getCitiesByCountryFlowUseCase = get(),
+                updateCityUseCase = get(),
             )
+
+            CitiesScreen(component)
         }
 
         composable(
@@ -176,15 +191,22 @@ fun MainNavigationGraph(
             arguments = listOf(navArgument("country") { defaultValue = "" })
         ) { backStackEntry ->
             val arg = backStackEntry.arguments?.getString("country")
-            CitiesScreen(
-                onCityClick = { cityId ->
-                    navController.navigate("${Navigations.Details}?cityId=$cityId") {
+
+            val component = CitiesComponentImpl(
+                componentContext = defaultComponentContext,
+                country = arg ?: "",
+                onCitySelect = { city ->
+                    navController.navigate("${Navigations.Details}?cityId=${city.id}") {
                         //Need to navigateUp correctly on a real device
                         popUpTo(Navigations.Cities) { inclusive = false }
                     }
                 },
-                country = arg ?: ""
+                getCitiesFlowUseCase = get(),
+                getCitiesByCountryFlowUseCase = get(),
+                updateCityUseCase = get(),
             )
+
+            CitiesScreen(component)
         }
 
         composable(route = Navigations.Countries) {

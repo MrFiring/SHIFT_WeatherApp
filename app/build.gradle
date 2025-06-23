@@ -90,6 +90,7 @@ dependencies {
     // Decompose
     implementation "com.arkivanov.decompose:decompose:$version_decompose"
     implementation "com.arkivanov.decompose:extensions-compose:$version_decompose_ext"
+    implementation "com.arkivanov.essenty:lifecycle-coroutines:$version_decompose_lifecycle"
 
     // Paging
     implementation "androidx.paging:paging-runtime-ktx:$version_paging"

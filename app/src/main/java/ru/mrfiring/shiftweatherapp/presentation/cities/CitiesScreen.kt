@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import org.koin.androidx.compose.getViewModel
-import org.koin.core.parameter.parametersOf
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
@@ -22,17 +20,14 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 @ExperimentalPagingApi
 @Composable
 fun CitiesScreen(
-    onCityClick: (Long) -> Unit,
-    country: String = "",
-    viewModel: CitiesScreenViewModel = getViewModel { parametersOf(country) }
+    citiesComponent: CitiesComponent,
 ) {
-    val lazyPagingItems = viewModel.cities.collectAsLazyPagingItems()
+    val lazyPagingItems = citiesComponent.cities.collectAsLazyPagingItems()
     val lazyListState = rememberLazyListState()
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column {
             LazyColumn(state = lazyListState) {
-
 
                 items(count = lazyPagingItems.itemCount) {
                     val city = lazyPagingItems[it]
@@ -40,8 +35,8 @@ fun CitiesScreen(
                         CityItem(
                             domainCity = city,
                             onLongTap = {
-                                viewModel.onLongPress(city)
-                            }, onClick = { onCityClick(city.id) })
+                                citiesComponent.onLongPress(city)
+                            }, onClick = { citiesComponent.onSelectCity(city) })
                     }
                 }
 
