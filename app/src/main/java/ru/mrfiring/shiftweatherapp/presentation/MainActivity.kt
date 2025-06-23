@@ -40,6 +40,7 @@ import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailScreen
+import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteScreen
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingScreen
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
@@ -166,7 +167,14 @@ fun MainNavigationGraph(
         }
 
         composable(route = Navigations.Favorites) {
-            FavoriteScreen(navController = navController)
+            val component = FavoriteComponentImpl(
+                componentContext = defaultComponentContext,
+                getFavoriteCitiesLiveDataUseCase = get(),
+                updateCityUseCase = get(),
+                selectCityHandler = { navController.navigate("${Navigations.Details}?cityId=${it.id}") }
+            )
+
+            FavoriteScreen(component)
         }
 
         composable(route = Navigations.Cities) {

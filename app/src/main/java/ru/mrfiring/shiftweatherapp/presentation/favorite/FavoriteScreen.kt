@@ -13,9 +13,6 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.navigation.NavController
-import org.koin.androidx.compose.getViewModel
-import ru.mrfiring.shiftweatherapp.presentation.Navigations
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
@@ -24,13 +21,12 @@ import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 @Composable
 fun FavoriteScreen(
-    navController: NavController,
-    viewModel: FavoriteScreenViewModel = getViewModel()
+    favoriteComponent: FavoriteComponent
 ) {
-    val favorites by viewModel.favorites.observeAsState(initial = emptyList())
-    val status by viewModel.status.observeAsState(initial = ApiStatus.LOADING)
+    val favorites by favoriteComponent.favorites.observeAsState(initial = emptyList())
+    val status by favoriteComponent.status.observeAsState(initial = ApiStatus.LOADING)
 
-    if (favorites.isNullOrEmpty()) {
+    if (favorites.isEmpty()) {
         Column(
             modifier = Modifier
                 .fillMaxHeight()
@@ -50,10 +46,10 @@ fun FavoriteScreen(
                 CityItem(
                     domainCity = city,
                     onLongTap = {
-                        viewModel.onLongPress(city)
+                        favoriteComponent.onLongPress(city)
                     },
                     onClick = {
-                        navController.navigate("${Navigations.Details}?cityId=${city.id}")
+                        favoriteComponent.onSelectCity(city)
                     })
             }
 
@@ -66,7 +62,7 @@ fun FavoriteScreen(
                     }
                     ApiStatus.ERROR -> {
                         item {
-                            ShowNetworkError(onRetry = viewModel::onRetry)
+                            ShowNetworkError(onRetry = favoriteComponent::onRetry)
                         }
                     }
                     else -> {
