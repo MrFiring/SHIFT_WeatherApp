@@ -11,7 +11,6 @@ import ru.mrfiring.shiftweatherapp.di.databaseModule
 import ru.mrfiring.shiftweatherapp.di.networkModule
 import ru.mrfiring.shiftweatherapp.di.repositoryModule
 import ru.mrfiring.shiftweatherapp.di.useCaseModule
-import ru.mrfiring.shiftweatherapp.di.viewModelModule
 
 class WeatherApplication: Application() {
     @ExperimentalPagingApi
@@ -26,7 +25,6 @@ class WeatherApplication: Application() {
                 databaseModule,
                 networkModule,
                 repositoryModule,
-                viewModelModule,
                 useCaseModule,
                 componentModule,
             )

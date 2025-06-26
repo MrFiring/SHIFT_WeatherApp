@@ -63,9 +63,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutines_test"
     testImplementation "androidx.arch.core:core-testing:$version_core_testing"
 
-    // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
-
     //Retrofit and Moshi
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
@@ -110,8 +107,6 @@ dependencies {
     implementation "androidx.compose.material:material-icons-extended:$version_compose"
     // Integration with activities
     implementation "androidx.activity:activity-compose:$version_compose_minor"
-    // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0'
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$version_compose"
     implementation "androidx.compose.compiler:compiler:$version_compose"
