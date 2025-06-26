@@ -5,7 +5,13 @@ import androidx.paging.ExperimentalPagingApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.mrfiring.shiftweatherapp.di.*
+import ru.mrfiring.shiftweatherapp.di.apiModule
+import ru.mrfiring.shiftweatherapp.di.componentModule
+import ru.mrfiring.shiftweatherapp.di.databaseModule
+import ru.mrfiring.shiftweatherapp.di.networkModule
+import ru.mrfiring.shiftweatherapp.di.repositoryModule
+import ru.mrfiring.shiftweatherapp.di.useCaseModule
+import ru.mrfiring.shiftweatherapp.di.viewModelModule
 
 class WeatherApplication: Application() {
     @ExperimentalPagingApi
@@ -21,7 +27,8 @@ class WeatherApplication: Application() {
                 networkModule,
                 repositoryModule,
                 viewModelModule,
-                useCaseModule
+                useCaseModule,
+                componentModule,
             )
         }
     }

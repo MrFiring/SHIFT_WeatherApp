@@ -1,0 +1,82 @@
+package ru.mrfiring.shiftweatherapp.di
+
+import androidx.paging.ExperimentalPagingApi
+import com.arkivanov.decompose.ComponentContext
+import org.koin.core.component.get
+import org.koin.dsl.module
+import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesComponent
+import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesComponentImpl
+import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesComponent
+import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesComponentImpl
+import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponent
+import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
+import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponent
+import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponentImpl
+import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponent
+import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponentImpl
+
+val componentModule = module {
+
+    single { ComponentFactory(getKoin()) }
+}
+
+@OptIn(ExperimentalPagingApi::class)
+fun ComponentFactory.createCitiesComponent(
+    componentContext: ComponentContext,
+    country: String,
+    onCitySelect: (DomainCity) -> Unit,
+): CitiesComponent =
+    CitiesComponentImpl(
+        componentContext = componentContext,
+        country = country,
+        onCitySelect = onCitySelect,
+        getCitiesFlowUseCase = get(),
+        getCitiesByCountryFlowUseCase = get(),
+        updateCityUseCase = get(),
+    )
+
+fun ComponentFactory.createCountriesComponent(
+    componentContext: ComponentContext,
+    countryClickHandler: (String) -> Unit
+): CountriesComponent =
+    CountriesComponentImpl(
+        componentContext = componentContext,
+        getCountriesUseCase = get(),
+        countryClickHandler = countryClickHandler,
+    )
+
+fun ComponentFactory.createDetailComponent(
+    componentContext: ComponentContext,
+    cityId: Long?,
+): DetailComponent =
+    DetailComponentImpl(
+        componentContext = componentContext,
+        cityId = cityId,
+        updateWeatherUseCase = get(),
+        getWeatherUseCase = get(),
+        getCurrentLocationUseCase = get(),
+    )
+
+fun ComponentFactory.createFavoriteComponent(
+    componentContext: ComponentContext,
+    selectCityHandler: (DomainCity) -> Unit,
+): FavoriteComponent =
+    FavoriteComponentImpl(
+        componentContext = componentContext,
+        getFavoriteCitiesLiveDataUseCase = get(),
+        updateCityUseCase = get(),
+        selectCityHandler = selectCityHandler,
+    )
+
+fun ComponentFactory.createOnboardingComponent(
+    componentContext: ComponentContext,
+    locationAvailableHandler: () -> Unit,
+    goNextHandler: () -> Unit,
+): OnboardingComponent =
+    OnboardingComponentImpl(
+        componentContext = componentContext,
+        setOnboardingPassedUseCase = get(),
+        locationAvailableHandler = locationAvailableHandler,
+        goNextHandler = goNextHandler,
+    )
