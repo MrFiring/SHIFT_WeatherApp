@@ -26,11 +26,13 @@ val componentModule = module {
 fun ComponentFactory.createMainComponent(
     componentContext: ComponentContext,
     locationGranted: Boolean,
+    changeThemeHandler: () -> Unit
 ): MainComponent =
     MainComponentImpl(
         componentContext = componentContext,
         locationGranted = locationGranted,
-        componentFactory = get()
+        changeThemeHandler = changeThemeHandler,
+        componentFactory = get(),
     )
 
 @OptIn(ExperimentalPagingApi::class)

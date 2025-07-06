@@ -23,6 +23,8 @@ interface MainComponent {
 
     val stack: Value<ChildStack<*, Child>>
 
+    fun onChangeThemeClick()
+
     fun onCitiesClick()
     fun onCountriesClick()
     fun onFavoritesClick()
@@ -31,6 +33,7 @@ interface MainComponent {
 class MainComponentImpl(
     componentContext: ComponentContext,
     private val locationGranted: Boolean,
+    private val changeThemeHandler: () -> Unit,
     private val componentFactory: ComponentFactory,
 ) : MainComponent, ComponentContext by componentContext {
 
@@ -92,6 +95,10 @@ class MainComponentImpl(
 
     override fun onFavoritesClick() {
         navigation.replaceAll(Config.Favorite)
+    }
+
+    override fun onChangeThemeClick() {
+        changeThemeHandler()
     }
 
     sealed class Child {
