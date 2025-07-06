@@ -13,6 +13,8 @@ import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponent
 import ru.mrfiring.shiftweatherapp.presentation.detail.DetailComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponent
 import ru.mrfiring.shiftweatherapp.presentation.favorite.FavoriteComponentImpl
+import ru.mrfiring.shiftweatherapp.presentation.main.MainComponent
+import ru.mrfiring.shiftweatherapp.presentation.main.MainComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponent
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponentImpl
 
@@ -20,6 +22,16 @@ val componentModule = module {
 
     single { ComponentFactory(getKoin()) }
 }
+
+fun ComponentFactory.createMainComponent(
+    componentContext: ComponentContext,
+    locationGranted: Boolean,
+): MainComponent =
+    MainComponentImpl(
+        componentContext = componentContext,
+        locationGranted = locationGranted,
+        componentFactory = get()
+    )
 
 @OptIn(ExperimentalPagingApi::class)
 fun ComponentFactory.createCitiesComponent(
