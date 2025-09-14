@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlinx-serialization"
 
 android {
@@ -10,8 +9,8 @@ android {
         minSdkVersion 26
         targetSdkVersion 35
         compileSdk 35
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,11 +34,6 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    packagingOptions {
-        resources {
-            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0', 'META-INF/AL2.0', 'META-INF/LGPL2.1', 'META-INF/*.kotlin_module']
-        }
-    }
     namespace 'ru.mrfiring.shiftweatherapp'
 
 }
@@ -47,10 +41,7 @@ android {
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.7.0'
     implementation 'com.google.android.gms:play-services-location:21.3.0'
 
     //Testing implementations
@@ -109,8 +100,6 @@ dependencies {
     // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$version_compose"
     implementation "androidx.compose.compiler:compiler:$version_compose"
-    //ConstraintLayout Compose
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     //Accompanist permission
     implementation "com.google.accompanist:accompanist-permissions:0.32.0"
