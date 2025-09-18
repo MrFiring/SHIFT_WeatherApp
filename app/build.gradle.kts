@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.symbolProcessing)
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -55,11 +56,11 @@ dependencies {
     implementation(libs.retrofit.converterMoshi)
     implementation(libs.moshi)
     implementation(libs.moshiKotlin)
-    kapt(libs.moshiKotlinCodegen)
+    ksp(libs.moshiKotlinCodegen)
 
     //Room
     implementation(libs.room.runtime)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
     implementation(libs.room.ktx)
     implementation(libs.room.paging)
 
