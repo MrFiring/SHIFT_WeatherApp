@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("org.jetbrains.kotlin.plugin.serialization")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -40,65 +40,57 @@ android {
 }
 
 dependencies {
+    implementation(libs.kotlin)
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra["kotlin_version"]}")
-
-    implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation(libs.playServices.location)
 
     //Testing implementations
-    testImplementation("io.mockk:mockk:${rootProject.extra["version_mockk"]}")
-    testImplementation("junit:junit:${rootProject.extra["version_junit"]}")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:${rootProject.extra["version_coroutines_test"]}")
-    testImplementation("androidx.arch.core:core-testing:${rootProject.extra["version_core_testing"]}")
+    testImplementation(libs.mockk)
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.core.testing)
 
     //Retrofit and Moshi
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.moshi:moshi:1.15.0")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.15.0")
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.converterMoshi)
+    implementation(libs.moshi)
+    implementation(libs.moshiKotlin)
+    kapt(libs.moshiKotlinCodegen)
 
     //Room
-    implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
-    kapt("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
-    implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
-    implementation("androidx.room:room-paging:${rootProject.extra["room_version"]}")
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
+
     // coroutines for getting off the UI thread
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${rootProject.extra["version_coroutines"]}")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${rootProject.extra["version_coroutines"]}")
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
 
     // Decompose
-    implementation("com.arkivanov.decompose:decompose:${rootProject.extra["version_decompose"]}")
-    implementation("com.arkivanov.decompose:extensions-compose:${rootProject.extra["version_decompose_ext"]}")
-    implementation("com.arkivanov.essenty:lifecycle-coroutines:${rootProject.extra["version_decompose_lifecycle"]}")
+    implementation(libs.decompose)
+    implementation(libs.decompose.extensionsCompose)
+    implementation(libs.decompose.lifecycleCoroutines)
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:${rootProject.extra["version_paging"]}")
-    implementation("androidx.paging:paging-compose:3.2.1")
+    implementation(libs.paging.runtimeKtx)
+    implementation(libs.paging.compose)
 
     //Koin
-    implementation("io.insert-koin:koin-android:${rootProject.extra["version_koin"]}")
+    implementation(libs.koinAndroid)
     // Koin AndroidX Jetpack Compose
-    implementation("io.insert-koin:koin-androidx-compose:${rootProject.extra["version_koin"]}")
-
+    implementation(libs.koinAndroid.compose)
 
     ///Compose
-    implementation("androidx.compose.ui:ui:${rootProject.extra["version_compose"]}")
-    // Tooling support (Previews, etc.)
-    implementation("androidx.compose.ui:ui-tooling:${rootProject.extra["version_compose"]}")
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation("androidx.compose.foundation:foundation:${rootProject.extra["version_compose"]}")
-    // Material Design
-    implementation("androidx.compose.material:material:${rootProject.extra["version_compose"]}")
-    // Material design icons
-    implementation("androidx.compose.material:material-icons-core:${rootProject.extra["version_compose"]}")
-    implementation("androidx.compose.material:material-icons-extended:${rootProject.extra["version_compose"]}")
-    // Integration with activities
-    implementation("androidx.activity:activity-compose:${rootProject.extra["version_compose_minor"]}")
-    // Integration with observables
-    implementation("androidx.compose.runtime:runtime-livedata:${rootProject.extra["version_compose"]}")
-    implementation("androidx.compose.compiler:compiler:${rootProject.extra["version_compose"]}")
+    implementation(libs.compose.ui)
+    implementation(libs.compose.uiTooling)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material)
+    implementation(libs.compose.material.icons.core)
+    implementation(libs.compose.material.icons.extended)
+    implementation(libs.compose.activity)
+    implementation(libs.compose.runtime.livedata)
+    implementation(libs.compose.compiler)
 
-    //Accompanist permission
-    implementation("com.google.accompanist:accompanist-permissions:0.32.0")
+    implementation(libs.accompanist.permissions)
 }
