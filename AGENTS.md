@@ -59,3 +59,15 @@
 - Application ID: `ru.mrfiring.shiftweatherapp`
 - Proguard enabled for release builds
 - Compose compiler version: 1.5.6
+
+## Clean Architecture Principles
+
+- Method names should be descriptive and convey intent (e.g., `getDarkTheme()` not `get()`)
+- Follow existing patterns exactly (use Onboarding as reference)
+- Keep DI modules separate for repositories vs use cases
+- Use proper scoping: single for SharedPreferences, factory for repositories/use cases
+- Components should manage global state using Decompose `MutableValue`
+- Remove redundant methods and eliminate unnecessary abstractions
+- Inline lambda handlers where appropriate
+- Don't modify UI components unless absolutely necessary
+- Components depend on use cases, not repositories
