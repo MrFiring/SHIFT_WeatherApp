@@ -10,6 +10,7 @@ import ru.mrfiring.shiftweatherapp.data.CountriesRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.LocationDataSource
 import ru.mrfiring.shiftweatherapp.data.LocationRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.OnboardingRepositoryImpl
+import ru.mrfiring.shiftweatherapp.data.ThemeRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.WeatherRepositoryImpl
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.CountriesDao
@@ -21,6 +22,7 @@ import ru.mrfiring.shiftweatherapp.domain.CountriesRepository
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.location.LocationRepository
 import ru.mrfiring.shiftweatherapp.domain.onboarding.OnboardingRepository
+import ru.mrfiring.shiftweatherapp.domain.theme.ThemeRepository
 
 @ExperimentalPagingApi
 val repositoryModule = module {
@@ -53,4 +55,7 @@ val repositoryModule = module {
 
     factory { androidApplication().getSharedPreferences("ONBOARDING_PREFS", Context.MODE_PRIVATE) }
     factory<OnboardingRepository> { OnboardingRepositoryImpl(preferences = get()) }
+
+    single { androidApplication().getSharedPreferences("THEME_PREFS", Context.MODE_PRIVATE) }
+    factory<ThemeRepository> { ThemeRepositoryImpl(preferences = get()) }
 }

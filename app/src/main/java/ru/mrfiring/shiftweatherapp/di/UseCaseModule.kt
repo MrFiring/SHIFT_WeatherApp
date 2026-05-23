@@ -14,6 +14,8 @@ import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 import ru.mrfiring.shiftweatherapp.domain.onboarding.IsOnboardingPassedUseCase
 import ru.mrfiring.shiftweatherapp.domain.onboarding.SetOnboardingPassedUseCase
+import ru.mrfiring.shiftweatherapp.domain.theme.GetDarkThemeUseCase
+import ru.mrfiring.shiftweatherapp.domain.theme.SetDarkThemeUseCase
 
 val useCaseModule = module{
 
@@ -74,4 +76,7 @@ val useCaseModule = module{
 
     factory { IsOnboardingPassedUseCase(repository = get()) }
     factory { SetOnboardingPassedUseCase(repository = get()) }
+
+    factory { GetDarkThemeUseCase(repository = get()) }
+    factory { SetDarkThemeUseCase(repository = get()) }
 }
