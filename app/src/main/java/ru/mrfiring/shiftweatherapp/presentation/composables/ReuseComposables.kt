@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
 
 @Composable
-fun ShowAppBar(
+fun AppBar(
     title: String,
     modifier: Modifier = Modifier,
     onNavigationClick: () -> Unit = {}
@@ -56,7 +56,7 @@ fun ShowAppBar(
 }
 
 @Composable
-fun ShowLoading(
+fun LoadingIndicator(
     modifier: Modifier = Modifier,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,
@@ -77,7 +77,7 @@ fun ShowLoading(
 }
 
 @Composable
-fun ShowNetworkError(
+fun NetworkError(
     modifier: Modifier = Modifier,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     verticalArrangement: Arrangement.Vertical = Arrangement.Center,

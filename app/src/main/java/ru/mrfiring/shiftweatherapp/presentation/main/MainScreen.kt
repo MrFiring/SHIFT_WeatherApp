@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowAppBar
+import ru.mrfiring.shiftweatherapp.presentation.composables.AppBar
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerContent
 import ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer.HomeDrawerHeader
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
@@ -32,7 +32,7 @@ fun MainScreen(mainComponent: MainComponent) {
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
-            ShowAppBar(
+            AppBar(
                 title = "Weather",
                 onNavigationClick = {
                     coroutineScope.launch {

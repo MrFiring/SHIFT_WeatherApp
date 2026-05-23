@@ -10,8 +10,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
+import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
+import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WeatherCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WindCard
@@ -35,7 +35,7 @@ fun DetailScreen(
             when (status) {
                 //Show progress bar
                 ApiStatus.LOADING -> {
-                    ShowLoading(modifier = Modifier.fillMaxSize())
+                    LoadingIndicator(modifier = Modifier.fillMaxSize())
                 }
                 //Elements are loaded successfully then show them
                 ApiStatus.DONE -> {
@@ -51,7 +51,7 @@ fun DetailScreen(
                 }
                 //Show network error message with retry button
                 else -> {
-                    ShowNetworkError(
+                    NetworkError(
                         modifier = Modifier.fillMaxSize(),
                         onRetry = detailComponent::onRetryPressed
                     )

@@ -16,7 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
+import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 
 @ExperimentalFoundationApi
@@ -27,7 +27,7 @@ fun CountriesScreen(
     val countries by countriesComponent.countries.observeAsState(initial = listOf(""))
 
     if (countries.isEmpty()) {
-        ShowLoading(Modifier.fillMaxSize())
+        LoadingIndicator(Modifier.fillMaxSize())
     } else {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 108.dp)

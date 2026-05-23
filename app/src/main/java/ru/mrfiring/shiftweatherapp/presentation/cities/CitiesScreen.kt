@@ -14,8 +14,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
+import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
+import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 
 @ExperimentalPagingApi
 @Composable
@@ -49,12 +49,12 @@ fun CitiesScreen(
                 when (loadState.refresh) {
                     is LoadState.Loading -> {
                         item {
-                            ShowLoading(modifier = Modifier.fillMaxSize())
+                            LoadingIndicator(modifier = Modifier.fillMaxSize())
                         }
                     }
                     is LoadState.Error -> {
                         item {
-                            ShowNetworkError(
+                            NetworkError(
                                 modifier = Modifier.fillMaxSize(),
                                 onRetry = lazyPagingItems::retry
                             )

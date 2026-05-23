@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
-import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
+import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
+import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 
@@ -57,12 +57,12 @@ fun FavoriteScreen(
                 when (status) {
                     ApiStatus.LOADING -> {
                         item {
-                            ShowLoading()
+                            LoadingIndicator()
                         }
                     }
                     ApiStatus.ERROR -> {
                         item {
-                            ShowNetworkError(onRetry = favoriteComponent::onRetry)
+                            NetworkError(onRetry = favoriteComponent::onRetry)
                         }
                     }
                     else -> {
