@@ -5,22 +5,30 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceCurrent
-import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
+import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
 import ru.mrfiring.shiftweatherapp.di.ComponentFactory
 import ru.mrfiring.shiftweatherapp.di.createMainComponent
 import ru.mrfiring.shiftweatherapp.di.createOnboardingComponent
 import ru.mrfiring.shiftweatherapp.domain.onboarding.IsOnboardingPassedUseCase
+import ru.mrfiring.shiftweatherapp.domain.theme.GetDarkThemeUseCase
+import ru.mrfiring.shiftweatherapp.domain.theme.SetDarkThemeUseCase
 import ru.mrfiring.shiftweatherapp.presentation.main.MainComponent
 import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponent
 
 class RootComponent(
     componentContext: ComponentContext,
     private val locationGranted: Boolean,
-    private val themeChangeHandler: () -> Unit,
     private val isOnboardingPassedUseCase: IsOnboardingPassedUseCase,
+    private val getDarkThemeUseCase: GetDarkThemeUseCase,
+    private val setDarkThemeUseCase: SetDarkThemeUseCase,
     private val componentFactory: ComponentFactory,
 ) : ComponentContext by componentContext {
+
+    private val _darkThemeState = MutableValue(getDarkThemeUseCase())
+
+    val darkThemeState: Value<Boolean> get() = _darkThemeState
 
     private val navigation: StackNavigation<Config> = StackNavigation()
 
@@ -45,7 +53,10 @@ class RootComponent(
                 componentFactory.createMainComponent(
                     componentContext,
                     locationGranted = config.locationGranted,
-                    changeThemeHandler = themeChangeHandler::invoke,
+                    changeThemeHandler = {
+                        _darkThemeState.value = !_darkThemeState.value
+                        setDarkThemeUseCase(_darkThemeState.value)
+                    },
                 )
             )
 
