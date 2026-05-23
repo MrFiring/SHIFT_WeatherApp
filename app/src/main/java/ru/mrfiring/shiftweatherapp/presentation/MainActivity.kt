@@ -8,18 +8,16 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.paging.ExperimentalPagingApi
 import com.arkivanov.decompose.defaultComponentContext
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import org.koin.android.ext.android.get
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 @ExperimentalFoundationApi
 class MainActivity : ComponentActivity() {
-
-    private val themeState: MutableState<Boolean> = mutableStateOf(true)
 
     @ExperimentalPagingApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,15 +29,16 @@ class MainActivity : ComponentActivity() {
         val rootComponent = RootComponent(
             defaultComponentContext(),
             locationGranted,
-            themeChangeHandler = {
-                themeState.value = !themeState.value
-            },
             isOnboardingPassedUseCase = get(),
+            getDarkThemeUseCase = get(),
+            setDarkThemeUseCase = get(),
             componentFactory = get()
         )
 
         setContent {
-            WeatherTheme(darkTheme = themeState.value) {
+            val darkTheme by rootComponent.darkThemeState.subscribeAsState()
+
+            WeatherTheme(darkTheme = darkTheme) {
                 RootContent(rootComponent, modifier = Modifier.systemBarsPadding())
             }
         }
