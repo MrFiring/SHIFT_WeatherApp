@@ -64,7 +64,7 @@ fun ShowLoading(
     Column(
         horizontalAlignment = horizontalAlignment,
         verticalArrangement = verticalArrangement,
-        modifier = modifier
+        modifier = modifier.padding(16.dp)
     ) {
         CircularProgressIndicator(
             color = if (MaterialTheme.colors.isLight) {
@@ -72,10 +72,6 @@ fun ShowLoading(
             } else {
                 MaterialTheme.colors.onPrimary
             }
-        )
-        Text(
-            text = "Loading...", style = MaterialTheme.typography.button,
-            modifier = Modifier.padding(8.dp)
         )
     }
 }
@@ -90,7 +86,7 @@ fun ShowNetworkError(
     Column(
         horizontalAlignment = horizontalAlignment,
         verticalArrangement = verticalArrangement,
-        modifier = modifier
+        modifier = modifier.padding(16.dp)
     ) {
         val errorImg = painterResource(id = R.drawable.ic_connection_error)
         val text = stringResource(id = R.string.network_error)
@@ -103,7 +99,7 @@ fun ShowNetworkError(
         )
         Text(
             text = text, style = MaterialTheme.typography.button,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(vertical = 8.dp)
         )
         Button(onClick = {
             onRetry()
