@@ -20,13 +20,14 @@ import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponent
 class RootComponent(
     componentContext: ComponentContext,
     private val locationGranted: Boolean,
+    private val darkTheme: Boolean,
     private val isOnboardingPassedUseCase: IsOnboardingPassedUseCase,
     private val getDarkThemeUseCase: GetDarkThemeUseCase,
     private val setDarkThemeUseCase: SetDarkThemeUseCase,
     private val componentFactory: ComponentFactory,
 ) : ComponentContext by componentContext {
 
-    private val _darkThemeState = MutableValue(getDarkThemeUseCase())
+    private val _darkThemeState = MutableValue(getDarkThemeUseCase() ?: darkTheme)
 
     val darkThemeState: Value<Boolean> get() = _darkThemeState
 

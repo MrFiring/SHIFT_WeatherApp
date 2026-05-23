@@ -1,5 +1,6 @@
 package ru.mrfiring.shiftweatherapp.presentation
 
+import android.content.res.Configuration
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -26,9 +27,12 @@ class MainActivity : ComponentActivity() {
 
         val locationGranted =
             checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        val isSystemDark = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
         val rootComponent = RootComponent(
             defaultComponentContext(),
             locationGranted,
+            isSystemDark,
             isOnboardingPassedUseCase = get(),
             getDarkThemeUseCase = get(),
             setDarkThemeUseCase = get(),

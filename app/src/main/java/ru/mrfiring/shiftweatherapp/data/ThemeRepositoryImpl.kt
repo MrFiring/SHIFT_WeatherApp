@@ -9,11 +9,14 @@ class ThemeRepositoryImpl(private val preferences: SharedPreferences) : ThemeRep
     private companion object {
 
         const val KEY = "theme_key"
-        const val DEFAULT = true
     }
 
-    override fun getDarkTheme(): Boolean =
-        preferences.getBoolean(KEY, DEFAULT)
+    override fun getDarkTheme(): Boolean? =
+        if (preferences.contains(KEY)) {
+            preferences.getBoolean(KEY, false)
+        } else {
+            null
+        }
 
     override fun setDarkTheme(isDark: Boolean) {
         preferences.edit {
