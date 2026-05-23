@@ -2,6 +2,8 @@ package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -10,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowLoading
 import ru.mrfiring.shiftweatherapp.presentation.composables.ShowNetworkError
-import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersAnimatedCard
+import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WeatherCard
 import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WindCard
 
@@ -23,7 +25,11 @@ fun DetailScreen(
     val container by detailComponent.container.observeAsState()
     val status by detailComponent.status.observeAsState()
     Surface {
-        Column(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+        ) {
 
             //Check the status of data and show content or state of the loading
             when (status) {
@@ -35,8 +41,10 @@ fun DetailScreen(
                 ApiStatus.DONE -> {
                     container?.let {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            MainParametersAnimatedCard(it.mainParams)
+                            MainParametersCard(it.mainParams)
+
                             WeatherCard(it.weather)
+
                             WindCard(domainWind = it.wind)
                         }
                     }
