@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation.composables.home.drawer
+package ru.mrfiring.shiftweatherapp.presentation.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

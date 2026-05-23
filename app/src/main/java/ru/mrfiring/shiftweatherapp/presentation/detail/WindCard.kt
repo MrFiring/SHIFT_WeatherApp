@@ -1,4 +1,4 @@
-package ru.mrfiring.shiftweatherapp.presentation.composables.detail
+package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
