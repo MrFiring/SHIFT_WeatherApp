@@ -1,7 +1,5 @@
 package ru.mrfiring.shiftweatherapp.presentation.composables
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -21,8 +19,6 @@ fun ThemeAwareCard(modifier: Modifier = Modifier, content: @Composable () -> Uni
         shape = RectangleShape,
         elevation = 4.dp
     ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            content()
-        }
+        content()
     }
 }
