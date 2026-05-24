@@ -12,26 +12,26 @@ import ru.mrfiring.shiftweatherapp.CoroutineTestRule
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 
 @ExperimentalCoroutinesApi
-class GetFavoriteCitiesLiveDataUseCaseTest {
+class GetFavoriteCitiesUseCaseTest {
 
 
     private val citiesRepository: CitiesRepository = mockk()
     private val city: DomainCity = mockk()
 
-    private val getFavoriteCitiesLiveDataUseCase =
-        GetFavoriteCitiesLiveDataUseCase(citiesRepository)
+    private val getFavoriteCitiesUseCase =
+        GetFavoriteCitiesUseCase(citiesRepository)
 
     @get:Rule
     val coroutineRule = CoroutineTestRule()
 
     @Test
     fun `get favorite cities EXPECTED to return list of cities`() = runBlockingTest {
-        coEvery { citiesRepository.getFavoriteCities().value } returns listOf(city)
+        coEvery { citiesRepository.getFavoriteCities() } returns listOf(city)
 
-        val cities = getFavoriteCitiesLiveDataUseCase()
+        val cities = getFavoriteCitiesUseCase()
 
-        coVerify { getFavoriteCitiesLiveDataUseCase() }
-        assertEquals(listOf(city), cities.value)
+        coVerify { getFavoriteCitiesUseCase() }
+        assertEquals(listOf(city), cities)
     }
 
 }

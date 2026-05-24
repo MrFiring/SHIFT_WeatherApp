@@ -19,7 +19,7 @@ interface CitiesDao {
     fun getCitiesByCountry(country: String): PagingSource<Int, DatabaseCity>
 
     @Query("select * from databasecity where favorite = 1")
-    fun getFavoriteCities(): LiveData<List<DatabaseCity>>
+    suspend fun getFavoriteCities(): List<DatabaseCity>
 
     @Update
     suspend fun updateCity(city: DatabaseCity)

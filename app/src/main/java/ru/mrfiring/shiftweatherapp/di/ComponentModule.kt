@@ -78,7 +78,7 @@ fun ComponentFactory.createFavoriteComponent(
 ): FavoriteComponent =
     FavoriteComponentImpl(
         componentContext = componentContext,
-        getFavoriteCitiesLiveDataUseCase = get(),
+        getFavoriteCitiesUseCase = get(),
         updateCityUseCase = get(),
         selectCityHandler = selectCityHandler,
     )

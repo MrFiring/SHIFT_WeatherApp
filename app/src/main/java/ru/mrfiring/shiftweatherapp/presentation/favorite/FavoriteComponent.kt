@@ -7,7 +7,7 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
@@ -24,14 +24,14 @@ interface FavoriteComponent {
 
 class FavoriteComponentImpl(
     private val componentContext: ComponentContext,
-    private val getFavoriteCitiesLiveDataUseCase: GetFavoriteCitiesLiveDataUseCase,
+    private val getFavoriteCitiesUseCase: GetFavoriteCitiesUseCase,
     private val updateCityUseCase: UpdateCityUseCase,
     private val selectCityHandler: (DomainCity) -> Unit,
 ) : FavoriteComponent, ComponentContext by componentContext {
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var _favorites = MutableLiveData<List<DomainCity>>()
+    private var _favorites = MutableLiveData<List<DomainCity>>(emptyList())
     override val favorites: LiveData<List<DomainCity>> = _favorites
 
     private val _status = MutableLiveData<ApiStatus>()
@@ -49,7 +49,7 @@ class FavoriteComponentImpl(
         scope.launch {
             try {
                 _status.value = ApiStatus.LOADING
-                _favorites = getFavoriteCitiesLiveDataUseCase() as MutableLiveData<List<DomainCity>>
+                _favorites.value = getFavoriteCitiesUseCase()
                 _status.value = ApiStatus.DONE
             } catch (ex: Exception) {
                 _status.value = ApiStatus.ERROR
@@ -61,6 +61,7 @@ class FavoriteComponentImpl(
         scope.launch {
             city.favorite = !city.favorite
             updateCityUseCase(city = city)
+            bindFavorites()
         }
     }
 

@@ -17,7 +17,7 @@ import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
 class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
     private val citiesDao: CitiesDao,
     private val cityMediator: CityMediator,
-): CitiesRepository {
+) : CitiesRepository {
 
     @ExperimentalPagingApi
     override fun getCitiesFlow(): Flow<PagingData<DomainCity>> {
@@ -58,13 +58,10 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
         }
     }
 
-    override suspend fun getFavoriteCities(): LiveData<List<DomainCity>> {
-        return citiesDao.getFavoriteCities().map {
-            it.map { city ->
-                city.asDomainObject()
-            }
+    override suspend fun getFavoriteCities(): List<DomainCity> =
+        citiesDao.getFavoriteCities().map { city ->
+            city.asDomainObject()
         }
-    }
 
     override suspend fun updateCity(city: DomainCity) {
         citiesDao.updateCity(city.asDatabaseObject())

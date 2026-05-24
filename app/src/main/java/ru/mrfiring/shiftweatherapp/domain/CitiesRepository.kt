@@ -12,7 +12,8 @@ interface CitiesRepository {
 
     fun getCitiesByCountryFlow(country: String): Flow<PagingData<DomainCity>>
 
-    suspend fun getFavoriteCities(): LiveData<List<DomainCity>>
+    suspend fun getFavoriteCities(): List<DomainCity>
+
     suspend fun updateCity(city: DomainCity)
 
 }

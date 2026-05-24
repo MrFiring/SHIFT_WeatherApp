@@ -6,7 +6,7 @@ import ru.mrfiring.shiftweatherapp.domain.CountriesRepository
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesByCountryFlowUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetCountriesUseCase
-import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesLiveDataUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
@@ -33,8 +33,8 @@ val useCaseModule = module{
 
     fun provideGetFavoriteLiveDataCitiesUseCase(
         repository: CitiesRepository
-    ): GetFavoriteCitiesLiveDataUseCase {
-        return GetFavoriteCitiesLiveDataUseCase(repository)
+    ): GetFavoriteCitiesUseCase {
+        return GetFavoriteCitiesUseCase(repository)
     }
 
     fun provideUpdateCityUseCase(
