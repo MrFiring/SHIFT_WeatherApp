@@ -15,7 +15,15 @@ class UpdateCityUseCaseTest {
 
     private val citiesRepository: CitiesRepository = mockk()
     private val updateCityUseCase = UpdateCityUseCase(citiesRepository)
-    private val city: DomainCity = mockk()
+    private val city: DomainCity = DomainCity(
+        id = 0,
+        name = "City",
+        state = "State",
+        country = "Country",
+        longitude = 10.0,
+        latitude = 20.0,
+        favorite = false
+    )
 
     @get:Rule
     val coroutineRule = CoroutineTestRule()

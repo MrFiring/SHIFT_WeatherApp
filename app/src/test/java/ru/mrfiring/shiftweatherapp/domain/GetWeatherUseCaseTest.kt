@@ -27,7 +27,7 @@ class GetWeatherUseCaseTest {
 
     @Test
     fun `get weather EXPECTED to return weather container`() = runBlockingTest {
-        coEvery { weatherRepository.getWeather(capture(slot())) } returns domainWeatherContainer
+        coEvery { weatherRepository.getWeather(any<Long>()) } returns domainWeatherContainer
 
         val result = getWeatherUseCase(0)
 

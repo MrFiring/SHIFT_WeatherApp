@@ -39,13 +39,13 @@ class CitiesRepositoryTest {
         false
     )
 
-    private val liveDataFavorites: LiveData<List<DatabaseCity>> = mockk()
+    private val favorites: List<DatabaseCity> = listOf(city.asDatabaseObject())
 
     private val citiesRepository = CitiesRepositoryImpl(citiesDao, cityMediator)
 
     @Test
     fun `get favorite cities EXPECTED to call citiesDao favorite cities`() = runBlockingTest {
-        coEvery { citiesDao.getFavoriteCities() } returns liveDataFavorites
+        coEvery { citiesDao.getFavoriteCities() } returns favorites
 
         citiesRepository.getFavoriteCities()
 
