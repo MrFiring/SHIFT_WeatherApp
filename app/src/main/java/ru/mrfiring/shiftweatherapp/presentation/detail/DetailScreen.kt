@@ -12,9 +12,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
-import ru.mrfiring.shiftweatherapp.presentation.composables.detail.MainParametersCard
-import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WeatherCard
-import ru.mrfiring.shiftweatherapp.presentation.composables.detail.WindCard
 
 enum class ApiStatus { LOADING, ERROR, DONE }
 
