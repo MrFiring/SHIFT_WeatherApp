@@ -1,8 +1,8 @@
 package ru.mrfiring.shiftweatherapp.presentation.favorite
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -14,8 +14,8 @@ import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 interface FavoriteComponent {
 
-    val favorites: LiveData<List<City>>
-    val status: LiveData<ApiStatus>
+    val favorites: Value<List<City>>
+    val status: Value<ApiStatus>
 
     fun onRetry()
     fun onLongPress(city: City)
@@ -31,11 +31,11 @@ class FavoriteComponentImpl(
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var _favorites = MutableLiveData<List<City>>(emptyList())
-    override val favorites: LiveData<List<City>> = _favorites
+    private var _favorites = MutableValue<List<City>>(emptyList())
+    override val favorites: Value<List<City>> = _favorites
 
-    private val _status = MutableLiveData<ApiStatus>()
-    override val status: LiveData<ApiStatus> = _status
+    private val _status = MutableValue(ApiStatus.LOADING)
+    override val status: Value<ApiStatus> = _status
 
     init {
         bindFavorites()
