@@ -2,19 +2,15 @@ package ru.mrfiring.shiftweatherapp.presentation.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Divider
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
-import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.domain.models.DrawerMenuItem
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.AppBar
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
@@ -41,31 +37,11 @@ fun MainScreen(mainComponent: MainComponent) {
             )
         },
         drawerContent = {
-            HomeDrawerHeader(onClick = mainComponent::onChangeThemeClick)
-            Divider(modifier = Modifier.padding(bottom = 8.dp))
             HomeDrawerContent(
-                listOf(
-                    DrawerMenuItem(
-                        drawableId = R.drawable.ic_city_icon,
-                        text = "Show cities",
-                        onClick = mainComponent::onCitiesClick
-                    ),
-                    DrawerMenuItem(
-                        drawableId = R.drawable.ic_country_icon,
-                        text = "Show countries",
-                        onClick = mainComponent::onCountriesClick
-                    ),
-                    DrawerMenuItem(
-                        drawableId = R.drawable.ic_favorite,
-                        text = "Favorites",
-                        onClick = mainComponent::onFavoritesClick
-                    ),
-                    DrawerMenuItem(
-                        drawableId = R.drawable.ic_settings,
-                        text = "Settings",
-                        onClick = { /*TODO*/ }
-                    )
-                )
+                onChangeThemeClick = mainComponent::onChangeThemeClick,
+                onCitiesClick = mainComponent::onCitiesClick,
+                onCountriesClick = mainComponent::onCountriesClick,
+                onFavoritesClick = mainComponent::onFavoritesClick,
             )
         }
     ) { paddingValues ->
