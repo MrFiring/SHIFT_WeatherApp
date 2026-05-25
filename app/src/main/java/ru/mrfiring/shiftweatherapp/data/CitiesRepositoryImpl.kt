@@ -1,7 +1,5 @@
 package ru.mrfiring.shiftweatherapp.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig

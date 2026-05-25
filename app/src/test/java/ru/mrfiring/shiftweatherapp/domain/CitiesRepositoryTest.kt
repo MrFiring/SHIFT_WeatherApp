@@ -1,7 +1,5 @@
 package ru.mrfiring.shiftweatherapp.domain
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -26,9 +24,6 @@ import ru.mrfiring.shiftweatherapp.domain.models.City
 class CitiesRepositoryTest {
     @get:Rule
     val coroutineRule = CoroutineTestRule()
-
-    @get:Rule
-    var rule: TestRule = InstantTaskExecutorRule()
 
     private val citiesDao: CitiesDao = mockk()
     private val cityMediator: CityMediator = mockk()
