@@ -1,5 +1,7 @@
 package ru.mrfiring.shiftweatherapp.presentation.detail
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.rememberScrollState
@@ -21,23 +23,27 @@ fun DetailScreen(
 ) {
     val container by detailComponent.container.observeAsState()
     val status by detailComponent.status.observeAsState()
-    Surface {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
 
-            //Check the status of data and show content or state of the loading
-            when (status) {
-                //Show progress bar
+    Surface {
+        Crossfade(targetState = status) { targetState ->
+            when (targetState) {
                 ApiStatus.LOADING -> {
-                    LoadingIndicator(modifier = Modifier.fillMaxSize())
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        LoadingIndicator()
+                    }
                 }
-                //Elements are loaded successfully then show them
+
                 ApiStatus.DONE -> {
                     container?.let {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState()),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
                             MainParametersCard(it.mainParams)
 
                             WeatherCard(it.weather)
@@ -46,17 +52,16 @@ fun DetailScreen(
                         }
                     }
                 }
-                //Show network error message with retry button
-                else -> {
-                    NetworkError(
-                        modifier = Modifier.fillMaxSize(),
-                        onRetry = detailComponent::onRetryPressed
-                    )
-                }
 
+                else -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        NetworkError(onRetry = detailComponent::onRetryPressed)
+                    }
+                }
             }
         }
     }
-
-
 }
