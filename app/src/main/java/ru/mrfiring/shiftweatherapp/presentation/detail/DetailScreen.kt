@@ -9,9 +9,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 
@@ -21,13 +21,12 @@ enum class ApiStatus { LOADING, ERROR, DONE }
 fun DetailScreen(
     detailComponent: DetailComponent,
 ) {
-    val container by detailComponent.container.observeAsState()
-    val status by detailComponent.status.observeAsState()
+    val state by detailComponent.state.subscribeAsState()
 
     Surface {
-        Crossfade(targetState = status) { targetState ->
+        Crossfade(targetState = state) { targetState ->
             when (targetState) {
-                ApiStatus.LOADING -> {
+                is DetailState.Loading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -36,24 +35,22 @@ fun DetailScreen(
                     }
                 }
 
-                ApiStatus.DONE -> {
-                    container?.let {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .verticalScroll(rememberScrollState()),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            MainParametersCard(it.mainParams)
+                is DetailState.Content -> {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .verticalScroll(rememberScrollState()),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        MainParametersCard(targetState.container.mainParams)
 
-                            WeatherCard(it.weather)
+                        WeatherCard(targetState.container.weather)
 
-                            WindCard(domainWind = it.wind)
-                        }
+                        WindCard(domainWind = targetState.container.wind)
                     }
                 }
 
-                else -> {
+                is DetailState.Error -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center

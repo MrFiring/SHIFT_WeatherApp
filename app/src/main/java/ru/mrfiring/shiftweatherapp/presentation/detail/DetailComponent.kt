@@ -1,8 +1,8 @@
 package ru.mrfiring.shiftweatherapp.presentation.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,13 +11,10 @@ import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.Location
-import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
 
 interface DetailComponent {
 
-    val status: LiveData<ApiStatus>
-
-    val container: LiveData<WeatherContainer>
+    val state: Value<DetailState>
 
     fun onRetryPressed()
 }
@@ -30,11 +27,8 @@ class DetailComponentImpl(
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
 ) : DetailComponent, ComponentContext by componentContext {
 
-    private val _status = MutableLiveData<ApiStatus>()
-    override val status: LiveData<ApiStatus> = _status
-
-    private val _container = MutableLiveData<WeatherContainer>()
-    override val container: LiveData<WeatherContainer> = _container
+    private val _state = MutableValue<DetailState>(DetailState.Loading)
+    override val state: Value<DetailState> = _state
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -45,23 +39,21 @@ class DetailComponentImpl(
     private fun refreshWeather() {
         scope.launch {
             try {
-                _status.value = ApiStatus.LOADING
+                _state.value = DetailState.Loading
 
                 if (cityId != null) {
                     updateWeatherUseCase(cityId)
-                    _container.value = getWeatherUseCase(cityId)
+                    _state.value = DetailState.Content(getWeatherUseCase(cityId))
                 } else {
                     val location: Location? = getCurrentLocationUseCase()
                     if (location == null) {
-                        _status.value = ApiStatus.ERROR
+                        _state.value = DetailState.Error
                         return@launch
                     }
-                    _container.value = getWeatherUseCase(location)
+                    _state.value = DetailState.Content(getWeatherUseCase(location))
                 }
-
-                _status.value = ApiStatus.DONE
             } catch (ex: Exception) {
-                _status.value = ApiStatus.ERROR
+                _state.value = DetailState.Error
             }
         }
     }
