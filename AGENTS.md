@@ -8,6 +8,8 @@
 - `./gradlew test` - Run unit tests only
 - `./gradlew build` (CI) - Full build including tests
 - Java 11 required for CI, Java 17 for local development
+- Use IntelliJ IDEA MCP tools (`intelij-idea_*`)
+- Only use `bash` for git operations and commands not covered by IDEA tools
 
 ### Project Structure
 
@@ -52,6 +54,11 @@
 - Application ID: `ru.mrfiring.shiftweatherapp`
 - Proguard enabled for release builds
 - Compose compiler version: 1.5.6
+
+## Git rules
+
+- Do not commit unless explicitly requested
+- Commit messages must be a single line and clearly summarize the core changes, avoid any prefixes
 
 ## Coding Principles
 
