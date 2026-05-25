@@ -7,7 +7,7 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
@@ -15,7 +15,7 @@ class UpdateCityUseCaseTest {
 
     private val citiesRepository: CitiesRepository = mockk()
     private val updateCityUseCase = UpdateCityUseCase(citiesRepository)
-    private val city: DomainCity = DomainCity(
+    private val city: City = City(
         id = 0,
         name = "City",
         state = "State",

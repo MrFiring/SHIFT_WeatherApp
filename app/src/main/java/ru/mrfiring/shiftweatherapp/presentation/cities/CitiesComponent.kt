@@ -14,15 +14,15 @@ import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesByCountryFlowUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 interface CitiesComponent {
 
-    val cities: Flow<PagingData<DomainCity>>
+    val cities: Flow<PagingData<City>>
 
-    fun onLongPress(city: DomainCity)
+    fun onLongPress(city: City)
 
-    fun onSelectCity(city: DomainCity)
+    fun onSelectCity(city: City)
 
 }
 
@@ -30,7 +30,7 @@ interface CitiesComponent {
 class CitiesComponentImpl(
     private val componentContext: ComponentContext,
     private val country: String,
-    private val onCitySelect: (DomainCity) -> Unit,
+    private val onCitySelect: (City) -> Unit,
     private val getCitiesFlowUseCase: GetCitiesFlowUseCase,
     private val getCitiesByCountryFlowUseCase: GetCitiesByCountryFlowUseCase,
     private val updateCityUseCase: UpdateCityUseCase
@@ -38,8 +38,8 @@ class CitiesComponentImpl(
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var _cities: Flow<PagingData<DomainCity>> = emptyFlow()
-    override val cities: Flow<PagingData<DomainCity>>
+    private var _cities: Flow<PagingData<City>> = emptyFlow()
+    override val cities: Flow<PagingData<City>>
         get() = _cities
 
     init {
@@ -58,14 +58,14 @@ class CitiesComponentImpl(
         _cities = citiesFlow.stateIn(scope)
     }
 
-    override fun onLongPress(city: DomainCity) {
+    override fun onLongPress(city: City) {
         scope.launch {
             city.favorite = !city.favorite
             updateCityUseCase(city)
         }
     }
 
-    override fun onSelectCity(city: DomainCity) {
+    override fun onSelectCity(city: City) {
         this.onCitySelect(city)
     }
 

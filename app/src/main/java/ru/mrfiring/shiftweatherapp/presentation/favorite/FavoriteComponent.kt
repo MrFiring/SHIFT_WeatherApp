@@ -9,30 +9,30 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 interface FavoriteComponent {
 
-    val favorites: LiveData<List<DomainCity>>
+    val favorites: LiveData<List<City>>
     val status: LiveData<ApiStatus>
 
     fun onRetry()
-    fun onLongPress(city: DomainCity)
-    fun onSelectCity(city: DomainCity)
+    fun onLongPress(city: City)
+    fun onSelectCity(city: City)
 }
 
 class FavoriteComponentImpl(
     private val componentContext: ComponentContext,
     private val getFavoriteCitiesUseCase: GetFavoriteCitiesUseCase,
     private val updateCityUseCase: UpdateCityUseCase,
-    private val selectCityHandler: (DomainCity) -> Unit,
+    private val selectCityHandler: (City) -> Unit,
 ) : FavoriteComponent, ComponentContext by componentContext {
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var _favorites = MutableLiveData<List<DomainCity>>(emptyList())
-    override val favorites: LiveData<List<DomainCity>> = _favorites
+    private var _favorites = MutableLiveData<List<City>>(emptyList())
+    override val favorites: LiveData<List<City>> = _favorites
 
     private val _status = MutableLiveData<ApiStatus>()
     override val status: LiveData<ApiStatus> = _status
@@ -57,7 +57,7 @@ class FavoriteComponentImpl(
         }
     }
 
-    override fun onLongPress(city: DomainCity) {
+    override fun onLongPress(city: City) {
         scope.launch {
             city.favorite = !city.favorite
             updateCityUseCase(city = city)
@@ -65,7 +65,7 @@ class FavoriteComponentImpl(
         }
     }
 
-    override fun onSelectCity(city: DomainCity) {
+    override fun onSelectCity(city: City) {
         selectCityHandler(city)
     }
 }

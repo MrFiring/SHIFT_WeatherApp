@@ -4,7 +4,7 @@
 
 ### Essential Commands
 
-- `./gradlew build` - Build the project
+- `./gradlew compileDebugKotlin test` - Build the project without lint
 - `./gradlew test` - Run unit tests only
 - `./gradlew build` (CI) - Full build including tests
 - Java 11 required for CI, Java 17 for local development
@@ -35,12 +35,6 @@
 
 ## Development Notes
 
-### Code Generation
-
-- KSP processes Moshi and Room annotations
-- Build artifacts in `app/build/kspCaches/`
-- Regenerate after changing data classes or database schema
-
 ### Testing
 
 - Unit tests in `app/src/test/java/`
@@ -51,7 +45,6 @@
 
 - Google Play Services Location for GPS
 - Accompanist Permissions for runtime permissions
-- Glide mentioned in README but not in build config (verify if needed)
 
 ## Important Configuration
 
@@ -60,7 +53,7 @@
 - Proguard enabled for release builds
 - Compose compiler version: 1.5.6
 
-## Clean Architecture Principles
+## Coding Principles
 
 - Method names should be descriptive and convey intent (e.g., `getDarkTheme()` not `get()`)
 - Follow existing patterns exactly (use Onboarding as reference)
@@ -71,3 +64,4 @@
 - Inline lambda handlers where appropriate
 - Don't modify UI components unless absolutely necessary
 - Components depend on use cases, not repositories
+- Separate composables located on the same level by one empty line

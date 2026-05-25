@@ -2,9 +2,9 @@ package ru.mrfiring.shiftweatherapp.data
 
 import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.network.model.CityModel
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
-fun DatabaseCity.asDomainObject(): DomainCity = DomainCity(
+fun DatabaseCity.asDomainObject(): City = City(
     id,
     name,
     state,
@@ -23,7 +23,7 @@ fun CityModel.asDatabaseObject(): DatabaseCity = DatabaseCity(
     coord.latitude
 )
 
-fun DomainCity.asDatabaseObject(): DatabaseCity = DatabaseCity(
+fun City.asDatabaseObject(): DatabaseCity = DatabaseCity(
     id,
     name,
     state,

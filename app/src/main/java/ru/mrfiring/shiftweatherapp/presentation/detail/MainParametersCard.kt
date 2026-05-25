@@ -11,13 +11,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.domain.models.DomainMainWeatherParameters
+import ru.mrfiring.shiftweatherapp.domain.models.MainWeatherParameters
 import ru.mrfiring.shiftweatherapp.presentation.theme.CardWithPaddingAndFillWidth
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 
 @Composable
-fun MainParametersCard(domainMainWeatherParameters: DomainMainWeatherParameters) {
+fun MainParametersCard(domainMainWeatherParameters: MainWeatherParameters) {
     CardWithPaddingAndFillWidth {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -126,7 +126,7 @@ private fun SecondaryWeatherInfo(
 private fun MainParametersCardPreview() {
     WeatherTheme {
         MainParametersCard(
-            domainMainWeatherParameters = DomainMainWeatherParameters(
+            domainMainWeatherParameters = MainWeatherParameters(
                 temp = 25.0,
                 feelsLike = 27.0,
                 tempMin = 20.0,

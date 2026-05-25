@@ -9,14 +9,14 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 @ExperimentalCoroutinesApi
 class GetFavoriteCitiesUseCaseTest {
 
 
     private val citiesRepository: CitiesRepository = mockk()
-    private val city: DomainCity = mockk()
+    private val city: City = mockk()
 
     private val getFavoriteCitiesUseCase =
         GetFavoriteCitiesUseCase(citiesRepository)
