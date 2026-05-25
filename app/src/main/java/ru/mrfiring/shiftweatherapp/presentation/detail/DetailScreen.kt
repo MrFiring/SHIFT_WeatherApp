@@ -15,8 +15,6 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 
-enum class ApiStatus { LOADING, ERROR, DONE }
-
 @Composable
 fun DetailScreen(
     detailComponent: DetailComponent,
