@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.paging.ExperimentalPagingApi
 import com.arkivanov.decompose.extensions.compose.stack.Children
+import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
@@ -68,7 +69,11 @@ fun MainScreen(mainComponent: MainComponent) {
             )
         }
     ) { paddingValues ->
-        Children(mainComponent.stack, modifier = Modifier.padding(paddingValues)) {
+        Children(
+            stack = mainComponent.stack,
+            modifier = Modifier.padding(paddingValues),
+            animation = stackAnimation()
+        ) {
             when (val child = it.instance) {
                 is Child.Cities -> CitiesScreen(child.component)
                 is Child.Countries -> CountriesScreen(child.component)
