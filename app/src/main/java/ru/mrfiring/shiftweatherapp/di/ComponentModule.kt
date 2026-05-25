@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import com.arkivanov.decompose.ComponentContext
 import org.koin.core.component.get
 import org.koin.dsl.module
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesComponent
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesComponentImpl
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesComponent
@@ -39,7 +39,7 @@ fun ComponentFactory.createMainComponent(
 fun ComponentFactory.createCitiesComponent(
     componentContext: ComponentContext,
     country: String,
-    onCitySelect: (DomainCity) -> Unit,
+    onCitySelect: (City) -> Unit,
 ): CitiesComponent =
     CitiesComponentImpl(
         componentContext = componentContext,
@@ -74,7 +74,7 @@ fun ComponentFactory.createDetailComponent(
 
 fun ComponentFactory.createFavoriteComponent(
     componentContext: ComponentContext,
-    selectCityHandler: (DomainCity) -> Unit,
+    selectCityHandler: (City) -> Unit,
 ): FavoriteComponent =
     FavoriteComponentImpl(
         componentContext = componentContext,

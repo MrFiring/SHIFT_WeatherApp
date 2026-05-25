@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
 import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
     private val citiesDao: CitiesDao,
@@ -20,7 +20,7 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
 ) : CitiesRepository {
 
     @ExperimentalPagingApi
-    override fun getCitiesFlow(): Flow<PagingData<DomainCity>> {
+    override fun getCitiesFlow(): Flow<PagingData<City>> {
         val pagingSourceFactory = {
             citiesDao.getCities()
         }
@@ -41,7 +41,7 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
         }
     }
 
-    override fun getCitiesByCountryFlow(country: String): Flow<PagingData<DomainCity>> {
+    override fun getCitiesByCountryFlow(country: String): Flow<PagingData<City>> {
         val pagingSourceFactory = {
             citiesDao.getCitiesByCountry(country)
         }
@@ -58,12 +58,12 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
         }
     }
 
-    override suspend fun getFavoriteCities(): List<DomainCity> =
+    override suspend fun getFavoriteCities(): List<City> =
         citiesDao.getFavoriteCities().map { city ->
             city.asDomainObject()
         }
 
-    override suspend fun updateCity(city: DomainCity) {
+    override suspend fun updateCity(city: City) {
         citiesDao.updateCity(city.asDatabaseObject())
     }
 }

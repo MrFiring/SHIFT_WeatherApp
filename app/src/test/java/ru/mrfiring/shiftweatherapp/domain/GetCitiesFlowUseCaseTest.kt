@@ -13,17 +13,17 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class GetCitiesFlowUseCaseTest {
 
     private val citiesRepository: CitiesRepository = mockk()
-    private val pagingData: PagingData<DomainCity> = mockk()
+    private val pagingData: PagingData<City> = mockk()
 
     private val getCitiesFlowUseCase = GetCitiesFlowUseCase(citiesRepository)
-    private val mockFlow: Flow<PagingData<DomainCity>> = mockk()
+    private val mockFlow: Flow<PagingData<City>> = mockk()
 
     @get:Rule
     val coroutineRule = CoroutineTestRule()

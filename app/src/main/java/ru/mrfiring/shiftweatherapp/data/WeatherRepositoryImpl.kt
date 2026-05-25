@@ -10,14 +10,14 @@ import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.network.OpenWeatherService
 import ru.mrfiring.shiftweatherapp.domain.WeatherRepository
 import ru.mrfiring.shiftweatherapp.domain.location.Location
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
 
 class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
         private val weatherDao: WeatherDao,
         private val citiesDao: CitiesDao,
         private val networkService: OpenWeatherService,
 ): WeatherRepository {
-    override suspend fun getWeather(id: Long): DomainWeatherContainer{
+    override suspend fun getWeather(id: Long): WeatherContainer{
          val container: DatabaseWeatherContainer = weatherDao.getWeatherContainerById(id)
 
         return container.asDomainObject()
@@ -50,7 +50,7 @@ class WeatherRepositoryImpl @ExperimentalPagingApi constructor(
         }
     }
 
-    override suspend fun getWeather(location: Location): DomainWeatherContainer {
+    override suspend fun getWeather(location: Location): WeatherContainer {
         val model =
             networkService.getWeatherContainerByCoordinates(location.latitude, location.longitude)
 

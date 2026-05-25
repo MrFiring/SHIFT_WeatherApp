@@ -19,7 +19,7 @@ import ru.mrfiring.shiftweatherapp.data.asDatabaseObject
 import ru.mrfiring.shiftweatherapp.data.database.CitiesDao
 import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseCity
 import ru.mrfiring.shiftweatherapp.data.paging.CityMediator
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 @ExperimentalPagingApi
 @ExperimentalCoroutinesApi
@@ -32,7 +32,7 @@ class CitiesRepositoryTest {
 
     private val citiesDao: CitiesDao = mockk()
     private val cityMediator: CityMediator = mockk()
-    private val city: DomainCity = DomainCity(
+    private val city: City = City(
         0, "",
         "", "",
         0.0, 0.0,

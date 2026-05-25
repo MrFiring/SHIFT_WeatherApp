@@ -3,7 +3,7 @@ package ru.mrfiring.shiftweatherapp.domain.models
 import kotlin.math.roundToInt
 
 
-data class DomainCity(
+data class City(
     val id: Long,
     val name: String,
     val state: String,
@@ -13,26 +13,26 @@ data class DomainCity(
     var favorite: Boolean
 )
 
-data class DomainWeatherContainer(
+data class WeatherContainer(
     val lastUpdate: Long,
     val timeZone: Long,
     val clouds: Double,
-    val weather: DomainWeather,
-    val mainParams: DomainMainWeatherParameters,
-    val wind: DomainWind,
-    val rain: DomainRain?,
-    val snow: DomainSnow?,
+    val weather: Weather,
+    val mainParams: MainWeatherParameters,
+    val wind: Wind,
+    val rain: Rain?,
+    val snow: Snow?,
 
     )
 
-data class DomainWeather(
+data class Weather(
     val weatherId: Int,
     val main: String,
     val description: String,
     val icon: String
 )
 
-data class DomainMainWeatherParameters(
+data class MainWeatherParameters(
     val temp: Double,
     val feelsLike: Double,
     val tempMin: Double,
@@ -43,7 +43,7 @@ data class DomainMainWeatherParameters(
     val pressureAtGroundLevel: Int
 )
 
-data class DomainWind(
+data class Wind(
     val speed: Double,
     val deg: Double,
     val gust: Double
@@ -84,13 +84,13 @@ data class DomainWind(
     }
 }
 
-data class DomainRain(
+data class Rain(
     val forLastOneHour: Double,
     val forLastThreeHours: Double
 )
 
 
-data class DomainSnow(
+data class Snow(
     val forLastOneHour: Double,
     val forLastThreeHours: Double
 )

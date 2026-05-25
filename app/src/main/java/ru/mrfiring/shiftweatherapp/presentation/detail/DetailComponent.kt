@@ -11,13 +11,13 @@ import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.Location
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
 
 interface DetailComponent {
 
     val status: LiveData<ApiStatus>
 
-    val container: LiveData<DomainWeatherContainer>
+    val container: LiveData<WeatherContainer>
 
     fun onRetryPressed()
 }
@@ -33,8 +33,8 @@ class DetailComponentImpl(
     private val _status = MutableLiveData<ApiStatus>()
     override val status: LiveData<ApiStatus> = _status
 
-    private val _container = MutableLiveData<DomainWeatherContainer>()
-    override val container: LiveData<DomainWeatherContainer> = _container
+    private val _container = MutableLiveData<WeatherContainer>()
+    override val container: LiveData<WeatherContainer> = _container
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 

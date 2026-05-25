@@ -9,17 +9,17 @@ import ru.mrfiring.shiftweatherapp.data.database.model.DatabaseWind
 import ru.mrfiring.shiftweatherapp.data.network.model.MainWeatherParametersModel
 import ru.mrfiring.shiftweatherapp.data.network.model.RainModel
 import ru.mrfiring.shiftweatherapp.data.network.model.SnowModel
-import ru.mrfiring.shiftweatherapp.data.network.model.WeatherContainer
+import ru.mrfiring.shiftweatherapp.data.network.model.WeatherContainer as NetworkWeatherContainer
 import ru.mrfiring.shiftweatherapp.data.network.model.WeatherModel
 import ru.mrfiring.shiftweatherapp.data.network.model.WindModel
-import ru.mrfiring.shiftweatherapp.domain.models.DomainMainWeatherParameters
-import ru.mrfiring.shiftweatherapp.domain.models.DomainRain
-import ru.mrfiring.shiftweatherapp.domain.models.DomainSnow
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWeather
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWind
+import ru.mrfiring.shiftweatherapp.domain.models.MainWeatherParameters
+import ru.mrfiring.shiftweatherapp.domain.models.Rain
+import ru.mrfiring.shiftweatherapp.domain.models.Snow
+import ru.mrfiring.shiftweatherapp.domain.models.Weather
+import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.models.Wind
 
-fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWeatherContainer(
+fun DatabaseWeatherContainer.asDomainObject(): WeatherContainer = WeatherContainer(
     lastUpdate,
     timeZone,
     clouds,
@@ -30,7 +30,7 @@ fun DatabaseWeatherContainer.asDomainObject(): DomainWeatherContainer = DomainWe
     snow?.asDomainObject()
 )
 
-fun WeatherContainer.asDatabaseObject(): DatabaseWeatherContainer = DatabaseWeatherContainer(
+fun NetworkWeatherContainer.asDatabaseObject(): DatabaseWeatherContainer = DatabaseWeatherContainer(
     id,
     name,
     base,
@@ -45,7 +45,7 @@ fun WeatherContainer.asDatabaseObject(): DatabaseWeatherContainer = DatabaseWeat
 )
 
 
-fun DatabaseWeather.asDomainObject(): DomainWeather = DomainWeather(
+fun DatabaseWeather.asDomainObject(): Weather = Weather(
     weatherId, main, description, icon
 )
 
@@ -58,8 +58,8 @@ fun WeatherModel.asDatabaseObject(ownerId: Long): DatabaseWeather = DatabaseWeat
 )
 
 
-fun DatabaseMainWeatherParameters.asDomainObject(): DomainMainWeatherParameters =
-    DomainMainWeatherParameters(
+fun DatabaseMainWeatherParameters.asDomainObject(): MainWeatherParameters =
+    MainWeatherParameters(
         temp,
         feelsLike,
         tempMin,
@@ -84,7 +84,7 @@ fun MainWeatherParametersModel.asDatabaseObject(id: Long): DatabaseMainWeatherPa
     )
 
 
-fun DatabaseWind.asDomainObject(): DomainWind = DomainWind(
+fun DatabaseWind.asDomainObject(): Wind = Wind(
     speed, deg, gust
 )
 
@@ -96,7 +96,7 @@ fun WindModel.asDatabaseObject(id: Long): DatabaseWind = DatabaseWind(
 )
 
 
-fun DatabaseRain.asDomainObject(): DomainRain = DomainRain(
+fun DatabaseRain.asDomainObject(): Rain = Rain(
     forLastOneHour, forLastThreeHours
 )
 
@@ -107,7 +107,7 @@ fun RainModel.asDatabaseObject(id: Long): DatabaseRain = DatabaseRain(
 )
 
 
-fun DatabaseSnow.asDomainObject(): DomainSnow = DomainSnow(
+fun DatabaseSnow.asDomainObject(): Snow = Snow(
     forLastOneHour, forLastThreeHours
 )
 

@@ -14,11 +14,11 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 @Composable
-fun CityItem(domainCity: DomainCity, onLongTap: (Offset) -> Unit = {}, onClick: (Offset) -> Unit) {
+fun CityItem(domainCity: City, onLongTap: (Offset) -> Unit = {}, onClick: (Offset) -> Unit) {
     ThemeAwareCard(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,7 +45,7 @@ fun CityItem(domainCity: DomainCity, onLongTap: (Offset) -> Unit = {}, onClick: 
 private fun CityItemPreview() {
     WeatherTheme {
         CityItem(
-            domainCity = DomainCity(
+            domainCity = City(
                 id = 0L, name = "New York", state = "NY",
                 country = "US",
                 longitude = 2.0,

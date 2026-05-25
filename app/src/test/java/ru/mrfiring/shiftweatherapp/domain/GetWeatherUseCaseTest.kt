@@ -10,14 +10,14 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Rule
 import org.junit.Test
 import ru.mrfiring.shiftweatherapp.CoroutineTestRule
-import ru.mrfiring.shiftweatherapp.domain.models.DomainWeatherContainer
+import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi
 class GetWeatherUseCaseTest {
 
     private val weatherRepository: WeatherRepository = mockk()
-    private val domainWeatherContainer: DomainWeatherContainer = mockk()
+    private val domainWeatherContainer: WeatherContainer = mockk()
 
     private val getWeatherUseCase = GetWeatherUseCase(weatherRepository)
 

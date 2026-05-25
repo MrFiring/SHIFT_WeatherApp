@@ -14,7 +14,7 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.domain.models.DomainDrawerMenuItem
+import ru.mrfiring.shiftweatherapp.domain.models.DrawerMenuItem
 import ru.mrfiring.shiftweatherapp.presentation.cities.CitiesScreen
 import ru.mrfiring.shiftweatherapp.presentation.composables.AppBar
 import ru.mrfiring.shiftweatherapp.presentation.countries.CountriesScreen
@@ -45,22 +45,22 @@ fun MainScreen(mainComponent: MainComponent) {
             Divider(modifier = Modifier.padding(bottom = 8.dp))
             HomeDrawerContent(
                 listOf(
-                    DomainDrawerMenuItem(
+                    DrawerMenuItem(
                         drawableId = R.drawable.ic_city_icon,
                         text = "Show cities",
                         onClick = mainComponent::onCitiesClick
                     ),
-                    DomainDrawerMenuItem(
+                    DrawerMenuItem(
                         drawableId = R.drawable.ic_country_icon,
                         text = "Show countries",
                         onClick = mainComponent::onCountriesClick
                     ),
-                    DomainDrawerMenuItem(
+                    DrawerMenuItem(
                         drawableId = R.drawable.ic_favorite,
                         text = "Favorites",
                         onClick = mainComponent::onFavoritesClick
                     ),
-                    DomainDrawerMenuItem(
+                    DrawerMenuItem(
                         drawableId = R.drawable.ic_settings,
                         text = "Settings",
                         onClick = { /*TODO*/ }

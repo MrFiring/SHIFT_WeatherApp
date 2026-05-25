@@ -4,16 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
-import ru.mrfiring.shiftweatherapp.domain.models.DomainCity
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 interface CitiesRepository {
     @ExperimentalPagingApi
-    fun getCitiesFlow(): Flow<PagingData<DomainCity>>
+    fun getCitiesFlow(): Flow<PagingData<City>>
 
-    fun getCitiesByCountryFlow(country: String): Flow<PagingData<DomainCity>>
+    fun getCitiesByCountryFlow(country: String): Flow<PagingData<City>>
 
-    suspend fun getFavoriteCities(): List<DomainCity>
+    suspend fun getFavoriteCities(): List<City>
 
-    suspend fun updateCity(city: DomainCity)
+    suspend fun updateCity(city: City)
 
 }
