@@ -15,7 +15,6 @@ play-services-location = "21.3.0"
 mockk = "1.10.6"
 junit = "4.13.2"
 coroutines-test = "1.4.3"
-core-testing = "2.1.0"
 retrofit = "2.9.0"
 converter-moshi = "2.9.0"
 moshi = "1.15.0"
@@ -24,7 +23,6 @@ moshi-kotlin-codegen = "1.15.0"
 accompanist-permissions = "0.32.0"
 
 [libraries]
-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "core-testing" }
 junit = { module = "junit:junit", version.ref = "junit" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-test" }
@@ -63,7 +61,6 @@ compose-material = { module = "androidx.compose.material:material", version.ref 
 compose-material-icons-core = { module = "androidx.compose.material:material-icons-core", version.ref = "compose" }
 compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "compose-minor" }
-compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "compose" }
 
 accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist-permissions" }

@@ -49,7 +49,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.junit)
     testImplementation(libs.coroutines.test)
-    testImplementation(libs.core.testing)
 
     //Retrofit and Moshi
     implementation(libs.retrofit)
@@ -90,7 +89,6 @@ dependencies {
     implementation(libs.compose.material.icons.core)
     implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.activity)
-    implementation(libs.compose.runtime.livedata)
     implementation(libs.compose.compiler)
 
     implementation(libs.accompanist.permissions)
