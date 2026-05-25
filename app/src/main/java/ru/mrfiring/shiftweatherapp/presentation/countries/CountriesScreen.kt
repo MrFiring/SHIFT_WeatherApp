@@ -12,10 +12,10 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 
@@ -24,7 +24,7 @@ import ru.mrfiring.shiftweatherapp.presentation.composables.ThemeAwareCard
 fun CountriesScreen(
     countriesComponent: CountriesComponent,
 ) {
-    val countries by countriesComponent.countries.observeAsState(initial = listOf(""))
+    val countries by countriesComponent.countries.subscribeAsState()
 
     if (countries.isEmpty()) {
         LoadingIndicator(Modifier.fillMaxSize())

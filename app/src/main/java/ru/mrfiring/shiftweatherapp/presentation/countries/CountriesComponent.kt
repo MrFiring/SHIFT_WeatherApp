@@ -1,8 +1,8 @@
 package ru.mrfiring.shiftweatherapp.presentation.countries
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -11,7 +11,7 @@ import ru.mrfiring.shiftweatherapp.domain.GetCountriesUseCase
 
 interface CountriesComponent {
 
-    val countries: LiveData<List<String>>
+    val countries: Value<List<String>>
 
     fun onCountryClick(country: String)
 }
@@ -24,8 +24,8 @@ class CountriesComponentImpl(
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private val _countries = MutableLiveData<List<String>>()
-    override val countries: LiveData<List<String>> = _countries
+    private val _countries = MutableValue<List<String>>(emptyList())
+    override val countries: Value<List<String>> = _countries
 
     init {
         scope.launch {
