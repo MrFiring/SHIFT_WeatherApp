@@ -10,12 +10,10 @@ import kotlinx.coroutines.launch
 import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateCityUseCase
 import ru.mrfiring.shiftweatherapp.domain.models.City
-import ru.mrfiring.shiftweatherapp.presentation.detail.ApiStatus
 
 interface FavoriteComponent {
 
-    val favorites: Value<List<City>>
-    val status: Value<ApiStatus>
+    val state: Value<FavoriteState>
 
     fun onRetry()
     fun onLongPress(city: City)
@@ -31,28 +29,24 @@ class FavoriteComponentImpl(
 
     private val scope = coroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-    private var _favorites = MutableValue<List<City>>(emptyList())
-    override val favorites: Value<List<City>> = _favorites
-
-    private val _status = MutableValue(ApiStatus.LOADING)
-    override val status: Value<ApiStatus> = _status
+    private val _state = MutableValue<FavoriteState>(FavoriteState.Loading)
+    override val state: Value<FavoriteState> = _state
 
     init {
-        bindFavorites()
+        loadFavorites()
     }
 
     override fun onRetry() {
-        bindFavorites()
+        loadFavorites()
     }
 
-    private fun bindFavorites() {
+    private fun loadFavorites() {
         scope.launch {
             try {
-                _status.value = ApiStatus.LOADING
-                _favorites.value = getFavoriteCitiesUseCase()
-                _status.value = ApiStatus.DONE
+                _state.value = FavoriteState.Loading
+                _state.value = FavoriteState.Content(getFavoriteCitiesUseCase())
             } catch (ex: Exception) {
-                _status.value = ApiStatus.ERROR
+                _state.value = FavoriteState.Error
             }
         }
     }
@@ -61,7 +55,7 @@ class FavoriteComponentImpl(
         scope.launch {
             city.favorite = !city.favorite
             updateCityUseCase(city = city)
-            bindFavorites()
+            loadFavorites()
         }
     }
 
