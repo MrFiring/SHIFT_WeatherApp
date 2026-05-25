@@ -20,7 +20,6 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -44,7 +44,7 @@ fun OnboardingScreen(
         permission = ACCESS_COARSE_LOCATION,
         onPermissionResult = { granted -> onboardingComponent.handleLocationRequestResult(granted) }
     )
-    val state by onboardingComponent.state.observeAsState(OnboardingState(locationGranted = false))
+    val state by onboardingComponent.state.subscribeAsState()
 
     DisposableEffect(locationPermissionState.status.isGranted) {
         onboardingComponent.handleInitialLocationGranted(locationPermissionState.status.isGranted)

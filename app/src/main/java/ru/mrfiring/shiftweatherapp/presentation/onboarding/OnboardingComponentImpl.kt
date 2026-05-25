@@ -1,13 +1,13 @@
 package ru.mrfiring.shiftweatherapp.presentation.onboarding
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.value.MutableValue
+import com.arkivanov.decompose.value.Value
 import ru.mrfiring.shiftweatherapp.domain.onboarding.SetOnboardingPassedUseCase
 
 interface OnboardingComponent {
 
-    val state: LiveData<OnboardingState>
+    val state: Value<OnboardingState>
 
     fun handleInitialLocationGranted(granted: Boolean)
     fun handleLocationRequestResult(granted: Boolean)
@@ -23,8 +23,8 @@ class OnboardingComponentImpl(
 ) : OnboardingComponent, ComponentContext by componentContext {
 
 
-    private val _state = MutableLiveData<OnboardingState>()
-    override val state: LiveData<OnboardingState> = _state
+    private val _state = MutableValue(OnboardingState(locationGranted = false))
+    override val state: Value<OnboardingState> = _state
 
     override fun handleInitialLocationGranted(granted: Boolean) {
         _state.value = OnboardingState(granted)
