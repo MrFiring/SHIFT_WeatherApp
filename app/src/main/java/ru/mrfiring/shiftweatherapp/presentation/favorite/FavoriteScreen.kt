@@ -10,7 +10,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.City
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
@@ -55,7 +57,7 @@ private fun EmptyFavorites() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "There isn't any favorite city.\nYou can add a city with long tap on it.")
+        Text(text = stringResource(R.string.no_favorites))
     }
 }
 

@@ -11,4 +11,5 @@
     <string name="speed_format">Speed: %1$.1f m/s</string>
     <string name="gust_format">Gust up to %1$.1f</string>
     <string name="no_gust">Without gust</string>
+    <string name="no_favorites">There isn\'t any favorite city.\nYou can add a city with long tap on it.</string>
 </resources>
