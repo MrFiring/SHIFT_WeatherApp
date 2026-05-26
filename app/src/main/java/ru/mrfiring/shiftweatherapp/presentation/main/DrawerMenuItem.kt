@@ -1,9 +1,12 @@
 package ru.mrfiring.shiftweatherapp.presentation.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,12 +26,7 @@ fun DrawerMenuItem(painter: Painter, text: String, onClick: () -> Unit) {
             },
         padding = PaddingValues(8.dp, 4.dp, 8.dp, 4.dp)
     ) {
-        Row(
-            modifier = Modifier.border(
-                width = 1.dp,
-                color = MaterialTheme.colors.secondary
-            )
-        ) {
+        Row {
             Image(
                 painter = painter,
                 contentDescription = "Menu Item",
