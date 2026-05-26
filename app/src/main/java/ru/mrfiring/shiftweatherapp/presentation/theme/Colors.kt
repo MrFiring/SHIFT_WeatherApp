@@ -14,14 +14,14 @@ val Orange800 = Color(0xffEB6E4B)
 val LightBack = Color(0xffF5F5F5)
 
 internal val DarkColors = darkColors(
-    primary = Grey900,
-    primaryVariant = Color.Black,
-    onPrimary = DarkTextColor,
+    primary = Orange800,
+    primaryVariant = Orange900,
+    onPrimary = Color.White,
     secondary = GreyLight,
-    secondaryVariant = Color.Black,
+    secondaryVariant = Grey900,
     onSecondary = DarkTextColor,
     background = Grey900,
-    surface = Grey900
+    surface = Grey800
 )
 
 internal val LightColors = lightColors(
@@ -29,7 +29,7 @@ internal val LightColors = lightColors(
     primaryVariant = Orange900,
     onPrimary = Color.Black,
     secondary = Orange800,
-    secondaryVariant = Color.White,
+    secondaryVariant = LightBack,
     onSecondary = Color.Black,
     background = Color.White,
     surface = LightBack
