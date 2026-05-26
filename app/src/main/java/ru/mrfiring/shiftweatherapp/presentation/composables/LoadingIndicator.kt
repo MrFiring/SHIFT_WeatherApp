@@ -22,11 +22,7 @@ fun LoadingIndicator(
         modifier = modifier.padding(16.dp)
     ) {
         CircularProgressIndicator(
-            color = if (MaterialTheme.colors.isLight) {
-                MaterialTheme.colors.primary
-            } else {
-                MaterialTheme.colors.onPrimary
-            }
+            color = MaterialTheme.colors.primary
         )
     }
 }

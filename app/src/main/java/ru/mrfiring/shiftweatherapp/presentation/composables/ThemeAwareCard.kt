@@ -11,11 +11,7 @@ import androidx.compose.ui.unit.dp
 fun ThemeAwareCard(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     Card(
         modifier = modifier,
-        backgroundColor = if (MaterialTheme.colors.isLight) {
-            MaterialTheme.colors.background
-        } else {
-            MaterialTheme.colors.surface
-        },
+        backgroundColor = MaterialTheme.colors.surface,
         shape = RectangleShape,
         elevation = 4.dp
     ) {

@@ -24,14 +24,10 @@ fun DrawerMenuItem(painter: Painter, text: String, onClick: () -> Unit) {
         padding = PaddingValues(8.dp, 4.dp, 8.dp, 4.dp)
     ) {
         Row(
-            modifier = if (MaterialTheme.colors.isLight) {
-                Modifier
-            } else {
-                Modifier.border(
-                    width = 1.dp,
-                    color = MaterialTheme.colors.secondary
-                )
-            }
+            modifier = Modifier.border(
+                width = 1.dp,
+                color = MaterialTheme.colors.secondary
+            )
         ) {
             Image(
                 painter = painter,
@@ -40,12 +36,7 @@ fun DrawerMenuItem(painter: Painter, text: String, onClick: () -> Unit) {
                     .padding(8.dp)
                     .width(24.dp)
                     .height(24.dp),
-                colorFilter = if (MaterialTheme.colors.isLight) {
-                    ColorFilter.tint(MaterialTheme.colors.primary)
-                } else {
-                    null
-                }
-
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primary)
             )
             Text(
                 text = text,

@@ -18,15 +18,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mrfiring.shiftweatherapp.R
+import ru.mrfiring.shiftweatherapp.presentation.theme.primarySurface
 
 @Composable
 fun HomeDrawerHeader(onClick: () -> Unit) {
 
-    val isLight = MaterialTheme.colors.isLight
-
     Column(
         modifier = Modifier
-            .background(MaterialTheme.colors.primary)
+            .background(MaterialTheme.colors.primarySurface)
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
     ) {
@@ -35,11 +34,8 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             onClick = onClick,
             modifier = Modifier
                 .background(
-                    color = if (isLight) {
-                        MaterialTheme.colors.surface
-                    } else {
-                        MaterialTheme.colors.secondary
-                    }, shape = CircleShape
+                    color = MaterialTheme.colors.surface,
+                    shape = CircleShape
                 )
                 .align(Alignment.End)
                 .padding(8.dp)
@@ -48,11 +44,7 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             Icon(
                 painter = switcher,
                 contentDescription = "Switch theme",
-                tint = if (isLight) {
-                    MaterialTheme.colors.primary
-                } else {
-                    MaterialTheme.colors.onPrimary
-                }
+                tint = MaterialTheme.colors.primary
             )
         }
         Image(
@@ -67,15 +59,13 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             Text(
                 text = "Unknown user",
                 style = MaterialTheme.typography.h5,
-                color = if (isLight) MaterialTheme.colors.secondaryVariant
-                else MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colors.onPrimary
             )
             Text(
                 text = "hello1234@shiftweather.ru",
                 style = MaterialTheme.typography.subtitle1,
                 fontSize = 18.sp,
-                color = if (isLight) MaterialTheme.colors.secondaryVariant
-                else MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colors.onPrimary
             )
         }
 

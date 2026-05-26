@@ -22,7 +22,6 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,7 +31,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.presentation.theme.Orange800
+import ru.mrfiring.shiftweatherapp.presentation.theme.Black
 import ru.mrfiring.shiftweatherapp.presentation.theme.WeatherTheme
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -89,7 +88,7 @@ fun OnboardingContent(
                     contentDescription = null,
                     modifier = Modifier
                         .size(120.dp)
-                        .background(Color.Black, CircleShape)
+                        .background(Black, CircleShape)
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -113,18 +112,17 @@ fun OnboardingContent(
                     text = nextActionHint,
                     style = MaterialTheme.typography.body2,
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colors.onSecondary
+                    color = MaterialTheme.colors.onSurface
                 )
             }
 
-            // TODO Remove hardcoded colors. There is a problem with theme in all over the project.
             Column {
                 if (!locationGranted) {
                     OutlinedButton(
                         onClick = onAllowAccessClick,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Allow Location Access", color = Orange800)
+                        Text("Allow Location Access", color = MaterialTheme.colors.primary)
                     }
                 }
 
@@ -132,7 +130,7 @@ fun OnboardingContent(
                     onClick = onNextClick,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Go next", color = Orange800)
+                    Text("Go next", color = MaterialTheme.colors.primary)
                 }
             }
         }
