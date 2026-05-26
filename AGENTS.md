@@ -55,11 +55,6 @@
 - Proguard enabled for release builds
 - Compose compiler version: 1.5.6
 
-## Git rules
-
-- Do not commit unless explicitly requested
-- Commit messages must be a single line and clearly summarize the core changes, avoid any prefixes
-
 ## Coding Principles
 
 - Method names should be descriptive and convey intent (e.g., `getDarkTheme()` not `get()`)
