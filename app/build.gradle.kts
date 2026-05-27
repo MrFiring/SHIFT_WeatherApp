@@ -92,4 +92,5 @@ dependencies {
     implementation(libs.compose.compiler)
 
     implementation(libs.accompanist.permissions)
+    implementation(libs.splashscreen)
 }
