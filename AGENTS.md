@@ -50,7 +50,7 @@
 
 ## Important Configuration
 
-- Min SDK 26, Target SDK 35, Compile SDK 35
+- Min SDK 26, Target SDK 36, Compile SDK 36
 - Application ID: `ru.mrfiring.shiftweatherapp`
 - Proguard enabled for release builds
 - Compose compiler version: 1.5.6
