@@ -7,10 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,14 +18,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.mrfiring.shiftweatherapp.R
-import ru.mrfiring.shiftweatherapp.presentation.theme.primarySurface
+import ru.mrfiring.shiftweatherapp.presentation.theme.extendedColors
 
 @Composable
 fun HomeDrawerHeader(onClick: () -> Unit) {
 
     Column(
         modifier = Modifier
-            .background(MaterialTheme.colors.primarySurface)
+            .background(MaterialTheme.extendedColors.surfaceContainer)
             .fillMaxWidth()
             .padding(horizontal = 8.dp)
     ) {
@@ -34,7 +34,7 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             onClick = onClick,
             modifier = Modifier
                 .background(
-                    color = MaterialTheme.colors.surface,
+                    color = MaterialTheme.colorScheme.onSurface,
                     shape = CircleShape
                 )
                 .align(Alignment.End)
@@ -44,7 +44,7 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
             Icon(
                 painter = switcher,
                 contentDescription = "Switch theme",
-                tint = MaterialTheme.colors.primary
+                tint = MaterialTheme.colorScheme.primary
             )
         }
         Image(
@@ -58,14 +58,14 @@ fun HomeDrawerHeader(onClick: () -> Unit) {
         ) {
             Text(
                 text = "Unknown user",
-                style = MaterialTheme.typography.h5,
-                color = MaterialTheme.colors.onPrimary
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = "hello1234@shiftweather.ru",
-                style = MaterialTheme.typography.subtitle1,
+                style = MaterialTheme.typography.titleMedium,
                 fontSize = 18.sp,
-                color = MaterialTheme.colors.onPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 

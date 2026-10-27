@@ -1,8 +1,8 @@
 package ru.mrfiring.shiftweatherapp.presentation.detail
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,13 +59,13 @@ private fun MainTemperature(
     Text(
         text = currentTemp,
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
-        style = MaterialTheme.typography.h4
+        style = MaterialTheme.typography.headlineMedium
     )
 
     Text(
         text = feelsLikeTemp,
         modifier = Modifier.padding(bottom = 8.dp),
-        style = MaterialTheme.typography.h6
+        style = MaterialTheme.typography.titleLarge
     )
 }
 
@@ -81,17 +81,17 @@ private fun TemperatureRange(
         Text(
             text = "Min: $minTemp",
             modifier = Modifier.padding(4.dp),
-            style = MaterialTheme.typography.subtitle1,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.primary
+            color = MaterialTheme.colorScheme.primary
         )
 
         Text(
             text = "Max: $maxTemp",
             modifier = Modifier.padding(4.dp),
-            style = MaterialTheme.typography.subtitle1,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colors.error
+            color = MaterialTheme.colorScheme.error
         )
     }
 }
@@ -108,15 +108,15 @@ private fun SecondaryWeatherInfo(
         Text(
             text = humidityText,
             modifier = Modifier.padding(4.dp),
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
 
         Text(
             text = pressureText,
             modifier = Modifier.padding(4.dp),
-            style = MaterialTheme.typography.body2,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f)
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
     }
 }

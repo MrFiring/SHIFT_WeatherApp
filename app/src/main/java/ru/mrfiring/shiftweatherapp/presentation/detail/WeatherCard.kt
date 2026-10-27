@@ -3,8 +3,8 @@ package ru.mrfiring.shiftweatherapp.presentation.detail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,13 +21,13 @@ fun WeatherCard(domainWeather: Weather) {
         ) {
             Text(
                 text = domainWeather.main,
-                style = MaterialTheme.typography.h5
+                style = MaterialTheme.typography.headlineSmall
             )
 
             Text(
                 text = domainWeather.description,
                 modifier = Modifier.padding(4.dp),
-                style = MaterialTheme.typography.subtitle1
+                style = MaterialTheme.typography.titleMedium
             )
 
         }
