@@ -32,7 +32,9 @@ fun CityItem(domainCity: City, onLongTap: (Offset) -> Unit = {}, onClick: (Offse
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         ) {
             Text(text = domainCity.name, style = MaterialTheme.typography.h5)
             Text(text = domainCity.country, style = MaterialTheme.typography.h6)
