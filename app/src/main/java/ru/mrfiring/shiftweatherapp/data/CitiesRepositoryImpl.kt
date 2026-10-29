@@ -61,6 +61,9 @@ class CitiesRepositoryImpl @ExperimentalPagingApi constructor(
             city.asDomainObject()
         }
 
+    override suspend fun getCityById(id: Long): City =
+        citiesDao.getCityById(id).asDomainObject()
+
     override suspend fun updateCity(city: City) {
         citiesDao.updateCity(city.asDatabaseObject())
     }

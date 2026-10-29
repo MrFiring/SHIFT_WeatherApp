@@ -13,6 +13,8 @@ interface CitiesRepository {
 
     suspend fun getFavoriteCities(): List<City>
 
+    suspend fun getCityById(id: Long): City
+
     suspend fun updateCity(city: City)
 
 }

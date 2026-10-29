@@ -5,6 +5,7 @@ import ru.mrfiring.shiftweatherapp.domain.CitiesRepository
 import ru.mrfiring.shiftweatherapp.domain.CountriesRepository
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesByCountryFlowUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetCitiesFlowUseCase
+import ru.mrfiring.shiftweatherapp.domain.GetCityByIdUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetCountriesUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetFavoriteCitiesUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
@@ -37,6 +38,12 @@ val useCaseModule = module{
         return GetFavoriteCitiesUseCase(repository)
     }
 
+    fun provideGetCityByIdUseCase(
+        repository: CitiesRepository
+    ): GetCityByIdUseCase {
+        return GetCityByIdUseCase(repository)
+    }
+
     fun provideUpdateCityUseCase(
         repository: CitiesRepository
     ): UpdateCityUseCase {
@@ -65,6 +72,8 @@ val useCaseModule = module{
     factory { provideGetCitiesByCountryFlowUseCase(get()) }
 
     factory { provideGetFavoriteCitiesUseCase(get()) }
+
+    factory { provideGetCityByIdUseCase(get()) }
 
     factory { provideGetCountriesUseCase(get()) }
     factory { provideUpdateCityUseCase(get()) }
