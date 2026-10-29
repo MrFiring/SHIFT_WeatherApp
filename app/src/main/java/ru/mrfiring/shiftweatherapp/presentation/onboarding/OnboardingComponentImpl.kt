@@ -13,6 +13,9 @@ interface OnboardingComponent {
     fun handleLocationRequestResult(granted: Boolean)
 
     fun goNext()
+    fun selectPage(pageIndex: Int)
+    fun skipRequested()
+    fun startRequested()
 }
 
 class OnboardingComponentImpl(
@@ -22,25 +25,49 @@ class OnboardingComponentImpl(
     private val goNextHandler: () -> Unit,
 ) : OnboardingComponent, ComponentContext by componentContext {
 
-
-    private val _state = MutableValue(OnboardingState(locationGranted = false))
+    private val _state = MutableValue(
+        OnboardingState(
+            page = OnboardingPage.WELCOME,
+            locationGranted = false
+        )
+    )
     override val state: Value<OnboardingState> = _state
 
     override fun handleInitialLocationGranted(granted: Boolean) {
-        _state.value = OnboardingState(granted)
+        if (granted) {
+            _state.value = OnboardingState(page = OnboardingPage.DONE, locationGranted = true)
+        }
     }
 
     override fun handleLocationRequestResult(granted: Boolean) {
-        _state.value = OnboardingState(granted)
-
         if (granted) {
             setOnboardingPassedUseCase()
-            locationAvailableHandler()
+            _state.value = OnboardingState(page = OnboardingPage.DONE, locationGranted = true)
         }
     }
 
     override fun goNext() {
-        val locationGranted = requireNotNull(_state.value).locationGranted
+        val currentPage = _state.value.page
+
+        _state.value = _state.value.copy(
+            page = OnboardingPage.entries.getOrElse(currentPage.ordinal + 1) { currentPage }
+        )
+    }
+
+    override fun selectPage(pageIndex: Int) {
+        val currentPage = _state.value.page
+
+        _state.value = _state.value.copy(
+            page = OnboardingPage.entries.getOrElse(pageIndex) { currentPage }
+        )
+    }
+
+    override fun skipRequested() {
+        _state.value = _state.value.copy(page = OnboardingPage.DONE)
+    }
+
+    override fun startRequested() {
+        val locationGranted = _state.value.locationGranted
 
         setOnboardingPassedUseCase()
 
