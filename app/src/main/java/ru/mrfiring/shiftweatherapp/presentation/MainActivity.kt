@@ -8,7 +8,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -45,7 +48,12 @@ class MainActivity : ComponentActivity() {
             val darkTheme by rootComponent.darkThemeState.subscribeAsState()
 
             WeatherTheme(darkTheme = darkTheme) {
-                RootContent(rootComponent, modifier = Modifier.systemBarsPadding())
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RootContent(rootComponent, modifier = Modifier.systemBarsPadding())
+                }
             }
         }
     }
