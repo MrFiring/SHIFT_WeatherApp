@@ -70,6 +70,7 @@ fun ComponentFactory.createDetailComponent(
         updateWeatherUseCase = get(),
         getWeatherUseCase = get(),
         getCurrentLocationUseCase = get(),
+        getCityByIdUseCase = get(),
     )
 
 fun ComponentFactory.createFavoriteComponent(

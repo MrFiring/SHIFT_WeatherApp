@@ -7,10 +7,12 @@ import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+import ru.mrfiring.shiftweatherapp.domain.GetCityByIdUseCase
 import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.Location
+import ru.mrfiring.shiftweatherapp.domain.models.City
 
 interface DetailComponent {
 
@@ -25,6 +27,7 @@ class DetailComponentImpl(
     private val updateWeatherUseCase: UpdateWeatherUseCase,
     private val getWeatherUseCase: GetWeatherUseCase,
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase,
+    private val getCityByIdUseCase: GetCityByIdUseCase,
 ) : DetailComponent, ComponentContext by componentContext {
 
     private val _state = MutableValue<DetailState>(DetailState.Loading)
@@ -43,14 +46,20 @@ class DetailComponentImpl(
 
                 if (cityId != null) {
                     updateWeatherUseCase(cityId)
-                    _state.value = DetailState.Content(getWeatherUseCase(cityId))
+                    _state.value = DetailState.Content(
+                        container = getWeatherUseCase(cityId),
+                        city = getCityByIdUseCase(cityId)
+                    )
                 } else {
                     val location: Location? = getCurrentLocationUseCase()
                     if (location == null) {
                         _state.value = DetailState.Error
                         return@launch
                     }
-                    _state.value = DetailState.Content(getWeatherUseCase(location))
+                    _state.value = DetailState.Content(
+                        container = getWeatherUseCase(location),
+                        city = null
+                    )
                 }
             } catch (ex: Exception) {
                 _state.value = DetailState.Error
