@@ -2,78 +2,119 @@ package ru.mrfiring.shiftweatherapp.presentation.favorite
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import ru.mrfiring.shiftweatherapp.R
 import ru.mrfiring.shiftweatherapp.domain.models.City
 import ru.mrfiring.shiftweatherapp.presentation.composables.CityItem
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
 import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
-
+import ru.mrfiring.shiftweatherapp.presentation.composables.ScreenTopBar
 
 @Composable
 fun FavoriteScreen(
-    favoriteComponent: FavoriteComponent
+    favoriteComponent: FavoriteComponent,
+    onBackClick: () -> Unit
 ) {
     val state by favoriteComponent.state.subscribeAsState()
 
-    when (state) {
-        is FavoriteState.Loading -> {
-            LoadingIndicator()
-        }
+    Column(modifier = Modifier.fillMaxSize()) {
+        ScreenTopBar(
+            title = stringResource(R.string.screen_favorites),
+            onBackClick = onBackClick
+        )
 
-        is FavoriteState.Error -> {
-            NetworkError(onRetry = favoriteComponent::onRetry)
-        }
-
-        is FavoriteState.Content -> {
-            val favorites = (state as FavoriteState.Content).favorites
-
-            if (favorites.isEmpty()) {
-                EmptyFavorites()
-            } else {
-                CityList(
-                    favorites = favorites,
-                    onLongTap = favoriteComponent::onLongPress,
-                    onClick = favoriteComponent::onSelectCity
+        when (val favoriteState = state) {
+            is FavoriteState.Loading -> {
+                LoadingIndicator(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
                 )
+            }
+
+            is FavoriteState.Error -> {
+                NetworkError(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth(),
+                    message = stringResource(R.string.error_cities_message),
+                    onRetry = favoriteComponent::onRetry
+                )
+            }
+
+            is FavoriteState.Content -> {
+                val favorites = favoriteState.favorites
+
+                if (favorites.isEmpty()) {
+                    EmptyFavorites(modifier = Modifier.weight(1f))
+                } else {
+                    CityList(
+                        favorites = favorites,
+                        onFavoriteClick = favoriteComponent::onLongPress,
+                        onClick = favoriteComponent::onSelectCity,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
-private fun EmptyFavorites() {
+private fun EmptyFavorites(modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(R.string.no_favorites))
+        Text(
+            text = stringResource(R.string.no_favorites),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     }
 }
 
 @Composable
 private fun CityList(
     favorites: List<City>,
-    onLongTap: (City) -> Unit,
-    onClick: (City) -> Unit
+    onFavoriteClick: (City) -> Unit,
+    onClick: (City) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    LazyColumn {
-        items(favorites) { city ->
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(vertical = 8.dp)
+    ) {
+        itemsIndexed(favorites) { index, city ->
             CityItem(
                 domainCity = city,
-                onLongTap = { onLongTap(city) },
+                onFavoriteClick = { onFavoriteClick(city) },
                 onClick = { onClick(city) }
             )
+
+            if (index < favorites.lastIndex) {
+                Divider(
+                    modifier = Modifier.padding(start = 68.dp, end = 6.dp),
+                    color = MaterialTheme.colorScheme.outlineVariant,
+                    thickness = 1.dp
+                )
+            }
         }
     }
 }
