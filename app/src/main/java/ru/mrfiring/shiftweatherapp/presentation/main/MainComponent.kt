@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.decompose.value.Value
@@ -23,11 +24,17 @@ interface MainComponent {
 
     val stack: Value<ChildStack<*, Child>>
 
-    fun onChangeThemeClick()
+    fun onWeatherNowClick()
 
     fun onCitiesClick()
+
     fun onCountriesClick()
+
     fun onFavoritesClick()
+
+    fun onBackClick()
+
+    fun onChangeThemeClick()
 }
 
 class MainComponentImpl(
@@ -85,6 +92,10 @@ class MainComponentImpl(
             )
         }
 
+    override fun onWeatherNowClick() {
+        navigation.replaceAll(Config.Detail(cityId = null))
+    }
+
     override fun onCitiesClick() {
         navigation.replaceAll(Config.Cities(country = null))
     }
@@ -95,6 +106,14 @@ class MainComponentImpl(
 
     override fun onFavoritesClick() {
         navigation.replaceAll(Config.Favorite)
+    }
+
+    override fun onBackClick() {
+        if (stack.value.backStack.isNotEmpty()) {
+            navigation.pop()
+        } else {
+            navigation.replaceAll(Config.Detail(cityId = null))
+        }
     }
 
     override fun onChangeThemeClick() {
