@@ -1,15 +1,59 @@
 <resources>
     <string name="app_name">SHIFT WeatherApp</string>
-    <string name="temp_format">%1$.1f ℃</string>
-    <string name="temp_feels_format">Feels like %1$.1f ℃</string>
-    <string name="humidity_format">Humidity: %1$.1f</string>
-    <string name="pressure_format">Pressure: %1$d kPa</string>
+
+    <!-- Screen titles -->
+    <string name="screen_cities">Cities</string>
+    <string name="screen_countries">Countries</string>
+    <string name="screen_favorites">Favorites</string>
+
+    <!-- Error / empty states -->
     <string name="retry">Retry</string>
-    <string name="something_went_wrong">Something went wrong</string>
-    <string name="network_error">Something went wrong…</string>
-    <string name="direction_format">Direction of wind is %1$s</string>
-    <string name="speed_format">Speed: %1$.1f m/s</string>
-    <string name="gust_format">Gust up to %1$.1f</string>
-    <string name="no_gust">Without gust</string>
-    <string name="no_favorites">There isn\'t any favorite city.\nYou can add a city with long tap on it.</string>
+    <string name="error_no_connection">No connection</string>
+    <string name="error_cities_message">Couldn\'t load the city list. Check your network and try again</string>
+    <string name="error_countries_message">Couldn\'t load the country list. Check your network and try again</string>
+    <string name="error_weather_message">Couldn\'t load the weather. Check your network and try again</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_kicker_app">SunWeather</string>
+    <string name="onboarding_kicker_permission">Permission</string>
+    <string name="onboarding_title_welcome">Weather, nothing extra</string>
+    <string name="onboarding_text_welcome">Current weather in any city: temperature, feels like, wind and precipitation</string>
+    <string name="onboarding_title_cities">Cities and countries</string>
+    <string name="onboarding_text_cities">Search cities by name, add them to favorites, and browse weather by country</string>
+    <string name="onboarding_title_permission">Location access</string>
+    <string name="onboarding_text_permission">SunWeather asks for your approximate location to show the weather near you right away</string>
+    <string name="onboarding_title_done">All set</string>
+    <string name="onboarding_text_done_granted">Location access granted</string>
+    <string name="onboarding_text_done_skipped">You can allow location later in system settings</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_allow">Allow access</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_start">Get started</string>
+
+    <!-- Drawer -->
+    <string name="drawer_title">SunWeather</string>
+    <string name="drawer_home">Weather now</string>
+    <string name="drawer_dark_theme">Dark theme</string>
+
+    <!-- Weather detail -->
+    <string name="detail_updated_at">Updated at %1$s</string>
+    <string name="detail_subtitle_location">%1$s, %2$s</string>
+    <string name="detail_current_location">Current location</string>
+    <string name="detail_wind">Wind</string>
+    <string name="detail_humidity">Humidity</string>
+    <string name="detail_precipitation">Precipitation</string>
+    <string name="precipitation_rain_last_hour">Rain, last hour</string>
+    <string name="precipitation_rain_last_three_hours">Rain, last 3 hours</string>
+    <string name="precipitation_snow_last_hour">Snow, last hour</string>
+    <string name="precipitation_snow_last_three_hours">Snow, last 3 hours</string>
+
+    <!-- Value formats -->
+    <string name="temp_format">%1$.0f°</string>
+    <string name="temp_feels_format">Feels like %1$.0f°</string>
+    <string name="humidity_value">%1$.0f%%</string>
+    <string name="wind_value">%1$.1f m/s, %2$s</string>
+    <string name="precipitation_value">%1$.1f mm</string>
+
+    <!-- Favorites -->
+    <string name="no_favorites">No favorite cities yet.\nTap the star next to a city to add it</string>
 </resources>
