@@ -19,7 +19,7 @@ import ru.mrfiring.shiftweatherapp.presentation.onboarding.OnboardingComponent
 
 class RootComponent(
     componentContext: ComponentContext,
-    private val locationGranted: Boolean,
+    private val isLocationGranted: () -> Boolean,
     private val darkTheme: Boolean,
     private val isOnboardingPassedUseCase: IsOnboardingPassedUseCase,
     private val getDarkThemeUseCase: GetDarkThemeUseCase,
@@ -43,7 +43,7 @@ class RootComponent(
 
     private fun getInitialConfiguration(): Config =
         if (isOnboardingPassedUseCase()) {
-            Config.Main(locationGranted)
+            Config.Main(isLocationGranted())
         } else {
             Config.Onboarding
         }
@@ -53,7 +53,7 @@ class RootComponent(
             is Config.Main -> Child.Main(
                 componentFactory.createMainComponent(
                     componentContext,
-                    locationGranted = config.locationGranted,
+                    isLocationGranted = isLocationGranted,
                     changeThemeHandler = {
                         _darkThemeState.value = !_darkThemeState.value
                         setDarkThemeUseCase(_darkThemeState.value)

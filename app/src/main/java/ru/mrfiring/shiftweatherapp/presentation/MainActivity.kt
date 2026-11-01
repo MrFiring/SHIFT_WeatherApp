@@ -30,13 +30,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        val locationGranted =
+        val isLocationGranted = {
             checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        }
         val isSystemDark = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
 
         val rootComponent = RootComponent(
             defaultComponentContext(),
-            locationGranted,
+            isLocationGranted,
             isSystemDark,
             isOnboardingPassedUseCase = get(),
             getDarkThemeUseCase = get(),

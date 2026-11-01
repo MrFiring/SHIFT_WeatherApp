@@ -25,12 +25,12 @@ val componentModule = module {
 
 fun ComponentFactory.createMainComponent(
     componentContext: ComponentContext,
-    locationGranted: Boolean,
+    isLocationGranted: () -> Boolean,
     changeThemeHandler: () -> Unit
 ): MainComponent =
     MainComponentImpl(
         componentContext = componentContext,
-        locationGranted = locationGranted,
+        isLocationGranted = isLocationGranted,
         changeThemeHandler = changeThemeHandler,
         componentFactory = get(),
     )

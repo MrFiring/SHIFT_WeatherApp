@@ -60,6 +60,7 @@ import ru.mrfiring.shiftweatherapp.domain.models.Snow
 import ru.mrfiring.shiftweatherapp.domain.models.WeatherContainer
 import ru.mrfiring.shiftweatherapp.domain.models.Wind
 import ru.mrfiring.shiftweatherapp.presentation.composables.LoadingIndicator
+import ru.mrfiring.shiftweatherapp.presentation.composables.LocationPermissionError
 import ru.mrfiring.shiftweatherapp.presentation.composables.NetworkError
 import ru.mrfiring.shiftweatherapp.presentation.theme.ShiftExtendedColors
 import ru.mrfiring.shiftweatherapp.presentation.theme.extendedColors
@@ -156,6 +157,15 @@ fun DetailScreen(
                             message = stringResource(R.string.error_weather_message),
                             onRetry = detailComponent::onRetryPressed
                         )
+                    }
+                }
+
+                is DetailState.LocationPermissionMissing -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        LocationPermissionError(onRetry = detailComponent::onRetryPressed)
                     }
                 }
             }

@@ -39,7 +39,7 @@ interface MainComponent {
 
 class MainComponentImpl(
     componentContext: ComponentContext,
-    private val locationGranted: Boolean,
+    private val isLocationGranted: () -> Boolean,
     private val changeThemeHandler: () -> Unit,
     private val componentFactory: ComponentFactory,
 ) : MainComponent, ComponentContext by componentContext {
@@ -56,7 +56,7 @@ class MainComponentImpl(
 
     private fun getInitialConfiguration(): Config =
         when {
-            !locationGranted -> Config.Cities(country = null)
+            !isLocationGranted() -> Config.Cities(country = null)
             else -> Config.Detail(cityId = null)
         }
 
@@ -111,8 +111,10 @@ class MainComponentImpl(
     override fun onBackClick() {
         if (stack.value.backStack.isNotEmpty()) {
             navigation.pop()
-        } else {
+        } else if (isLocationGranted()) {
             navigation.replaceAll(Config.Detail(cityId = null))
+        } else {
+            navigation.replaceAll(Config.Cities(country = null))
         }
     }
 

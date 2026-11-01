@@ -7,8 +7,7 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-
-class NoLocationPermission : Exception()
+import ru.mrfiring.shiftweatherapp.domain.location.NoLocationPermission
 
 class LocationDataSource(private val context: Context) {
 
@@ -17,9 +16,15 @@ class LocationDataSource(private val context: Context) {
 
     suspend fun getCurrent(): Location? = suspendCancellableCoroutine { continuation ->
         try {
-            locationClient.lastLocation.addOnSuccessListener {
-                continuation.resume(it)
-            }
+            locationClient.lastLocation
+                .addOnSuccessListener { location -> continuation.resume(location) }
+                .addOnFailureListener { error ->
+                    if (error is SecurityException) {
+                        continuation.resumeWithException(NoLocationPermission())
+                    } else {
+                        continuation.resumeWithException(error)
+                    }
+                }
         } catch (e: SecurityException) {
             continuation.resumeWithException(NoLocationPermission())
         }

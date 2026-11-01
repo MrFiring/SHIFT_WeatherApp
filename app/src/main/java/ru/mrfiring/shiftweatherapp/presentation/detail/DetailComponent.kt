@@ -12,6 +12,7 @@ import ru.mrfiring.shiftweatherapp.domain.GetWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.UpdateWeatherUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.GetCurrentLocationUseCase
 import ru.mrfiring.shiftweatherapp.domain.location.Location
+import ru.mrfiring.shiftweatherapp.domain.location.NoLocationPermission
 import ru.mrfiring.shiftweatherapp.domain.models.City
 
 interface DetailComponent {
@@ -61,6 +62,8 @@ class DetailComponentImpl(
                         city = null
                     )
                 }
+            } catch (ex: NoLocationPermission) {
+                _state.value = DetailState.LocationPermissionMissing
             } catch (ex: Exception) {
                 _state.value = DetailState.Error
             }
