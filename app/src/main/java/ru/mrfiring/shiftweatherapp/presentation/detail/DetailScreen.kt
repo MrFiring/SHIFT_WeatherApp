@@ -178,10 +178,15 @@ private fun DetailAppBarTitle(
     content: DetailState.Content?,
     collapsedFraction: Float
 ) {
+    val titleText = if (content == null) {
+        ""
+    } else {
+        content.city?.name ?: stringResource(R.string.detail_current_location)
+    }
+
     Column {
         Text(
-            text = content?.city?.name
-                ?: stringResource(R.string.detail_current_location),
+            text = titleText,
             fontSize = lerp(
                 start = EXPANDED_TITLE_FONT_SIZE,
                 stop = COLLAPSED_TITLE_FONT_SIZE,
