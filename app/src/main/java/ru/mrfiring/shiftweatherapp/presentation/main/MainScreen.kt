@@ -69,7 +69,16 @@ fun MainScreen(mainComponent: MainComponent, darkTheme: Boolean) {
             when (val child = it.instance) {
                 is Child.Cities -> CitiesScreen(
                     citiesComponent = child.component,
-                    onBackClick = mainComponent::onBackClick,
+                    onBackClick = if (childStack.backStack.isNotEmpty()) {
+                        { mainComponent.onBackClick() }
+                    } else {
+                        null
+                    },
+                    onMenuClick = {
+                        coroutineScope.launch {
+                            drawerState.open()
+                        }
+                    },
                     onSwitchToCountries = mainComponent::onCountriesClick
                 )
 

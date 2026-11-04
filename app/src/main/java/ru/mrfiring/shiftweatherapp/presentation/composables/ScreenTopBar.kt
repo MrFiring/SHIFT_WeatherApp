@@ -2,6 +2,7 @@ package ru.mrfiring.shiftweatherapp.presentation.composables
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Menu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -17,7 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 @Composable
 fun ScreenTopBar(
     title: String,
-    onBackClick: () -> Unit,
+    onBackClick: (() -> Unit)?,
+    onMenuClick: (() -> Unit)? = null,
     action: (@Composable () -> Unit)? = null
 ) {
     TopAppBar(
@@ -29,11 +31,20 @@ fun ScreenTopBar(
             )
         },
         navigationIcon = {
-            IconButton(onClick = onBackClick) {
-                Icon(
-                    imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = null
-                )
+            if (onBackClick != null) {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.Rounded.ArrowBack,
+                        contentDescription = null
+                    )
+                }
+            } else if (onMenuClick != null) {
+                IconButton(onClick = onMenuClick) {
+                    Icon(
+                        imageVector = Icons.Rounded.Menu,
+                        contentDescription = null
+                    )
+                }
             }
         },
         actions = {

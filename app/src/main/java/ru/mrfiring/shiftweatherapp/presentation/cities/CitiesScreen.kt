@@ -32,7 +32,8 @@ import ru.mrfiring.shiftweatherapp.presentation.theme.extendedColors
 @Composable
 fun CitiesScreen(
     citiesComponent: CitiesComponent,
-    onBackClick: () -> Unit,
+    onBackClick: (() -> Unit)?,
+    onMenuClick: () -> Unit,
     onSwitchToCountries: () -> Unit
 ) {
     val lazyPagingItems = citiesComponent.cities.collectAsLazyPagingItems()
@@ -42,6 +43,7 @@ fun CitiesScreen(
         ScreenTopBar(
             title = stringResource(R.string.screen_cities),
             onBackClick = onBackClick,
+            onMenuClick = onMenuClick,
             action = {
                 IconButton(onClick = onSwitchToCountries) {
                     Icon(
